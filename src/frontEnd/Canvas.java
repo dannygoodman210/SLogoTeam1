@@ -2,6 +2,7 @@ package frontEnd;
 
 import java.awt.Dimension;
 import javax.swing.JComponent;
+import backEnd.Turtle;
 import controller.Workspace;
 
 public class Canvas extends JComponent{
@@ -20,6 +21,11 @@ public class Canvas extends JComponent{
     }
 
     private void setInputListeners () {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void updateTurtle (Turtle changedTurtle) {
         // TODO Auto-generated method stub
         
     }

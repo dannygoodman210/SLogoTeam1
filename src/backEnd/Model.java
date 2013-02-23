@@ -10,7 +10,7 @@ public class Model {
     
     public Model(Workspace controller){
         myController = controller;
-        myTurtle = new Turtle();
+        myTurtle = new Turtle(myController);
         myInterpreter = new Interpreter();
     }
 }

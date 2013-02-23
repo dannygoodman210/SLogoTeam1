@@ -3,6 +3,7 @@ package controller;
 import java.util.Observable;
 import java.util.Observer;
 import backEnd.Model;
+import backEnd.Turtle;
 import frontEnd.Canvas;
 
 public class Workspace implements Observer{
@@ -17,8 +18,8 @@ public class Workspace implements Observer{
     
     
     @Override
-    public void update (Observable arg0, Object arg1) {
-        // TODO Auto-generated method stub
+    public void update (Observable arg0, Object changedTurtle) {
+        myView.updateTurtle((Turtle) changedTurtle);
         
     }
 
