@@ -9,7 +9,7 @@ import util.Vector;
 public class Turtle extends Observable {
 
     public static final int UP_DIRECTION = 90;
-    public static final Location INITIAL_COORDINATE = new Location(0, 0);
+    public static final Location INITIAL_LOCATION = new Location(0, 0);
 
     private Observer myObserver;
     private Location myLocation;
@@ -20,9 +20,9 @@ public class Turtle extends Observable {
     public Turtle (Observer observer) {
         myObserver = observer;
         addObserver(myObserver);
-        setLocation(INITIAL_COORDINATE);
+        setLocation(INITIAL_LOCATION);
         setHeading(UP_DIRECTION);
-        setPenDown(false);
+        setPenDown(true);
         setVisible(true);
     }
 

@@ -13,22 +13,21 @@ import javax.swing.JTextArea;
 import backEnd.Turtle;
 import controller.Workspace;
 
-public class Canvas extends JPanel{
-    
-    //default serialization ID
+
+public class Canvas extends JPanel {
+
+    // default serialization ID
     private static final long serialVersionUID = 1L;
     private static final String BUTTON_NAME = "Enter";
     private static final int COMMAND_HEIGHT = 4;
     private static final int COMMAND_WIDTH = 60;
     private static final int HISTORY_HEIGHT = 30;
     private static final int HISTORY_WIDTH = 20;
-    private static final int VIEW_HEIGHT = 488;
-    private static final int VIEW_WIDTH = 600;
     private Workspace myController;
-    private JComponent myTurtleView;
+    private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
     private JTextArea myHistoryView;
-    
+
     public Canvas (Dimension size) {
         // set size (a bit of a pain)
         setPreferredSize(size);
@@ -37,45 +36,41 @@ public class Canvas extends JPanel{
         setFocusable(true);
         requestFocus();
         setInputListeners();
-        myController = new Workspace(this);
-        add(makeTurtleView(),BorderLayout.CENTER);
-        add(makeHistoryPanel(),BorderLayout.EAST);
-        add(makeCommandPanel(),BorderLayout.SOUTH);
-        
-
+        // myController = new Workspace(this);
+        add(makeTurtleView(), BorderLayout.CENTER);
+        add(makeHistoryPanel(), BorderLayout.EAST);
+        add(makeCommandPanel(), BorderLayout.SOUTH);
         // size and display the GUI
         setVisible(true);
     }
 
     private void setInputListeners () {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void updateTurtle (Turtle changedTurtle) {
-        // TODO Auto-generated method stub
-        
+        myTurtleView.updateTurtle(changedTurtle);
+
     }
-    
+
     private Component makeTurtleView () {
-        myTurtleView = new JPanel();
-        myTurtleView.setPreferredSize(new Dimension(VIEW_WIDTH,VIEW_HEIGHT));
-        myTurtleView.add(new TurtleView());
+        myTurtleView = new TurtleView();
         return myTurtleView;
     }
-    
+
     private JComponent makeCommandPanel () {
         // create with size in rows and columns
         JPanel result = new JPanel();
         result.add(makeCommandPrompt());
         result.add(makePassStringButton());
-        
+
         return result;
     }
-    
+
     private Component makeHistoryPanel () {
-        myHistoryView = new JTextArea(HISTORY_HEIGHT,HISTORY_WIDTH);
-        return new JScrollPane(myHistoryView);  
+        myHistoryView = new JTextArea(HISTORY_HEIGHT, HISTORY_WIDTH);
+        return new JScrollPane(myHistoryView);
     }
 
     private JButton makePassStringButton () {
@@ -92,13 +87,13 @@ public class Canvas extends JPanel{
     }
 
     private JComponent makeCommandPrompt () {
-        myCommandPrompt = new JTextArea(COMMAND_HEIGHT,COMMAND_WIDTH);
-        return new JScrollPane(myCommandPrompt);        
+        myCommandPrompt = new JTextArea(COMMAND_HEIGHT, COMMAND_WIDTH);
+        return new JScrollPane(myCommandPrompt);
     }
-    
+
     protected void writeHistory (String text) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

@@ -1,10 +1,10 @@
 package controller;
 
-import java.util.Observable;
-import java.util.Observer;
 import backEnd.Model;
 import backEnd.Turtle;
 import frontEnd.Canvas;
+import java.util.Observable;
+import java.util.Observer;
 
 
 public class Workspace implements Observer {
@@ -24,7 +24,7 @@ public class Workspace implements Observer {
 
     public void sendInput (String text) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
