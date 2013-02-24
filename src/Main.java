@@ -11,7 +11,7 @@ import frontEnd.Canvas;
  */
 public class Main {
     // constants
-    public static final Dimension SIZE = new Dimension(800, 600);
+    public static final Dimension SIZE = new Dimension(900, 600);
     public static final String TITLE = "SLogo";
 
 

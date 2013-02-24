@@ -1,13 +1,33 @@
 package frontEnd;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import backEnd.Turtle;
 import controller.Workspace;
 
-public class Canvas extends JComponent{
+public class Canvas extends JPanel{
     
-    Workspace myWorkspace;
+    //default serialization ID
+    private static final long serialVersionUID = 1L;
+    private static final String BUTTON_NAME = "Enter";
+    private static final int COMMAND_HEIGHT = 4;
+    private static final int COMMAND_WIDTH = 60;
+    private static final int HISTORY_HEIGHT = 30;
+    private static final int HISTORY_WIDTH = 20;
+    private static final int VIEW_HEIGHT = 488;
+    private static final int VIEW_WIDTH = 600;
+    private Workspace myController;
+    private JComponent myTurtleView;
+    private JTextArea myCommandPrompt;
+    private JTextArea myHistoryView;
     
     public Canvas (Dimension size) {
         // set size (a bit of a pain)
@@ -17,7 +37,14 @@ public class Canvas extends JComponent{
         setFocusable(true);
         requestFocus();
         setInputListeners();
-        myWorkspace = new Workspace(this);
+        myController = new Workspace(this);
+        add(makeTurtleView(),BorderLayout.CENTER);
+        add(makeHistoryPanel(),BorderLayout.EAST);
+        add(makeCommandPanel(),BorderLayout.SOUTH);
+        
+
+        // size and display the GUI
+        setVisible(true);
     }
 
     private void setInputListeners () {
@@ -30,5 +57,48 @@ public class Canvas extends JComponent{
         
     }
     
+    private Component makeTurtleView () {
+        myTurtleView = new JPanel();
+        myTurtleView.setPreferredSize(new Dimension(VIEW_WIDTH,VIEW_HEIGHT));
+        myTurtleView.add(new TurtleView());
+        return myTurtleView;
+    }
+    
+    private JComponent makeCommandPanel () {
+        // create with size in rows and columns
+        JPanel result = new JPanel();
+        result.add(makeCommandPrompt());
+        result.add(makePassStringButton());
+        
+        return result;
+    }
+    
+    private Component makeHistoryPanel () {
+        myHistoryView = new JTextArea(HISTORY_HEIGHT,HISTORY_WIDTH);
+        return new JScrollPane(myHistoryView);  
+    }
+
+    private JButton makePassStringButton () {
+        JButton result = new JButton(BUTTON_NAME);
+        result.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myController.sendInput(myCommandPrompt.getText());
+                writeHistory(myCommandPrompt.getText());
+                myCommandPrompt.setText("");
+            }
+        });
+        return result;
+    }
+
+    private JComponent makeCommandPrompt () {
+        myCommandPrompt = new JTextArea(COMMAND_HEIGHT,COMMAND_WIDTH);
+        return new JScrollPane(myCommandPrompt);        
+    }
+    
+    protected void writeHistory (String text) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

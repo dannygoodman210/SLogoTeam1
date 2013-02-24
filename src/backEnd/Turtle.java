@@ -20,7 +20,7 @@ public class Turtle extends Observable {
     public Turtle (Observer observer) {
         myObserver = observer;
         addObserver(myObserver);
-        myLocation = INITIAL_COORDINATE;
+        setLocation(INITIAL_COORDINATE);
         setHeading(UP_DIRECTION);
         setPenDown(false);
         setVisible(true);
@@ -30,10 +30,11 @@ public class Turtle extends Observable {
         myHeading = myHeading + degrees;
         setChanged();
     }
-    
-    public void setTowards(double x, double y){
-        Vector between = new Vector(myLocation, new Location(x,y));
+
+    public void setTowards (double x, double y) {
+        Vector between = new Vector(myLocation, new Location(x, y));
         setHeading(between.getDirection());
+        setChanged();
     }
 
     public void move (double steps) {
@@ -82,9 +83,9 @@ public class Turtle extends Observable {
         myVisible = visible;
         setChanged();
     }
-    
-    @Override 
-    protected void setChanged(){
+
+    @Override
+    protected void setChanged () {
         super.setChanged();
         notifyObservers(this);
     }
