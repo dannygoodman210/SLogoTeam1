@@ -1,18 +1,16 @@
 package functions;
 
 import backEnd.Turtle;
-
-public class Forward extends TurtleFunction{
+public class Back extends TurtleFunction {
     private double myDistance;
     
-    public Forward (Turtle turtle, double distance) {
+    public Back (Turtle turtle, double distance) {
         super(turtle);
         myDistance = distance;
     }
-    
     @Override
     public double execute () {
-        getTurtle().move(myDistance);
+        getTurtle().move(-myDistance);
         return 0;
     }
 

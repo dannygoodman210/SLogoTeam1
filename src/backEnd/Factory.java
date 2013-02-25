@@ -2,6 +2,9 @@ package backEnd;
 
 import java.util.HashMap;
 import java.util.Map;
+import makers.BackMaker;
+import makers.ForwardMaker;
+import makers.Maker;
 
 public class Factory {
     
@@ -12,8 +15,14 @@ public class Factory {
      * @param turtle for the turtle commands
      * @return map of makers
      */
-    public Map<String, Makers> make (Turtle turtle) {
-        Map<String, Makers> map = new HashMap<String, Makers>();
+    public Map<String, Maker> make (Turtle turtle, Model model) {
+        Map<String, Maker> map = new HashMap<String, Maker>();
+        Maker forward = new ForwardMaker(turtle);
+        map.put("forward", forward);
+        map.put("fd", forward);
+        Maker back = new BackMaker(turtle);
+        map.put("back", back);
+        map.put("bk", back);
         return map;
     }
 }
