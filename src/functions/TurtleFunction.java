@@ -9,7 +9,7 @@ public abstract class TurtleFunction extends Function {
     }
     
     @Override
-    public abstract double execute ();
+    public abstract String execute(String input);
     
     public Turtle getTurtle () {
         return myTurtle;

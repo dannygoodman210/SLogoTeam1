@@ -13,7 +13,7 @@ public class ForwardMaker extends TurtleMaker {
     @Override
     public Function make (String s) {
         double distance = Double.parseDouble(s.substring(0, s.indexOf(' ')));
-        return new Forward(getTurtle(), distance);
+        return new Forward(getTurtle());
     }
 
 }

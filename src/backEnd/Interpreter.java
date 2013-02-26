@@ -5,7 +5,7 @@ import java.util.Map;
 import makers.Maker;
 
 public class Interpreter {
-    private Map<String, Maker> myMakers;
+    private Map<String, Function> myFunctions;
     
     /**
      * Currently using a "maker" class implementation. This allows us to have
@@ -14,16 +14,16 @@ public class Interpreter {
      * 
      * @param turtle turtle to pass to factory
      */
-    public Interpreter (Turtle turtle, Model model) {
+    public Interpreter (Turtle turtle) {
         Factory factory = new Factory();
-        myMakers = factory.make(turtle, model);
-        // Still need to make the abstract class Makers
+        myFunctions = factory.make(turtle, this);
+        
     }
     
     public Function processString (String s) {
         String trimmed = s.trim();
         String key = trimmed.substring(0, trimmed.indexOf(' ')).toLowerCase();
-        Function function = myMakers.get(key).make(trimmed.substring(s.indexOf(' ')).trim());
+        Function function = myFunctions.get(key);
         return function;
     }
 }

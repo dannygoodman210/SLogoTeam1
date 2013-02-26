@@ -2,6 +2,6 @@ package functions;
 
 public abstract class Function {
     
-    public abstract double execute ();
+    public abstract String execute (String input);
 
 }
