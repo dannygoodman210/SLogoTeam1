@@ -14,6 +14,7 @@ public class TurtleView extends JComponent {
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 488;
     private static final int VIEW_WIDTH = 600;
+    public static final double TURTLE_SIZE = 16;
 
     private boolean isInitialized;
     private Location myTurtleLocation;
@@ -45,7 +46,9 @@ public class TurtleView extends JComponent {
             initialize(pen);
             isInitialized = true;
         }
-        drawTurtle(pen);
+        else{
+            drawTurtle(pen);
+        }
     }
 
     public void initialize (Graphics pen) {
@@ -55,21 +58,22 @@ public class TurtleView extends JComponent {
 
     private void drawTurtle (Graphics pen) {
         drawLines(pen);
-
-    }
+        myTurtleLocation = myTurtleNextLocation;
+        
+  }
 
     private void drawLines (Graphics pen) {
         pen.setColor(Color.BLACK);
         Location start = translateCoordinates(myTurtleLocation);
         Location finish = translateCoordinates(myTurtleNextLocation);
-        pen.drawLine((int)start.getX(), (int)start.getY(),
-                     (int)finish.getX(), (int)finish.getY());
+        pen.drawLine((int) start.getX(), (int) start.getY(),
+                     (int) finish.getX(), (int) finish.getY());
     }
-    
-    private Location translateCoordinates(Location point){
-        double centerX = getBounds().getWidth()/2;
-        double centerY = getBounds().getHeight()/2;
-        return new Location(point.getX()+centerX,point.getY()+centerY);
+
+    private Location translateCoordinates (Location point) {
+        double centerX = getBounds().getWidth() / 2;
+        double centerY = getBounds().getHeight() / 2;
+        return new Location(point.getX() + centerX, point.getY() + centerY);
     }
 
     public void updateTurtle (Turtle changedTurtle) {

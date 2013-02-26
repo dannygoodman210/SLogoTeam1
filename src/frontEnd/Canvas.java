@@ -36,8 +36,8 @@ public class Canvas extends JPanel {
         setFocusable(true);
         requestFocus();
         setInputListeners();
-        // myController = new Workspace(this);
         add(makeTurtleView(), BorderLayout.CENTER);
+        myController = new Workspace(this);
         add(makeHistoryPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
         // size and display the GUI
