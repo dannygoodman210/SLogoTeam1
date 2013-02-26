@@ -11,7 +11,6 @@ public class Repeat extends Function{
         myModel = model;
         myReps = reps;
         myCommands = commands;
-        // commands will have brackets around it
     }
     
     @Override

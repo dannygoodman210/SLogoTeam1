@@ -5,6 +5,7 @@ import java.util.Map;
 import makers.BackMaker;
 import makers.ForwardMaker;
 import makers.Maker;
+import makers.RepeatMaker;
 
 public class Factory {
     
@@ -23,6 +24,7 @@ public class Factory {
         Maker back = new BackMaker(turtle);
         map.put("back", back);
         map.put("bk", back);
+        map.put("repeat", new RepeatMaker(model));
         return map;
     }
 }

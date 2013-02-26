@@ -15,5 +15,9 @@ public class ForwardMaker extends TurtleMaker {
         double distance = Double.parseDouble(s.substring(0, s.indexOf(' ')));
         return new Forward(getTurtle(), distance);
     }
-
+    
+    @Override
+    public String cutString (String s) {
+        return s.substring(s.indexOf(' ')).trim();
+    }
 }

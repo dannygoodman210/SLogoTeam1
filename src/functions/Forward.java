@@ -13,7 +13,7 @@ public class Forward extends TurtleFunction{
     @Override
     public double execute () {
         getTurtle().move(myDistance);
-        return 0;
+        return myDistance;
     }
 
 }

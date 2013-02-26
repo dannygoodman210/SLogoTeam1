@@ -9,7 +9,7 @@ public class Model {
     private Turtle myTurtle;
     private Interpreter myInterpreter;
     
-    public Model(Workspace controller){
+    public Model (Workspace controller) {
         myController = controller;
         myTurtle = new Turtle(myController);
         myInterpreter = new Interpreter(myTurtle, this);
