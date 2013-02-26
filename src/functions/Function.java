@@ -2,6 +2,9 @@ package functions;
 
 public abstract class Function {
     
-    public abstract String execute (String input);
+    public abstract void execute (String input);
+    
+    public abstract String getOutput(String input);
+    
 
 }

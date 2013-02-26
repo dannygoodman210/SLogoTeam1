@@ -13,7 +13,7 @@ public class Model {
     private Interpreter myInterpreter;
     private Map<String,Integer> myVariables;
     
-    public Model(Workspace controller){
+    public Model (Workspace controller) {
         myController = controller;
         myTurtle = new Turtle(myController);
         myInterpreter = new Interpreter(myTurtle);
@@ -32,7 +32,8 @@ public class Model {
     	String toExecute = input;
     	while(!toExecute.isEmpty()){
     		Function function = myInterpreter.processString(toExecute);
-        	toExecute = function.execute(toExecute);
+        	function.execute(toExecute);
+        	toExecute = function.getOutput(toExecute);
     	}
     }
 }

@@ -6,21 +6,24 @@ import backEnd.Model;
 public class Repeat extends Function{
     private Interpreter myInterpreter;
     
+
     public Repeat(Interpreter interp) {
         myInterpreter = interp;
-        
-        // commands will have brackets around it
-    }
+	}
     
     @Override
-    public String execute(String input) {
+    public void execute(String input) {
     	String toExecute = input;
     	while(!toExecute.isEmpty()){
     		Function function = myInterpreter.processString(toExecute);
-        	toExecute = function.execute(toExecute);
+        	function.execute(toExecute);
+        	toExecute = function.getOutput(toExecute);
     	}
     	
-    	String[] args = input.split("\\s+");
+    }
+    
+    public String getOutput(String input){
+       	String[] args = input.split("\\s+");
     	int newReps = Integer.parseInt(args[1]) - 1;
     	args[1] = newReps + "";
     	String output = "";
@@ -29,7 +32,6 @@ public class Repeat extends Function{
     	}
     	return output;
     }
-    
     
 
 }

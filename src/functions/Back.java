@@ -9,9 +9,13 @@ public class Back extends TurtleFunction {
         myDistance = distance;
     }
     @Override
-    public String execute(String input) {
+    public void execute(String input) {
         getTurtle().move(-myDistance);
-        return "";
+
+    }
+    
+    public String getOutput(String input){
+    	return "";
     }
 
 }

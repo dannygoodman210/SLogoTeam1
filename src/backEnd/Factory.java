@@ -24,10 +24,12 @@ public class Factory {
         
         Function forward = new Forward(turtle);
         map.put("forward", forward);
+
         
         Function repeat = new Repeat(interpreter);
         map.put("repeat", repeat);
         
+
         return map;
     }
 }

@@ -1,24 +1,24 @@
 package makers;
 
 import backEnd.Turtle;
-import functions.Back;
 import functions.Function;
+import functions.Left;
 
-
-public class BackMaker extends TurtleMaker {
+public class LeftMaker extends TurtleMaker {
     
-    public BackMaker (Turtle turtle) {
+    public LeftMaker (Turtle turtle) {
         super(turtle);
     }
     
     @Override
     public Function make (String s) {
-        double distance = Double.parseDouble(s.substring(0, s.indexOf(' ')));
-        return new Back(getTurtle(), distance);
+        double angle = Double.parseDouble(s.substring(0, s.indexOf(' ')));
+        return new Left(getTurtle(), angle);
     }
-    
+
     @Override
     public String cutString (String s) {
         return s.substring(s.indexOf(' ')).trim();
     }
+
 }

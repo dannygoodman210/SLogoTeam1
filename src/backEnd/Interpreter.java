@@ -12,18 +12,27 @@ public class Interpreter {
      * multiple instances of the same function, which can help us to deal with 
      * repeats and the such
      * 
-     * @param turtle turtle to pass to factory
+     * @param turtle to pass to factory
+     * @param model to pass to factor
      */
     public Interpreter (Turtle turtle) {
         Factory factory = new Factory();
         myFunctions = factory.make(turtle, this);
         
+
     }
     
     public Function processString (String s) {
+        String key = getKey(s);
+        return myFunctions.get(key);
+    }
+    
+
+    
+    private String getKey (String s) {
         String trimmed = s.trim();
         String key = trimmed.substring(0, trimmed.indexOf(' ')).toLowerCase();
-        Function function = myFunctions.get(key);
-        return function;
+        return key;
+
     }
 }

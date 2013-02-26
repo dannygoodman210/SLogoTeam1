@@ -8,8 +8,6 @@ public abstract class TurtleFunction extends Function {
         myTurtle = turtle;
     }
     
-    @Override
-    public abstract String execute(String input);
     
     public Turtle getTurtle () {
         return myTurtle;
