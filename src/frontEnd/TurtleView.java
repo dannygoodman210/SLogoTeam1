@@ -19,6 +19,8 @@ import backEnd.Turtle;
  */
 public class TurtleView extends JComponent {
 
+    private static final int DEFAULT_HEADING = 90;
+    private static final Location DEFAULT_LOCATION = new Location(0,0);
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 488;
     private static final int VIEW_WIDTH = 600;
@@ -26,12 +28,12 @@ public class TurtleView extends JComponent {
     private static final double TURTLE_ANGLE_1 = 40;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
 
-    private boolean isInitialized;
     private Location myTurtleLocation;
     private Location myTurtleNextLocation;
     private double myTurtleHeading;
     private boolean myTurtlePenDown;
     private boolean myTurtleVisible;
+    private List<Location> myTrailPoints;
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
@@ -41,7 +43,6 @@ public class TurtleView extends JComponent {
         setFocusable(true);
         requestFocus();
         resetTurtle();
-        isInitialized = false;
     }
 
     /**
@@ -55,10 +56,8 @@ public class TurtleView extends JComponent {
      */
     @Override
     public void paintComponent (Graphics pen) {
-        if (!isInitialized) {
-            initialize(pen);
-            isInitialized = true;
-        }
+        pen.setColor(Color.WHITE);
+        pen.fillRect(0, 0, getSize().width, getSize().height);
         drawTurtle(pen);
     }
 
@@ -75,16 +74,17 @@ public class TurtleView extends JComponent {
         myTurtleVisible = changedTurtle.isVisible();
         repaint();
     }
-
-    private void initialize (Graphics pen) {
-        pen.setColor(Color.WHITE);
-        pen.fillRect(0, 0, getSize().width, getSize().height);
+    
+    public void clearTrails(){
+        myTrailPoints = new ArrayList<Location>();
+        repaint();
     }
 
     private void drawTurtle (Graphics pen) {
-        if (myTurtlePenDown)
+        if (myTurtlePenDown){
             drawTrail(pen);
-        myTurtleLocation = myTurtleNextLocation;
+        }
+        myTurtleLocation = new Location(myTurtleNextLocation);
         if (myTurtleVisible) {
             drawTriangle(pen);
         }
@@ -92,7 +92,11 @@ public class TurtleView extends JComponent {
 
     private void drawTrail (Graphics pen) {
         pen.setColor(Color.BLACK);
-        drawLine(pen, myTurtleLocation, myTurtleNextLocation);
+        myTrailPoints.add(new Location(myTurtleLocation));
+        myTrailPoints.add(new Location(myTurtleNextLocation));
+        for(int i = 0; i < myTrailPoints.size()-1; i+=2){
+            drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i+1));
+        }
     }
 
     private void drawLine (Graphics pen, Location start, Location finish) {
@@ -133,10 +137,12 @@ public class TurtleView extends JComponent {
     }
 
     private void resetTurtle () {
-        myTurtleLocation = Turtle.INITIAL_LOCATION;
-        myTurtleHeading = Turtle.NORTH_DIRECTION;
+        myTurtleLocation = DEFAULT_LOCATION;
+        myTurtleNextLocation = DEFAULT_LOCATION;
+        myTurtleHeading = DEFAULT_HEADING;
         myTurtlePenDown = true;
         myTurtleVisible = true;
+        myTrailPoints = new ArrayList<Location>();
     }
 
 }

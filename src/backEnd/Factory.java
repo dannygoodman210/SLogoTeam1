@@ -5,6 +5,7 @@ import java.util.Map;
 
 import functions.Forward;
 import functions.Function;
+import functions.Left;
 import functions.Repeat;
 
 
@@ -27,7 +28,8 @@ public class Factory {
         Function repeat = new Repeat(model);
         map.put("repeat", repeat);
         
-        
+        Function left = new Left(turtle);
+        map.put("left", left);
 
         return map;
     }

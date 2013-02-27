@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ public class Canvas extends JPanel {
     private static final int COMMAND_WIDTH = 60;
     private static final int HISTORY_HEIGHT = 30;
     private static final int HISTORY_WIDTH = 20;
+    private static final String CLEAR_NAME = "Clear";
     private Workspace myController;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
@@ -50,9 +52,8 @@ public class Canvas extends JPanel {
     }
 
     public void updateTurtle (Turtle changedTurtle) {
-        myTurtleView.updateTurtle(changedTurtle);
         System.out.println("Turtle Changed");
-
+        myTurtleView.updateTurtle(changedTurtle);
     }
 
     private Component makeTurtleView () {
@@ -65,6 +66,7 @@ public class Canvas extends JPanel {
         JPanel result = new JPanel();
         result.add(makeCommandPrompt());
         result.add(makePassStringButton());
+        //result.add(makeClearButton());
 
         return result;
     }
@@ -82,6 +84,17 @@ public class Canvas extends JPanel {
                 myController.sendInput(myCommandPrompt.getText());
                 writeHistory(myCommandPrompt.getText());
                 myCommandPrompt.setText("");
+            }
+        });
+        return result;
+    }
+    
+    private JButton makeClearButton () {
+        JButton result = new JButton(CLEAR_NAME);
+        result.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myTurtleView.clearTrails();
             }
         });
         return result;
