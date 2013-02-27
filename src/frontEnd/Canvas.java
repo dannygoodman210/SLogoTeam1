@@ -24,7 +24,7 @@ public class Canvas extends JPanel {
     private static final int COMMAND_WIDTH = 60;
     private static final int HISTORY_HEIGHT = 30;
     private static final int HISTORY_WIDTH = 20;
-    private static final String CLEAR_NAME = "Draw";
+    private static final String CLEAR_NAME = "Clear";
     private Workspace myController;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
@@ -94,7 +94,7 @@ public class Canvas extends JPanel {
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTurtleView.checkQueue();
+                myTurtleView.clearTrails();
             }
         });
         return result;
