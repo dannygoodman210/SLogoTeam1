@@ -19,7 +19,6 @@ public class Repeat extends Function{
         	function.execute(toExecute);
         	toExecute = function.getOutput(toExecute);
     	}
-    	
     }
     
     public String getOutput(String input){
