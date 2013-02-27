@@ -20,6 +20,13 @@ public class Model {
         myVariables = new HashMap<String, Integer>();
     }
     
+    
+    public void initialize(String input){
+    	
+    }
+    
+    
+    
     /**
      * The model handles execute, processString can be called recursively to 
      * deal with situations such as repeat

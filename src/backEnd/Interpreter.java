@@ -2,7 +2,6 @@ package backEnd;
 
 import functions.Function;
 import java.util.Map;
-import makers.Maker;
 
 public class Interpreter {
     private Map<String, Function> myFunctions;
@@ -24,7 +23,6 @@ public class Interpreter {
         String key = getKey(s);
         return myFunctions.get(key);
     }
-    
 
     
     private String getKey (String s) {

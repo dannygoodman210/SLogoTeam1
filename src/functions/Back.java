@@ -14,8 +14,5 @@ public class Back extends TurtleFunction {
 
     }
     
-    public String getOutput(String input){
-    	return "";
-    }
 
 }

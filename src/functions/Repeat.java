@@ -14,9 +14,8 @@ public class Repeat extends Function{
     @Override
     public void execute(String input) {
     	myModel.processString(input);
-    	
-
     }
+    
     
     public String getOutput(String input){
        	String[] args = input.split("\\s+");
