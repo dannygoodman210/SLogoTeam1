@@ -23,7 +23,7 @@ public class Workspace implements Observer {
     }
 
     public void sendInput (String text) {
-        // TODO Auto-generated method stub
+        myModel.processString(text);
 
     }
 

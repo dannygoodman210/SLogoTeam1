@@ -15,6 +15,13 @@ public class Model {
         myInterpreter = new Interpreter(myTurtle, this);
     }
     
+    
+    public void initialize(String input){
+    	
+    }
+    
+    
+    
     /**
      * The model handles execute, processString can be called recursively to 
      * deal with situations such as repeat

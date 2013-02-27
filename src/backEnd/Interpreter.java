@@ -24,4 +24,6 @@ public class Interpreter {
         String key = trimmed.substring(0, trimmed.indexOf("+//s")).toLowerCase();
         return myFunctions.get(key);
     }
+
+   
 }
