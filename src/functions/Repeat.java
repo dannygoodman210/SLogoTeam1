@@ -1,6 +1,5 @@
 package functions;
 
-import backEnd.Interpreter;
 import backEnd.Model;
 
 public class Repeat extends Function{

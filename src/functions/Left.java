@@ -9,10 +9,14 @@ public class Left extends TurtleFunction {
         super(turtle);
         myAngle = angle;
     }
+    
     @Override
-    public double execute () {
+    public void execute (String input) {
         getTurtle().setHeading(myAngle);
-        return myAngle;
     }
-
+    
+    @Override
+    public String getOutput (String input) {
+        return "";
+    }
 }
