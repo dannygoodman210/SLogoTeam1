@@ -8,11 +8,10 @@ public abstract class TurtleFunction extends Function {
         myTurtle = turtle;
     }
     
-    
     public Turtle getTurtle () {
         return myTurtle;
     }
-    
+
     
 	public String[] getOutput(String[] args) {
 		String[] output = new String[args.length-2];
@@ -20,5 +19,5 @@ public abstract class TurtleFunction extends Function {
         	output[i-2] = args[i];
         }
         return output;
-	}
+    }
 }

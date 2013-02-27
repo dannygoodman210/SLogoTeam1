@@ -21,7 +21,13 @@ public class Workspace implements Observer {
     public void update (Observable arg0, Object changedTurtle) {
         myView.updateTurtle((Turtle) changedTurtle);
     }
-
+    
+    /**
+     * Called by Canvas class when "Enter" button is pressed. Backend implements this to pass
+     * the un-parsed text from the controller to the model.
+     * 
+     * @param text
+     */
     public void sendInput (String text) {
     	String[] commands = myModel.formatString(text);
     	myModel.processString(commands);

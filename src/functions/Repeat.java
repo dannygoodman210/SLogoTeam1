@@ -8,7 +8,7 @@ public class Repeat extends Function{
 
     public Repeat(Model model) {
         myModel = model;
-	}
+    }
     
     @Override
     public void execute(String[] input) {

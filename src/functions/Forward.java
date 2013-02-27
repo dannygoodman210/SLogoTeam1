@@ -12,8 +12,8 @@ public class Forward extends TurtleFunction{
     public void execute(String[] args) {
     	int myDistance = Integer.parseInt(args[1]);
         getTurtle().move(myDistance);
-        System.out.println(myDistance);
-    }
+       
 
+    }
 
 }

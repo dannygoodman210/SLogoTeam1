@@ -1,8 +1,5 @@
 package backEnd;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import controller.Workspace;
 import functions.Function;
 
@@ -11,13 +8,11 @@ public class Model {
     private Workspace myController;
     private Turtle myTurtle;
     private Interpreter myInterpreter;
-    private Map<String,Integer> myVariables;
     
     public Model (Workspace controller) {
         myController = controller;
         myTurtle = new Turtle(myController);
         myInterpreter = new Interpreter(myTurtle, this);
-        myVariables = new HashMap<String, Integer>();
     }
     
     /**
