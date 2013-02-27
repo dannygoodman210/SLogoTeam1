@@ -20,15 +20,10 @@ public class Interpreter {
     }
     
     public Function processString (String s) {
-        String key = getKey(s);
+        String trimmed = s.trim();
+        String key = trimmed.substring(0, trimmed.indexOf("+//s")).toLowerCase();
         return myFunctions.get(key);
     }
 
-    
-    private String getKey (String s) {
-        String trimmed = s.trim();
-        String key = trimmed.substring(0, trimmed.indexOf(' ')).toLowerCase();
-        return key;
-
-    }
+   
 }
