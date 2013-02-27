@@ -51,6 +51,7 @@ public class Canvas extends JPanel {
 
     public void updateTurtle (Turtle changedTurtle) {
         myTurtleView.updateTurtle(changedTurtle);
+        System.out.println("Turtle Changed");
 
     }
 
