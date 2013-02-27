@@ -19,14 +19,14 @@ public class Factory {
      * @param turtle for the turtle commands
      * @return map of makers
      */
-    public Map<String, Function> make (Turtle turtle, Interpreter interpreter) {
+    public Map<String, Function> make (Turtle turtle, Model model) {
         Map<String, Function> map = new HashMap<String, Function>();
         
         Function forward = new Forward(turtle);
         map.put("forward", forward);
 
         
-        Function repeat = new Repeat(interpreter);
+        Function repeat = new Repeat(model);
         map.put("repeat", repeat);
         
 

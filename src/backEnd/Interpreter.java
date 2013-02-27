@@ -15,11 +15,9 @@ public class Interpreter {
      * @param turtle to pass to factory
      * @param model to pass to factor
      */
-    public Interpreter (Turtle turtle) {
+    public Interpreter (Turtle turtle, Model model) {
         Factory factory = new Factory();
-        myFunctions = factory.make(turtle, this);
-        
-
+        myFunctions = factory.make(turtle, model);
     }
     
     public Function processString (String s) {
