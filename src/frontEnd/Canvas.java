@@ -24,7 +24,7 @@ public class Canvas extends JPanel {
     private static final int COMMAND_WIDTH = 60;
     private static final int HISTORY_HEIGHT = 30;
     private static final int HISTORY_WIDTH = 20;
-    private static final String CLEAR_NAME = "Clear";
+    private static final String CLEAR_NAME = "Draw";
     private Workspace myController;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
@@ -52,8 +52,8 @@ public class Canvas extends JPanel {
     }
 
     public void updateTurtle (Turtle changedTurtle) {
-        System.out.println("Turtle Changed");
-        myTurtleView.updateTurtle(changedTurtle);
+        System.out.println("Turtle Changed!");
+        myTurtleView.addToQueue(new Turtle(changedTurtle));
     }
 
     private Component makeTurtleView () {
@@ -66,7 +66,7 @@ public class Canvas extends JPanel {
         JPanel result = new JPanel();
         result.add(makeCommandPrompt());
         result.add(makePassStringButton());
-        //result.add(makeClearButton());
+        result.add(makeClearButton());
 
         return result;
     }
@@ -94,7 +94,7 @@ public class Canvas extends JPanel {
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTurtleView.clearTrails();
+                myTurtleView.checkQueue();
             }
         });
         return result;

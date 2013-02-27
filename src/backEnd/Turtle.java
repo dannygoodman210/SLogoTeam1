@@ -27,6 +27,13 @@ public class Turtle extends Observable {
         setVisible(true);
     }
 
+    public Turtle (Turtle o) {
+         myLocation = new Location(o.getLocation());
+         myHeading = o.getHeading();
+         myPenDown = o.isPenDown();
+         myVisible = o.isVisible();
+    }
+
     /**
      * Rotates the Turtle.
      * A positive degrees value will rotate counterclockwise.
@@ -99,7 +106,7 @@ public class Turtle extends Observable {
     @Override
     protected void setChanged () {
         super.setChanged();
-        notifyObservers(this);
+        notifyObservers();
     }
 
 }

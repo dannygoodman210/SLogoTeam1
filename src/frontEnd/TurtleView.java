@@ -3,9 +3,12 @@ package frontEnd;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.Timer;
 import util.Location;
 import util.Vector;
 import backEnd.Turtle;
@@ -20,13 +23,16 @@ import backEnd.Turtle;
 public class TurtleView extends JComponent {
 
     private static final int DEFAULT_HEADING = 90;
-    private static final Location DEFAULT_LOCATION = new Location(0,0);
+    private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 488;
     private static final int VIEW_WIDTH = 600;
     public static final double TURTLE_HEIGHT = 30;
     private static final double TURTLE_ANGLE_1 = 40;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
+    public static final int FRAMES_PER_SECOND = 1000;
+    public static final int ONE_SECOND = 1000;
+    public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
 
     private Location myTurtleLocation;
     private Location myTurtleNextLocation;
@@ -34,6 +40,8 @@ public class TurtleView extends JComponent {
     private boolean myTurtlePenDown;
     private boolean myTurtleVisible;
     private List<Location> myTrailPoints;
+    private List<Turtle> myChangesQueue;
+    private Timer myTimer;
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
@@ -43,6 +51,12 @@ public class TurtleView extends JComponent {
         setFocusable(true);
         requestFocus();
         resetTurtle();
+        myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
+            public void actionPerformed (ActionEvent e) {
+                checkQueue();
+            }
+        });
+        myTimer.start();
     }
 
     /**
@@ -61,6 +75,18 @@ public class TurtleView extends JComponent {
         drawTurtle(pen);
     }
 
+    public void addToQueue (Turtle changedTurtle) {
+        myChangesQueue.add(changedTurtle);
+        System.out.println(myChangesQueue.size());
+    }
+
+    public void checkQueue () {
+        if (!myChangesQueue.isEmpty()) {
+            updateTurtle(myChangesQueue.remove(0));
+            System.out.println(myChangesQueue.size());
+        }
+    }
+
     /**
      * Updates the Turtle parameters based on the new information. Calls repaint().
      * 
@@ -74,14 +100,14 @@ public class TurtleView extends JComponent {
         myTurtleVisible = changedTurtle.isVisible();
         repaint();
     }
-    
-    public void clearTrails(){
+
+    public void clearTrails () {
         myTrailPoints = new ArrayList<Location>();
         repaint();
     }
 
     private void drawTurtle (Graphics pen) {
-        if (myTurtlePenDown){
+        if (myTurtlePenDown) {
             drawTrail(pen);
         }
         myTurtleLocation = new Location(myTurtleNextLocation);
@@ -94,8 +120,8 @@ public class TurtleView extends JComponent {
         pen.setColor(Color.BLACK);
         myTrailPoints.add(new Location(myTurtleLocation));
         myTrailPoints.add(new Location(myTurtleNextLocation));
-        for(int i = 0; i < myTrailPoints.size()-1; i+=2){
-            drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i+1));
+        for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
+            drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
         }
     }
 
@@ -110,21 +136,22 @@ public class TurtleView extends JComponent {
         Vector centerToHead = new Vector(myTurtleHeading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(myTurtleHeading - (180 - (TURTLE_ANGLE_1 / 2)),
                                        TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
-        Vector leftToRight = new Vector(myTurtleHeading + 90,
-                                        2*TURTLE_HEIGHT / Math.tan(Math.toRadians(TURTLE_ANGLE_2)));
+        Vector leftToRight =
+                new Vector(myTurtleHeading + 90,
+                           2 * TURTLE_HEIGHT / Math.tan(Math.toRadians(TURTLE_ANGLE_2)));
         Location vertex = new Location(myTurtleLocation.getX() + centerToHead.getXChange(),
                                        myTurtleLocation.getY() + centerToHead.getYChange());
         Location leftPoint = new Location(vertex.getX() + headToLeft.getXChange(),
                                           vertex.getY() + headToLeft.getYChange());
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
                                            leftPoint.getY() + leftToRight.getYChange());
-        //option 1: black triangle:
-//        vertex = translateCoordinates(vertex);
-//        leftPoint = translateCoordinates(leftPoint);
-//        rightPoint = translateCoordinates(rightPoint);
-//        pen.fillPolygon(new int[]{(int) vertex.x,(int) leftPoint.x,(int) rightPoint.x}, 
-//                        new int[]{(int) vertex.y,(int) leftPoint.y,(int) rightPoint.y}, 3);
-        //option 2: white triangle: shows dot for pen down
+        // option 1: black triangle:
+        // vertex = translateCoordinates(vertex);
+        // leftPoint = translateCoordinates(leftPoint);
+        // rightPoint = translateCoordinates(rightPoint);
+        // pen.fillPolygon(new int[]{(int) vertex.x,(int) leftPoint.x,(int) rightPoint.x},
+        // new int[]{(int) vertex.y,(int) leftPoint.y,(int) rightPoint.y}, 3);
+        // option 2: white triangle: shows dot for pen down
         drawLine(pen, vertex, leftPoint);
         drawLine(pen, leftPoint, rightPoint);
         drawLine(pen, rightPoint, vertex);
@@ -143,6 +170,7 @@ public class TurtleView extends JComponent {
         myTurtlePenDown = true;
         myTurtleVisible = true;
         myTrailPoints = new ArrayList<Location>();
+        myChangesQueue = new ArrayList<Turtle>();
     }
 
 }
