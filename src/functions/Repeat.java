@@ -15,6 +15,7 @@ public class Repeat extends Function{
     public void execute(String input) {
     	myModel.processString(input);
     	
+
     }
     
     public String getOutput(String input){
