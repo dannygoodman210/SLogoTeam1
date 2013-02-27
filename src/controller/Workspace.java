@@ -23,8 +23,9 @@ public class Workspace implements Observer {
     }
 
     public void sendInput (String text) {
-        myModel.processString(text);
-
+    	String[] commands = myModel.formatString(text);
+    	myModel.processString(commands);
+ 
     }
 
 }

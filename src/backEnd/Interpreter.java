@@ -19,10 +19,8 @@ public class Interpreter {
         myFunctions = factory.make(turtle, model);
     }
     
-    public Function processString (String s) {
-        String trimmed = s.trim();
-        String key = trimmed.substring(0, trimmed.indexOf("+//s")).toLowerCase();
-        return myFunctions.get(key);
+    public Function processString (String[] s) {
+        return myFunctions.get(s[0]);
     }
 
    

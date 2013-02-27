@@ -11,23 +11,22 @@ public class Repeat extends Function{
 	}
     
     @Override
-    public void execute(String input) {
-    	myModel.processString(input);
+    public void execute(String[] input) {
+    	String[] body = new String[input.length -2];
+    	for(int i = 2 ; i < input.length ; i++){
+    		body[i-2] = input[i];
+    	}	
+    	myModel.processString(body);
     }
     
     
-    public String getOutput(String input){
-       	String[] args = input.split("\\s+");
+    public String[] getOutput(String[] args){
     	int newReps = Integer.parseInt(args[1]) - 1;
     	if(newReps == 0){
-    		return "";
+    		return new String[0];
     	}
     	args[1] = newReps + "";
-    	String output = "";
-    	for(int i = 0; i < args.length ; i++){
-    		output += args[i];
-    	}
-    	return output;
+    	return args.clone();
     }
     
 

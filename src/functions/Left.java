@@ -10,17 +10,14 @@ public class Left extends TurtleFunction {
     
     @Override
 
-    public void execute(String input) {
-    	String[] args = input.split("\\s+");
+    public void execute(String[] args) {
     	int myAngle = Integer.parseInt(args[1]);
         getTurtle().setHeading(myAngle);
     }
 
-
-
     @Override
-    public String getOutput (String input) {
-        return "";
+    public String[] getOutput (String[] input) {
+        return new String[0];
     }
 
 }

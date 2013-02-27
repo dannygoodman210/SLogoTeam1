@@ -14,11 +14,10 @@ public abstract class TurtleFunction extends Function {
     }
     
     
-	public String getOutput(String input) {
-		String[] args = input.split("\\s+");
-		String output = "";
+	public String[] getOutput(String[] args) {
+		String[] output = new String[args.length-2];
         for(int i = 2; i < args.length ; i++){
-        	output += args[i];
+        	output[i-2] = args[i];
         }
         return output;
 	}
