@@ -10,6 +10,7 @@ public class Turtle extends Observable {
 
     public static final int UP_DIRECTION = 90;
     public static final Location INITIAL_LOCATION = new Location(0, 0);
+    public static final int FULL_TURN = 360;
 
     private Observer myObserver;
     private Location myLocation;
@@ -28,6 +29,9 @@ public class Turtle extends Observable {
 
     public void rotate (double degrees) {
         myHeading = myHeading + degrees;
+        if (myHeading >= FULL_TURN) {
+            myHeading -= FULL_TURN;
+        }
         setChanged();
     }
 
