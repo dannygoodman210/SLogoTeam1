@@ -16,7 +16,6 @@ public class Forward extends TurtleFunction{
         
     }
 
-<<<<<<< HEAD
     public String getOutput(String input) {
 	String[] args = input.split("\\s+");
 	String output = "";
@@ -25,7 +24,6 @@ public class Forward extends TurtleFunction{
         }
         return output;
     }
-=======
->>>>>>> dd80252a84f0ee5e4a2e43f20822d12e7b0ea7f5
+
 
 }
