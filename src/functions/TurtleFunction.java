@@ -8,7 +8,6 @@ public abstract class TurtleFunction extends Function {
         myTurtle = turtle;
     }
     
-    
     public Turtle getTurtle () {
         return myTurtle;
     }
