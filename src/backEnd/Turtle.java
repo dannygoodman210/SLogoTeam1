@@ -8,7 +8,7 @@ import util.Vector;
 
 public class Turtle extends Observable {
 
-    public static final int UP_DIRECTION = 90;
+    public static final int NORTH_DIRECTION = 90;
     public static final Location INITIAL_LOCATION = new Location(0, 0);
     public static final int FULL_TURN = 360;
 
@@ -22,11 +22,19 @@ public class Turtle extends Observable {
         myObserver = observer;
         addObserver(myObserver);
         setLocation(INITIAL_LOCATION);
-        setHeading(UP_DIRECTION);
+        setHeading(NORTH_DIRECTION);
         setPenDown(true);
         setVisible(true);
     }
 
+    /**
+     * Rotates the Turtle.
+     * A positive degrees value will rotate counterclockwise.
+     * A negative degrees value will rotate clockwise.
+     * North, South, East, West mimics unit circle.
+     * 
+     * @param degrees
+     */
     public void rotate (double degrees) {
         myHeading = myHeading + degrees;
         if (myHeading >= FULL_TURN) {

@@ -22,7 +22,7 @@ public class TurtleView extends JComponent {
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 488;
     private static final int VIEW_WIDTH = 600;
-    public static final double TURTLE_HEIGHT = 51;
+    public static final double TURTLE_HEIGHT = 30;
     private static final double TURTLE_ANGLE_1 = 40;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
 
@@ -82,16 +82,12 @@ public class TurtleView extends JComponent {
     }
 
     private void drawTurtle (Graphics pen) {
-        drawTrail(pen);
+        if (myTurtlePenDown)
+            drawTrail(pen);
         myTurtleLocation = myTurtleNextLocation;
-        List<Vector> turtleVectors = new ArrayList<Vector>();
-        turtleVectors.add(new Vector(myTurtleHeading, 2 / 3 * TURTLE_HEIGHT)); // center to head
-        turtleVectors.add(new Vector(myTurtleHeading - (180 - TURTLE_ANGLE_1 / 2),
-                                     TURTLE_HEIGHT / Math.sin(TURTLE_ANGLE_2))); // head to left
-        turtleVectors.add(new Vector(myTurtleHeading + 90,
-                                     2 * TURTLE_HEIGHT / Math.tan(TURTLE_ANGLE_2))); // head to
-                                                                                     // right
-        drawTriangle(pen,turtleVectors);
+        if (myTurtleVisible) {
+            drawTriangle(pen);
+        }
     }
 
     private void drawTrail (Graphics pen) {
@@ -106,27 +102,39 @@ public class TurtleView extends JComponent {
                      (int) finish.getX(), (int) finish.getY());
     }
 
-    private void drawTriangle (Graphics pen, List<Vector> vectorList) {
-        Location vertex = new Location(myTurtleLocation.getX()+vectorList.get(0).getXChange(),
-                                       myTurtleLocation.getY()+vectorList.get(0).getYChange());
-        Location leftPoint = new Location(vertex.getX()+vectorList.get(1).getXChange(),
-                                          vertex.getY()+vectorList.get(1).getYChange());
-        Location rightPoint = new Location(leftPoint.getX()+vectorList.get(2).getXChange(),
-                                           leftPoint.getY()+vectorList.get(2).getYChange());
-        drawLine(pen,vertex,leftPoint);
-        drawLine(pen,leftPoint,rightPoint);
-        drawLine(pen,rightPoint,vertex);
+    private void drawTriangle (Graphics pen) {
+        Vector centerToHead = new Vector(myTurtleHeading, TURTLE_HEIGHT * 2 / 3);
+        Vector headToLeft = new Vector(myTurtleHeading - (180 - (TURTLE_ANGLE_1 / 2)),
+                                       TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
+        Vector leftToRight = new Vector(myTurtleHeading + 90,
+                                        2*TURTLE_HEIGHT / Math.tan(Math.toRadians(TURTLE_ANGLE_2)));
+        Location vertex = new Location(myTurtleLocation.getX() + centerToHead.getXChange(),
+                                       myTurtleLocation.getY() + centerToHead.getYChange());
+        Location leftPoint = new Location(vertex.getX() + headToLeft.getXChange(),
+                                          vertex.getY() + headToLeft.getYChange());
+        Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
+                                           leftPoint.getY() + leftToRight.getYChange());
+        //option 1: black triangle:
+//        vertex = translateCoordinates(vertex);
+//        leftPoint = translateCoordinates(leftPoint);
+//        rightPoint = translateCoordinates(rightPoint);
+//        pen.fillPolygon(new int[]{(int) vertex.x,(int) leftPoint.x,(int) rightPoint.x}, 
+//                        new int[]{(int) vertex.y,(int) leftPoint.y,(int) rightPoint.y}, 3);
+        //option 2: white triangle: shows dot for pen down
+        drawLine(pen, vertex, leftPoint);
+        drawLine(pen, leftPoint, rightPoint);
+        drawLine(pen, rightPoint, vertex);
     }
 
     private Location translateCoordinates (Location point) {
         double centerX = getBounds().getWidth() / 2;
         double centerY = getBounds().getHeight() / 2;
-        return new Location(point.getX() + centerX, point.getY() + centerY);
+        return new Location(centerX + point.getX(), centerY - point.getY());
     }
 
     private void resetTurtle () {
         myTurtleLocation = Turtle.INITIAL_LOCATION;
-        myTurtleHeading = Turtle.UP_DIRECTION;
+        myTurtleHeading = Turtle.NORTH_DIRECTION;
         myTurtlePenDown = true;
         myTurtleVisible = true;
     }
