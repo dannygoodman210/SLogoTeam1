@@ -20,6 +20,8 @@ public class Canvas extends JPanel {
     // default serialization ID
     private static final long serialVersionUID = 1L;
     private static final String BUTTON_NAME = "Enter";
+    private static final String BEGIN_LINE = "> ";
+    private static final String NEW_LINE = "/n";
     private static final int COMMAND_HEIGHT = 4;
     private static final int COMMAND_WIDTH = 60;
     private static final int HISTORY_HEIGHT = 30;
@@ -106,8 +108,7 @@ public class Canvas extends JPanel {
     }
 
     protected void writeHistory (String text) {
-        // TODO Auto-generated method stub
-
+        myHistoryView.append(BEGIN_LINE + text + NEW_LINE);
     }
 
 }
