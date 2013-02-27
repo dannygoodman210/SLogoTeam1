@@ -12,11 +12,9 @@ public class Forward extends TurtleFunction{
     public void execute (String input) {
     	String[] args = input.split("\\s+");
     	int myDistance = Integer.parseInt(args[1]);
-        getTurtle().move(myDistance);
-        
+        getTurtle().move(myDistance);   
     }
 
-<<<<<<< HEAD
     public String getOutput(String input) {
 	String[] args = input.split("\\s+");
 	String output = "";
@@ -25,7 +23,4 @@ public class Forward extends TurtleFunction{
         }
         return output;
     }
-=======
->>>>>>> dd80252a84f0ee5e4a2e43f20822d12e7b0ea7f5
-
 }
