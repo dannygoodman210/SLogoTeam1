@@ -13,6 +13,7 @@ public class Left extends TurtleFunction {
     public void execute (String[] args) {
         int myAngle = Integer.parseInt(args[1]);
         getTurtle().rotate(myAngle);
+        System.out.println(getTurtle().getHeading());
     }
 
 }
