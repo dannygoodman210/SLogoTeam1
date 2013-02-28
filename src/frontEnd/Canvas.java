@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.Icon;
@@ -16,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-
 import backEnd.Turtle;
 import controller.Workspace;
 
@@ -76,6 +74,18 @@ public class Canvas extends JPanel {
     public void updateTurtle (Turtle changedTurtle) {
         myTurtleView.addToQueue(new Turtle(changedTurtle));
     }
+    
+    /**
+     * Writes text into the history panel
+     * 
+     * @param text - string to be printed
+     */
+    public void writeHistory (String text) {
+        String[] commandLines = text.split(NEW_LINE);
+        for(String command : commandLines) {
+                myHistoryView.append(BEGIN_LINE + command + NEW_LINE);
+        }
+    }
 
     private Component makeTurtleView () {
         myTurtleView = new TurtleView();
@@ -96,7 +106,7 @@ public class Canvas extends JPanel {
         return new JScrollPane(myHistoryView);
     }
 
-    //convenience Button
+    // convenience Button
     private JButton makeClearButton () {
         JButton result = new JButton(CLEAR_NAME);
         result.addActionListener(new ActionListener() {
@@ -117,24 +127,17 @@ public class Canvas extends JPanel {
         input.put(enter, TEXT_SUBMIT);
         ActionMap actions = myCommandPrompt.getActionMap();
         actions.put(TEXT_SUBMIT, new AbstractAction() {
-            public void actionPerformed(ActionEvent e) {
-            	submitInput();
+            public void actionPerformed (ActionEvent e) {
+                submitInput();
             }
         });
         return new JScrollPane(myCommandPrompt);
     }
-    
-    private void submitInput() {
-    	myController.sendInput(myCommandPrompt.getText());
-    	writeHistory(myCommandPrompt.getText());
-        myCommandPrompt.setText("");
-    }
 
-    public void writeHistory (String text) {
-        String[] commandLines = text.split(NEW_LINE);
-        for(String command : commandLines) {
-        	myHistoryView.append(BEGIN_LINE + command + NEW_LINE);
-        }
+    private void submitInput () {
+        myController.sendInput(myCommandPrompt.getText());
+        writeHistory(myCommandPrompt.getText());
+        myCommandPrompt.setText("");
     }
 
 }
