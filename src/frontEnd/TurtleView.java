@@ -66,7 +66,7 @@ public class TurtleView extends JComponent {
      * when area of screen covered by this container needs to be
      * displayed (i.e., creation, uncovering, change in status)
      * 
-     * @param pen used to paint shape on the screen
+     * @param pen - used to paint shape on the screen
      */
     @Override
     public void paintComponent (Graphics pen) {
@@ -75,24 +75,30 @@ public class TurtleView extends JComponent {
         drawTurtle(pen);
     }
 
+    /**
+     * Adds a Turtle object to the queue to be updated from later.
+     * 
+     * @param changedTurtle - Turtle object containing changes in instance variables
+     */
     public void addToQueue (Turtle changedTurtle) {
         myChangesQueue.add(changedTurtle);
-        System.out.println(myChangesQueue.size());
     }
 
+    
+    /**
+     * Updates turtle based on next turtle in the queue. Called by the timer.
+     */
     public void checkQueue () {
         if (!myChangesQueue.isEmpty()) {
             updateTurtle(myChangesQueue.remove(0));
-            System.out.println(myChangesQueue.size());
         }
     }
 
     /**
-     * Updates the Turtle parameters based on the new information. Calls repaint().
+     * Updates the Turtle parameters based on the new Turtle information. Calls repaint().
      * 
-     * @param changedTurtle: Turtle information passed to view.
+     * @param changedTurtle - contains changes in instance variables
      */
-
     public void updateTurtle (Turtle changedTurtle) {
         myTurtleNextLocation = changedTurtle.getLocation();
         myTurtleHeading = changedTurtle.getHeading();
@@ -101,6 +107,10 @@ public class TurtleView extends JComponent {
         repaint();
     }
 
+    
+    /**
+     * Clears the trails from the List so that they are no longer painted.
+     */
     public void clearTrails () {
         myTrailPoints = new ArrayList<Location>();
         repaint();
@@ -146,15 +156,15 @@ public class TurtleView extends JComponent {
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
                                            leftPoint.getY() + leftToRight.getYChange());
         // option 1: black triangle:
-        // vertex = translateCoordinates(vertex);
-        // leftPoint = translateCoordinates(leftPoint);
-        // rightPoint = translateCoordinates(rightPoint);
-        // pen.fillPolygon(new int[]{(int) vertex.x,(int) leftPoint.x,(int) rightPoint.x},
-        // new int[]{(int) vertex.y,(int) leftPoint.y,(int) rightPoint.y}, 3);
+//        vertex = translateCoordinates(vertex);
+//        leftPoint = translateCoordinates(leftPoint);
+//        rightPoint = translateCoordinates(rightPoint);
+//        pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
+//                        new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
         // option 2: white triangle: shows dot for pen down
-        drawLine(pen, vertex, leftPoint);
-        drawLine(pen, leftPoint, rightPoint);
-        drawLine(pen, rightPoint, vertex);
+         drawLine(pen, vertex, leftPoint);
+         drawLine(pen, leftPoint, rightPoint);
+         drawLine(pen, rightPoint, vertex);
     }
 
     private Location translateCoordinates (Location point) {

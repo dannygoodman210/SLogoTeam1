@@ -15,6 +15,14 @@ import backEnd.Turtle;
 import controller.Workspace;
 
 
+/**
+ * Canvas Class extends JPanel. Contains three areas: CommandPrompt Panel, Command History TextArea,
+ * and TurtleView Component. CommandPrompt Panel contains command TextArea and "Enter" Button.
+ * 
+ * 
+ * @author Danny Goodman, David Le
+ * 
+ */
 public class Canvas extends JPanel {
 
     // default serialization ID
@@ -30,6 +38,12 @@ public class Canvas extends JPanel {
     private JTextArea myCommandPrompt;
     private JTextArea myHistoryView;
 
+    /**
+     * Canvas object created in Main class. Takes in size of JPanel.
+     * Initializes JComponents. Instantiates Workspace.
+     * 
+     * @param size
+     */
     public Canvas (Dimension size) {
         // set size (a bit of a pain)
         setPreferredSize(size);
@@ -37,22 +51,20 @@ public class Canvas extends JPanel {
         // prepare to receive input
         setFocusable(true);
         requestFocus();
-        setInputListeners();
         add(makeTurtleView(), BorderLayout.CENTER);
-        myController = new Workspace(this);
         add(makeHistoryPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
+        myController = new Workspace(this);
         // size and display the GUI
         setVisible(true);
     }
 
-    private void setInputListeners () {
-        // TODO Auto-generated method stub
-
-    }
-
+    /**
+     * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
+     * 
+     * @param changedTurtle
+     */
     public void updateTurtle (Turtle changedTurtle) {
-        System.out.println("Turtle Changed!");
         myTurtleView.addToQueue(new Turtle(changedTurtle));
     }
 
@@ -88,7 +100,8 @@ public class Canvas extends JPanel {
         });
         return result;
     }
-    
+
+    // Convenience Button
     private JButton makeClearButton () {
         JButton result = new JButton(CLEAR_NAME);
         result.addActionListener(new ActionListener() {
