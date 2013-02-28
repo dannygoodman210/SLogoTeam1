@@ -25,14 +25,13 @@ public class Canvas extends JPanel {
 
     // default serialization ID
     private static final long serialVersionUID = 1L;
-    private static final String BUTTON_NAME = "Enter";
     private static final String BEGIN_LINE = "> ";
     private static final String NEW_LINE = "\n";
     private static final String TEXT_SUBMIT = "text-submit";
     private static final String INSERT_BREAK = "insert-break";
     private static final int COMMAND_HEIGHT = 4;
-    private static final int COMMAND_WIDTH = 60;
-    private static final int HISTORY_HEIGHT = 30;
+    private static final int COMMAND_WIDTH = 65;
+    private static final int HISTORY_HEIGHT = 31;
     private static final int HISTORY_WIDTH = 20;
     private static final String CLEAR_NAME = "Clear";
     private Workspace myController;
@@ -75,7 +74,6 @@ public class Canvas extends JPanel {
         // create with size in rows and columns
         JPanel result = new JPanel();
         result.add(makeCommandPrompt());
-        result.add(makePassStringButton());
         result.add(makeClearButton());
 
         return result;
@@ -84,17 +82,6 @@ public class Canvas extends JPanel {
     private Component makeHistoryPanel () {
         myHistoryView = new JTextArea(HISTORY_HEIGHT, HISTORY_WIDTH);
         return new JScrollPane(myHistoryView);
-    }
-
-    private JButton makePassStringButton () {
-        JButton result = new JButton(BUTTON_NAME);
-        result.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                submitInput();
-            }
-        });
-        return result;
     }
     
     private JButton makeClearButton () {

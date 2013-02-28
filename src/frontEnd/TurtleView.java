@@ -25,8 +25,8 @@ public class TurtleView extends JComponent {
     private static final int DEFAULT_HEADING = 90;
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final long serialVersionUID = 1L;
-    private static final int VIEW_HEIGHT = 488;
-    private static final int VIEW_WIDTH = 600;
+    private static final int VIEW_HEIGHT = 495;
+    private static final int VIEW_WIDTH = 620;
     public static final double TURTLE_HEIGHT = 30;
     private static final double TURTLE_ANGLE_1 = 40;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
