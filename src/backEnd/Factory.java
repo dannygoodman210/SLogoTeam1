@@ -7,6 +7,11 @@ import functions.Forward;
 import functions.Function;
 import functions.Left;
 import functions.Back;
+import functions.Minus;
+import functions.Product;
+import functions.Quotient;
+import functions.RandomNumber;
+import functions.Remainder;
 import functions.Sum;
 
 
@@ -35,8 +40,22 @@ public class Factory {
         map.put("SUM", sum);
         map.put("+", sum);
         Function diff = new Difference();
-        map.put("DIFFERENCE", diff);
+        map.put("difference", diff);
         map.put("-", diff);
+        Function prod = new Product();
+        map.put("product", prod);
+        map.put("*", prod);
+        Function quot = new Quotient();
+        map.put("quotient", quot);
+        map.put("/", quot);
+        Function remain = new Remainder();
+        map.put("remainder", remain);
+        map.put("%", remain);
+        Function minus = new Minus();
+        map.put("minus", minus);
+        map.put("~", minus);
+        Function max = new RandomNumber();
+        map.put("max", max);
         return map;
     }
 }
