@@ -45,18 +45,37 @@ public class BlockFunction extends Function {
 	 * and the second is the location (index) of ']'. 
 	 */
 	public int[] getBlockLocation(String[] args){
-		int bracket1 = 0;
-		int bracket2 = 0;
-		//the loop goes backwards because you want the first block (in the case when there are multiple)
-		for(int i = args.length-1; i >= 0 ; i--){
-			if(args[i].equals("[")){
-				bracket1 = i;
+		int bracket1Index = 0;
+		int bracket2Index = 0;
+		
+		int bracket1Count = 0;
+		int bracket2Count = 0;
+		
+		boolean bracket1Found = false;
+		
+		for(int i = 0 ; i < args.length ; i++) {
+			
+			if(bracket1Found && args[i].equals("[")){
+				bracket1Count++;
 			}
+			if((!bracket1Found) && args[i].equals("[")){
+				bracket1Index = i;
+				bracket1Found = true;
+				bracket1Count = 1;
+			}
+
 			if(args[i].equals("]")){
-				bracket2 = i;
-			}	
+				
+				bracket2Count++;	
+			}
+
+			if(bracket1Found && (bracket2Count == bracket1Count)){
+				bracket2Index = i;
+				break;
+			}
+			
 		}
-		return new int[] {bracket1, bracket2};
+		return new int[] {bracket1Index, bracket2Index};
 	}
 	
 	
