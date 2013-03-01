@@ -30,7 +30,7 @@ public class BlockFunction extends Function {
     		int restLength = args.length - blockLocs[1] - 1;
     		String[] restArgs = new String[restLength];
     		for(int i = 0; i < restLength ; i++){
-    			restArgs[i] = args[i+blockLocs[i]+1];
+    			restArgs[i] = args[i+blockLocs[1]+1];
     		}
     		return restArgs;
     	}
