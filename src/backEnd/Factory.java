@@ -2,11 +2,12 @@ package backEnd;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import functions.Difference;
 import functions.Forward;
 import functions.Function;
 import functions.Left;
-import functions.Repeat;
+import functions.Back;
+import functions.Sum;
 
 
 public class Factory {
@@ -23,14 +24,19 @@ public class Factory {
         
         Function forward = new Forward(turtle);
         map.put("forward", forward);
-
-        
-        Function repeat = new Repeat(model);
-        map.put("repeat", repeat);
-        
+        map.put("fd", forward);
         Function left = new Left(turtle);
         map.put("left", left);
-
+        map.put("lt", left);
+        Function back = new Back(turtle);
+        map.put("back", back);
+        map.put("bk", back);
+        Function sum = new Sum();
+        map.put("SUM", sum);
+        map.put("+", sum);
+        Function diff = new Difference();
+        map.put("DIFFERENCE", diff);
+        map.put("-", diff);
         return map;
     }
 }

@@ -4,7 +4,7 @@ import backEnd.Turtle;
 
 
 public class Left extends TurtleFunction {
-
+    
     public Left (Turtle turtle) {
         super(turtle);
     }
