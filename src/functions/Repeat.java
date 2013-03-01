@@ -11,9 +11,13 @@ public class Repeat extends BlockFunction{
     
     @Override
     public void execute(String[] input) {
-    	String[] body = new String[input.length -2];
-    	for(int i = 2 ; i < input.length ; i++){
-    		body[i-2] = input[i];
+    	
+    	int[] blockLocs = getBlockLocation(input);
+    	int blockLength = blockLocs[1] - blockLocs[0] - 1;
+    	String[] body = new String[blockLength];
+    	
+    	for(int i = 0 ; i < body.length ; i++){
+    		body[i] = input[i+3];
     	}	
     	getModel().processString(body);
     }
