@@ -11,8 +11,8 @@ public class Left extends TurtleFunction {
 
     @Override
     public void execute (String[] args) {
-        int myAngle = Integer.parseInt(args[1]);
-        getTurtle().rotate(myAngle);
+        int angle = Integer.parseInt(args[1]);
+        getTurtle().rotate(angle);
     }
 
 }
