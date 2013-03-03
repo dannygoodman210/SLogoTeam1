@@ -17,6 +17,7 @@ import functions.Remainder;
 import functions.Repeat;
 import functions.Right;
 import functions.SetHeading;
+import functions.SetXY;
 import functions.Sum;
 import functions.Towards;
 
@@ -59,6 +60,8 @@ public class Factory {
         Function penup = new PenUp(turtle);
         map.put("penup", penup);
         map.put("pu", penup);
+        Function setxy = new SetXY(turtle);
+        map.put("setxy", setxy);
         
         Function sum = new Sum();
         map.put("SUM", sum);
