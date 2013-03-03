@@ -4,10 +4,11 @@ import backEnd.Model;
 
 public class BlockFunction extends Function {
 	
-	
+	private static final int CUT = 2;
 	private Model myModel;
 	
 	public BlockFunction(Model model){
+		super(CUT);
 		myModel = model;
 	}
 	

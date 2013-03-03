@@ -12,6 +12,8 @@ import functions.Product;
 import functions.Quotient;
 import functions.RandomNumber;
 import functions.Remainder;
+import functions.Repeat;
+import functions.Right;
 import functions.Sum;
 
 
@@ -27,12 +29,18 @@ public class Factory {
     public Map<String, Function> make (Turtle turtle, Model model) {
         Map<String, Function> map = new HashMap<String, Function>();
         
+        Function repeat = new Repeat(model);
+        map.put("repeat", repeat);
+        
         Function forward = new Forward(turtle);
         map.put("forward", forward);
         map.put("fd", forward);
         Function left = new Left(turtle);
         map.put("left", left);
         map.put("lt", left);
+        Function right = new Right(turtle);
+        map.put("right", right);
+        map.put("rt", right);
         Function back = new Back(turtle);
         map.put("back", back);
         map.put("bk", back);
