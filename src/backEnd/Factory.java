@@ -8,6 +8,8 @@ import functions.Function;
 import functions.Left;
 import functions.Back;
 import functions.Minus;
+import functions.PenDown;
+import functions.PenUp;
 import functions.Product;
 import functions.Quotient;
 import functions.RandomNumber;
@@ -51,6 +53,13 @@ public class Factory {
         Function setheading = new SetHeading(turtle);
         map.put("setheading", setheading);
         map.put("seth", setheading);
+        Function pendown = new PenDown(turtle);
+        map.put("pendown", pendown);
+        map.put("pd", pendown);
+        Function penup = new PenUp(turtle);
+        map.put("penup", penup);
+        map.put("pu", penup);
+        
         Function sum = new Sum();
         map.put("SUM", sum);
         map.put("+", sum);
