@@ -35,7 +35,7 @@ public class Turtle extends Observable {
         addObserver(myObserver);
         setLocation(INITIAL_LOCATION);
         setHeading(NORTH_DIRECTION);
-        setPenDown(false);
+        setPenDown(true);
         setVisible(true);
     }
 
