@@ -9,8 +9,9 @@ public class Minus extends MathFunction {
     }
     
     @Override
-    public void execute (String[] input) {
+    public String execute (String[] input) {
         double value = -Double.parseDouble(input[1]);
+        return value + "";
     }
 
 }

@@ -35,25 +35,24 @@ public class TurtleView extends JComponent {
     private double myTurtleHeading;
     private boolean myTurtlePenDown;
     private boolean myTurtleVisible;
-    private TurtleDrawer myTurtleDrawer;
     private List<Turtle> myChangesQueue;
     private Timer myTimer;
+    private TurtleDrawer myTurtleDrawer;
 
     /**
-     * TurtleView Constructor. Sets size. Initializes turtle parameters. Creates a Timer to paint
-     * the turtle at each timer event.
+     * TurtleView Constructor. Sets size. Initializes turtle parameters.
      */
     public TurtleView () {
         setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
         setFocusable(true);
         requestFocus();
-        resetTurtle();
         myTurtleDrawer = new DefaultTurtleDrawer(this);
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 checkQueue();
             }
         });
+        resetTurtleView();
         myTimer.start();
     }
 
@@ -123,18 +122,19 @@ public class TurtleView extends JComponent {
         myTurtleLocation = new Location(myTurtleNextLocation);
     }
 
-    private void resetTurtle () {
+    private void resetTurtleView () {
         myTurtleLocation = DEFAULT_LOCATION;
         myTurtleNextLocation = DEFAULT_LOCATION;
         myTurtleHeading = DEFAULT_HEADING;
         myTurtlePenDown = true;
         myTurtleVisible = true;
+        clearTrails();
         myChangesQueue = new ArrayList<Turtle>();
     }
 
-    public Location translateCoordinates(Location point){
-            double centerX = getBounds().getWidth() / 2;
-            double centerY = getBounds().getHeight() / 2;
-            return new Location(centerX + point.getX(), centerY - point.getY());
+    public Location translateCoordinates (Location point) {
+        double centerX = getBounds().getWidth() / 2;
+        double centerY = getBounds().getHeight() / 2;
+        return new Location(centerX + point.getX(), centerY - point.getY());
     }
 }

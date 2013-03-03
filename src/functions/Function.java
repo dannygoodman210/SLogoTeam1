@@ -13,7 +13,7 @@ public abstract class Function {
         cutNumber = cut;
     }
     
-    public abstract void execute (String[] input);
+    public abstract String execute (String[] input);
     
     public String[] getOutput (String[] args) {
         String[] output = new String[args.length - cutNumber];

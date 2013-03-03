@@ -17,11 +17,6 @@ public abstract class BlockFunction extends Function {
 		return myModel;
 	}
 	
-	@Override
-	public void execute(String[] input) {
-		
-	}
-
 
 	@Override
     public String[] getOutput(String[] args){

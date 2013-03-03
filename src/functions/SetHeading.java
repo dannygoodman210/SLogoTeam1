@@ -9,10 +9,10 @@ public class SetHeading extends TurtleFunction {
 	}
 	
 	@Override
-	public void execute(String[] input) {
+	public String execute(String[] input) {
 		int angle = Integer.parseInt(input[1]);
 		getTurtle().setHeading(angle);
-
+		return angle + "";
 	}
 
 }

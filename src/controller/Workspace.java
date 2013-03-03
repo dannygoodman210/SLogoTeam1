@@ -10,7 +10,7 @@ import java.util.Observer;
  * Workspace object serves as the controller between the model and the view.
  * Implements Observer interface. Observes Turtle object.
  * 
- * @author Danny Goodman, Francesco Agosti, Challen Herzberg-Brovold
+ * @author Danny Goodman, Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
  *
  */
 public class Workspace implements Observer {

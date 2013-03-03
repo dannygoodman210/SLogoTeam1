@@ -11,8 +11,9 @@ public class PenDown extends TurtleFunction {
 	}
 	
 	@Override
-	public void execute(String[] input) {
+	public String execute(String[] input) {
 		getTurtle().setPenDown(true);
+		return "1";
 
 	}
 

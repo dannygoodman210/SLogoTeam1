@@ -3,10 +3,10 @@ package functions;
 public class Remainder extends MathFunction {
 
     @Override
-    public void execute (String[] input) {
+    public String execute (String[] input) {
         double[] values = getValues(input);
-        double remainder = values[0]%values[1];
-
+        double result = values[0]%values[1];
+        return result + "";
     }
 
 }

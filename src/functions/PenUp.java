@@ -11,9 +11,9 @@ public class PenUp extends TurtleFunction{
 	}
 	
 	@Override
-	public void execute(String[] input) {
+	public String execute(String[] input) {
 		getTurtle().setPenDown(false);
-
+		return "0";
 	}
 
 

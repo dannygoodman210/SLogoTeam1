@@ -31,6 +31,8 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add our user interface components
         frame.getContentPane().add(display, BorderLayout.CENTER);
+        // make menu bar
+        frame.setJMenuBar(display.makeMenus());
         // display them
         frame.pack();
         frame.setVisible(true);

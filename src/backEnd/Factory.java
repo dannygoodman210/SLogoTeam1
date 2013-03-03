@@ -2,12 +2,24 @@ package backEnd;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import functions.AndOperation;
+
 import functions.Difference;
+import functions.Equal;
 import functions.Forward;
 import functions.Function;
+import functions.Greater;
+import functions.Heading;
+import functions.IsPenDown;
+import functions.IsVisible;
 import functions.Left;
 import functions.Back;
+import functions.Less;
 import functions.Minus;
+import functions.NotEqual;
+import functions.NotOperation;
+import functions.OrOperation;
 import functions.PenDown;
 import functions.PenUp;
 import functions.Product;
@@ -20,6 +32,8 @@ import functions.SetHeading;
 import functions.SetXY;
 import functions.Sum;
 import functions.Towards;
+import functions.Xcor;
+import functions.Ycor;
 
 
 public class Factory {
@@ -83,6 +97,35 @@ public class Factory {
         map.put("~", minus);
         Function max = new RandomNumber();
         map.put("max", max);
+        
+        
+        Function less = new Less();
+        map.put("less", less);
+        Function greater = new Greater();
+        map.put("greater", greater);
+        Function equal = new Equal();
+        map.put("equal", equal);
+        Function notEqual = new NotEqual();
+        map.put("notequal", notEqual);
+        
+        Function andOperation = new AndOperation(model);
+        map.put("and", andOperation);
+        Function orOperation = new OrOperation(model);
+        map.put("or", orOperation);
+        Function notOperation = new NotOperation(model);
+        map.put("not", notOperation);
+        
+        Function xcor = new Xcor(turtle);
+        map.put("xcor", xcor);
+        Function ycor = new Ycor(turtle);
+        map.put("ycor", ycor);
+        Function heading = new Heading(turtle);
+        map.put("heading", heading);
+        Function ispendown = new IsPenDown(turtle);
+        map.put("pendown?", ispendown);
+        Function isvisible = new IsVisible(turtle);
+        map.put("showing?", isvisible);
+        
         return map;
     }
 }
