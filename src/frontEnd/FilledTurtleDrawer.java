@@ -1,25 +1,20 @@
 package frontEnd;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 import util.Location;
 import util.Vector;
 
 
-public class DefaultTurtleDrawer extends TurtleDrawer {
-
+public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
+    
     private static final int TURTLE_HEIGHT = 30;
     private static final double TURTLE_ANGLE_1 = 40;
     private static final double TRIANGLE_DEGREES = 180;
     private static final double RIGHT_ANGLE = 90;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
-    protected List<Location> myTrailPoints;
 
-    public DefaultTurtleDrawer (TurtleView view) {
-        myTrailPoints = new ArrayList<Location>();
-        setView(view);
+    public FilledTurtleDrawer (TurtleDrawer referenceDrawer) {
+        super(referenceDrawer);
     }
 
     @Override
@@ -36,35 +31,12 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
                                           vertex.getY() + headToLeft.getYChange());
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
                                            leftPoint.getY() + leftToRight.getYChange());
-        drawLine(pen, vertex, leftPoint);
-        drawLine(pen, leftPoint, rightPoint);
-        drawLine(pen, rightPoint, vertex);
-    }
+        vertex = getView().translateCoordinates(vertex);
+        leftPoint = getView().translateCoordinates(leftPoint);
+        rightPoint = getView().translateCoordinates(rightPoint);
+        pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
+        new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
 
-    @Override
-    public void addTrail (Location start, Location finish) {
-        myTrailPoints.add(new Location(start));
-        myTrailPoints.add(new Location(finish));
-    }
-
-    @Override
-    public void clearTrail () {
-        myTrailPoints = new ArrayList<Location>();
-    }
-
-    @Override
-    public void drawTrail (Graphics pen) {
-        pen.setColor(Color.BLACK);
-        for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
-            drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
-        }
-    }
-
-    protected void drawLine (Graphics pen, Location start, Location finish) {
-        start = getView().translateCoordinates(start);
-        finish = getView().translateCoordinates(finish);
-        pen.drawLine((int) start.getX(), (int) start.getY(),
-                     (int) finish.getX(), (int) finish.getY());
     }
 
 }

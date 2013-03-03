@@ -117,10 +117,10 @@ public class TurtleView extends JComponent {
             myTurtleDrawer.addTrail(myTurtleLocation, myTurtleNextLocation);
         }
         myTurtleDrawer.drawTrail(pen);
-        myTurtleLocation = new Location(myTurtleNextLocation);
         if (myTurtleVisible) {
             myTurtleDrawer.drawBody(pen, myTurtleLocation, myTurtleNextLocation, myTurtleHeading);
         }
+        myTurtleLocation = new Location(myTurtleNextLocation);
     }
 
     private void resetTurtle () {
@@ -129,8 +129,12 @@ public class TurtleView extends JComponent {
         myTurtleHeading = DEFAULT_HEADING;
         myTurtlePenDown = true;
         myTurtleVisible = true;
-        new ArrayList<Location>();
         myChangesQueue = new ArrayList<Turtle>();
     }
 
+    public Location translateCoordinates(Location point){
+            double centerX = getBounds().getWidth() / 2;
+            double centerY = getBounds().getHeight() / 2;
+            return new Location(centerX + point.getX(), centerY - point.getY());
+    }
 }

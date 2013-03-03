@@ -4,13 +4,23 @@ import java.awt.Graphics;
 import util.Location;
 
 
-public interface TurtleDrawer {
+public abstract class TurtleDrawer {
+    
+    private TurtleView myView;
 
-    public void drawBody (Graphics pen, Location start, Location finish, double heading);
+    public abstract void drawBody (Graphics pen, Location start, Location finish, double heading);
 
-    public void addTrail (Location start, Location finish);
+    public abstract void addTrail (Location start, Location finish);
 
-    public void clearTrail ();
+    public abstract void clearTrail ();
 
-    public void drawTrail (Graphics pen);
+    public abstract void drawTrail (Graphics pen);
+
+    protected TurtleView getView (){
+        return myView;
+    }
+    
+    protected void setView(TurtleView view){
+        myView = view;
+    }
 }

@@ -71,7 +71,6 @@ public class Canvas extends JPanel {
      * @param changedTurtle
      */
     public void updateTurtle (Turtle changedTurtle) {
-        myTurtleView.updateTurtle(changedTurtle);
         myTurtleView.addToQueue(new Turtle(changedTurtle));
     }
 
