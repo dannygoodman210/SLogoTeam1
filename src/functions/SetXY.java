@@ -11,11 +11,11 @@ public class SetXY extends TurtleFunction {
 	}
 	
 	@Override
-	public void execute(String[] input) {
+	public String execute(String[] input) {
 		int x = Integer.parseInt(input[1]);
 		int y = Integer.parseInt(input[2]);
 		getTurtle().setLocation(x, y);
-
+		return "";
 	}
 
 }

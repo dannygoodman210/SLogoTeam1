@@ -10,9 +10,10 @@ public class Right extends TurtleFunction {
 	}
 	
 	@Override
-	public void execute(String[] args) {
+	public String execute(String[] args) {
 		int angle = Integer.parseInt(args[1]);
 		getTurtle().rotate(-angle);
+		return angle + "";
 	}
 
 }

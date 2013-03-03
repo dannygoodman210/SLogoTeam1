@@ -4,10 +4,18 @@ import controller.Workspace;
 import functions.Function;
 
 public class Model {
+	
+/**
+ * Model object takes the user input and runs the associated command/function.
+ * 
+ * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
+ */
 
     private Workspace myController;
     private Turtle myTurtle;
     private Interpreter myInterpreter;
+    
+    
     
     public Model (Workspace controller) {
         myController = controller;
@@ -38,13 +46,17 @@ public class Model {
      * @return output that should be printed in the GUI
      * 
      */
-    public void processString(String[] input) {
+    public String processString(String[] input) {
     	String[] toExecute = input;
+    	String output= "";
     	while(toExecute.length !=0){
     		Function function = myInterpreter.processString(toExecute);
-    		
-        	function.execute(toExecute);
+        	String s = function.execute(toExecute);
+        	output += (s + " ");
         	toExecute = function.getOutput(toExecute);
     	}
+    	System.out.println(output);
+    	return output;
+    	
     }
 }

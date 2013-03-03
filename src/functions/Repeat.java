@@ -10,7 +10,7 @@ public class Repeat extends BlockFunction{
     }
     
     @Override
-    public void execute(String[] input) {
+    public String execute(String[] input) {
     	int[] blockLocs = getBlockLocation(input);
     	int blockLength = blockLocs[1] - blockLocs[0] - 1;
     	String[] body = new String[blockLength];
@@ -18,7 +18,8 @@ public class Repeat extends BlockFunction{
     	for(int i = 0 ; i < body.length ; i++){
     		body[i] = input[i+3];
     	}	
-    	getModel().processString(body);
+    	String result = getModel().processString(body);
+    	return result;
     }
     
     

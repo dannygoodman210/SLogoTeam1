@@ -7,9 +7,10 @@ public class Back extends TurtleFunction {
         super(turtle);
     }
     @Override
-    public void execute(String[] input) {
+    public String execute(String[] input) {
     	int distance = Integer.parseInt(input[1]);
         getTurtle().move(-distance);
+        return "";
     }
     
 
