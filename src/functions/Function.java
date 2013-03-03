@@ -2,7 +2,12 @@ package functions;
 
 public abstract class Function {
     
+	private static final int DEFAULTCUT = 2;
     private int cutNumber;
+    
+    public Function(){
+    	this(DEFAULTCUT);
+    }
     
     public Function (int cut) {
         cutNumber = cut;

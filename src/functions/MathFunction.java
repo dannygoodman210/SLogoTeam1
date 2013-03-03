@@ -5,7 +5,7 @@ public abstract class MathFunction extends Function {
    private static final int CUT = 3;
     
     public MathFunction () {
-        super(CUT);
+        this(CUT);
     }
     
     public MathFunction (int cut) {
