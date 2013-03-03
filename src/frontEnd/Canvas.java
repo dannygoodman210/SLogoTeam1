@@ -20,7 +20,7 @@ import controller.Workspace;
 
 /**
  * Canvas Class extends JPanel. Contains three areas: CommandPrompt Panel, Command History TextArea,
- * and TurtleView Component. CommandPrompt Panel contains command TextArea and "Enter" Button.
+ * and TurtleView Component. CommandPrompt Panel contains command TextArea.
  * 
  * 
  * @author Danny Goodman, David Le
@@ -74,7 +74,7 @@ public class Canvas extends JPanel {
         myTurtleView.updateTurtle(changedTurtle);
         myTurtleView.addToQueue(new Turtle(changedTurtle));
     }
-    
+
     /**
      * Writes text into the history panel
      * 
@@ -82,8 +82,8 @@ public class Canvas extends JPanel {
      */
     public void writeHistory (String text) {
         String[] commandLines = text.split(NEW_LINE);
-        for(String command : commandLines) {
-                myHistoryView.append(BEGIN_LINE + command + NEW_LINE);
+        for (String command : commandLines) {
+            myHistoryView.append(BEGIN_LINE + command + NEW_LINE);
         }
     }
 
@@ -113,6 +113,7 @@ public class Canvas extends JPanel {
             @Override
             public void actionPerformed (ActionEvent e) {
                 myTurtleView.clearTrails();
+                myHistoryView.setText("");
             }
         });
         return result;
@@ -127,6 +128,8 @@ public class Canvas extends JPanel {
         input.put(enter, TEXT_SUBMIT);
         ActionMap actions = myCommandPrompt.getActionMap();
         actions.put(TEXT_SUBMIT, new AbstractAction() {
+            private static final long serialVersionUID = 1L;
+
             public void actionPerformed (ActionEvent e) {
                 submitInput();
             }

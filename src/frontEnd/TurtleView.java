@@ -84,7 +84,6 @@ public class TurtleView extends JComponent {
         myChangesQueue.add(changedTurtle);
     }
 
-    
     /**
      * Updates turtle based on next turtle in the queue. Called by the timer.
      */
@@ -107,7 +106,6 @@ public class TurtleView extends JComponent {
         repaint();
     }
 
-    
     /**
      * Clears the trails from the List so that they are no longer painted.
      */
@@ -118,8 +116,10 @@ public class TurtleView extends JComponent {
 
     private void drawTurtle (Graphics pen) {
         if (myTurtlePenDown) {
-            drawTrail(pen);
+            myTrailPoints.add(new Location(myTurtleLocation));
+            myTrailPoints.add(new Location(myTurtleNextLocation));
         }
+        drawTrail(pen);
         myTurtleLocation = new Location(myTurtleNextLocation);
         if (myTurtleVisible) {
             drawTriangle(pen);
@@ -128,8 +128,6 @@ public class TurtleView extends JComponent {
 
     private void drawTrail (Graphics pen) {
         pen.setColor(Color.BLACK);
-        myTrailPoints.add(new Location(myTurtleLocation));
-        myTrailPoints.add(new Location(myTurtleNextLocation));
         for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
             drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
         }
@@ -156,15 +154,15 @@ public class TurtleView extends JComponent {
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
                                            leftPoint.getY() + leftToRight.getYChange());
         // option 1: black triangle:
-//        vertex = translateCoordinates(vertex);
-//        leftPoint = translateCoordinates(leftPoint);
-//        rightPoint = translateCoordinates(rightPoint);
-//        pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
-//                        new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
+        // vertex = translateCoordinates(vertex);
+        // leftPoint = translateCoordinates(leftPoint);
+        // rightPoint = translateCoordinates(rightPoint);
+        // pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
+        // new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
         // option 2: white triangle: shows dot for pen down
-         drawLine(pen, vertex, leftPoint);
-         drawLine(pen, leftPoint, rightPoint);
-         drawLine(pen, rightPoint, vertex);
+        drawLine(pen, vertex, leftPoint);
+        drawLine(pen, leftPoint, rightPoint);
+        drawLine(pen, rightPoint, vertex);
     }
 
     private Location translateCoordinates (Location point) {
