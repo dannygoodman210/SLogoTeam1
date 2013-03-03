@@ -14,7 +14,9 @@ import functions.RandomNumber;
 import functions.Remainder;
 import functions.Repeat;
 import functions.Right;
+import functions.SetHeading;
 import functions.Sum;
+import functions.Towards;
 
 
 public class Factory {
@@ -44,6 +46,11 @@ public class Factory {
         Function back = new Back(turtle);
         map.put("back", back);
         map.put("bk", back);
+        Function towards = new Towards(turtle);
+        map.put("towards", towards);
+        Function setheading = new SetHeading(turtle);
+        map.put("setheading", setheading);
+        map.put("seth", setheading);
         Function sum = new Sum();
         map.put("SUM", sum);
         map.put("+", sum);
