@@ -42,6 +42,7 @@ public class Model {
     	String[] toExecute = input;
     	while(toExecute.length !=0){
     		Function function = myInterpreter.processString(toExecute);
+    		
         	function.execute(toExecute);
         	toExecute = function.getOutput(toExecute);
     	}
