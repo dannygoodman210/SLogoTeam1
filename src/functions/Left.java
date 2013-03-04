@@ -23,17 +23,22 @@ public class Left extends TurtleFunction {
         if (!myModel.getMap().containsKey(args[1])){
             return Double.parseDouble(args[1]);
         }
-        else {
-            String[] input = new String[args.length - 1];
-            for (int i = 1; i < args.length; i++) {
-                input[i - 1] = args[i];
-            }
-            return myModel.getMap().get(args[1]).execute(input);
-        }
+        return myModel.getMap().get(args[1]).execute(newArray(args, 1));
     }
     
-    public String[] getOutpu(String[] input) {
-        return new String[0];
+    @Override
+    public String[] getOutput(String[] input) {
+        if(!myModel.getMap().containsKey(input[1])) {
+            return newArray(input, 2);
+        }
+        return myModel.getMap().get(input[1]).getOutput(newArray(input, 1));
     }
-
+    
+    private String[] newArray (String[] array, int overlap) {
+        String[] output = new String[array.length - overlap];
+        for(int i = overlap; i < array.length; i++) {
+            output[i-overlap] = array[i];
+        }
+        return output;
+    }
 }

@@ -9,10 +9,10 @@ public class Forward extends TurtleFunction{
     }
     
     @Override
-    public String execute (String[] args) {
+    public double execute (String[] args) {
     	int distance = Integer.parseInt(args[1]);
         getTurtle().move(distance);
-        return distance + "";
+        return distance;
     }
 
 }
