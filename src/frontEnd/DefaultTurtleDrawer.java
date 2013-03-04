@@ -23,7 +23,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
+    public Location drawBody (Graphics pen, Location start, Location finish, double heading) {
         Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),
                                        TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
@@ -39,6 +39,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         drawLine(pen, vertex, leftPoint);
         drawLine(pen, leftPoint, rightPoint);
         drawLine(pen, rightPoint, vertex);
+        return finish;
     }
 
     @Override

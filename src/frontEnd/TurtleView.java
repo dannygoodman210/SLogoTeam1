@@ -47,6 +47,7 @@ public class TurtleView extends JComponent {
         setFocusable(true);
         requestFocus();
         myTurtleDrawer = new DefaultTurtleDrawer(this);
+        myTurtleDrawer = new WarpTurtleDrawer(myTurtleDrawer);
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 checkQueue();
@@ -112,14 +113,21 @@ public class TurtleView extends JComponent {
     }
 
     private void drawTurtle (Graphics pen) {
+        pen.setColor(Color.BLACK);
         if (myTurtlePenDown) {
-            myTurtleDrawer.addTrail(myTurtleLocation, myTurtleNextLocation);
+            myTurtleDrawer.addTrail(new Location(myTurtleLocation),
+                                    new Location(myTurtleNextLocation));
         }
         myTurtleDrawer.drawTrail(pen);
         if (myTurtleVisible) {
-            myTurtleDrawer.drawBody(pen, myTurtleLocation, myTurtleNextLocation, myTurtleHeading);
+            pen.setColor(Color.BLACK);
         }
-        myTurtleLocation = new Location(myTurtleNextLocation);
+        else {
+            pen.setColor(Color.WHITE);
+        }
+        myTurtleLocation =
+                myTurtleDrawer.drawBody(pen, new Location(myTurtleLocation),
+                                        new Location(myTurtleNextLocation), myTurtleHeading);
     }
 
     private void resetTurtleView () {

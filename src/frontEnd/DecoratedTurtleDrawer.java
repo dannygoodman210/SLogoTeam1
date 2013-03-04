@@ -13,8 +13,8 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer{
     }
     
     @Override
-    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
-        myReferenceDrawer.drawBody(pen, start, finish, heading);
+    public Location drawBody (Graphics pen, Location start, Location finish, double heading) {
+        return myReferenceDrawer.drawBody(pen, start, finish, heading);
         
     }
 
