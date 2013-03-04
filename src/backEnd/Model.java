@@ -2,6 +2,8 @@ package backEnd;
 
 import controller.Workspace;
 import functions.Function;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Model {
 	
@@ -13,14 +15,14 @@ public class Model {
 
     private Workspace myController;
     private Turtle myTurtle;
-    private Interpreter myInterpreter;
-    
+    private Map<String, Function> myFunctions;
     
     
     public Model (Workspace controller) {
         myController = controller;
+        Factory factory = new Factory();
         myTurtle = new Turtle(myController);
-        myInterpreter = new Interpreter(myTurtle, this);
+        myFunctions = factory.make(myTurtle, this);
     }
     
     /**
@@ -50,7 +52,7 @@ public class Model {
     	String[] toExecute = input;
     	String output= "";
     	while(toExecute.length !=0){
-    		Function function = myInterpreter.processString(toExecute);
+    		Function function = myFunctions.get(toExecute[0]);
         	String s = function.execute(toExecute);
         	output += (s + " ");
         	toExecute = function.getOutput(toExecute);
