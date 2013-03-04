@@ -2,18 +2,18 @@ package functions;
 
 public abstract class Function {
     
-	private static final int DEFAULTCUT = 2;
+    private static final int DEFAULT_CUT = 2;
     private int cutNumber;
     
     public Function(){
-    	this(DEFAULTCUT);
+    	this(DEFAULT_CUT);
     }
     
     public Function (int cut) {
         cutNumber = cut;
     }
     
-    public abstract String execute (String[] input);
+    public abstract double execute (String[] input);
     
     public String[] getOutput (String[] args) {
         String[] output = new String[args.length - cutNumber];
