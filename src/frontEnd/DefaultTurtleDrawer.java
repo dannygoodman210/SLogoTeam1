@@ -7,7 +7,14 @@ import java.util.List;
 import util.Location;
 import util.Vector;
 
-
+/**
+ * Default Implementation of TurtleDrawer. The Simple Branch of the hierarchy (No decorations).
+ * Draws an unfilled triangle for the body, solid lines for the trail, and does not implement
+ * warping functionality.
+ * 
+ * @author Danny Goodman
+ *
+ */
 public class DefaultTurtleDrawer extends TurtleDrawer {
 
     private static final int TURTLE_HEIGHT = 30;
@@ -17,13 +24,18 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
     protected List<Location> myTrailPoints;
 
+    /**
+     * Initialize trailPoints and set the view.
+     * 
+     * @param view - TurtleView
+     */
     public DefaultTurtleDrawer (TurtleView view) {
         myTrailPoints = new ArrayList<Location>();
         setView(view);
     }
 
     @Override
-    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
+    public Location drawBody (Graphics pen, Location start, Location finish, double heading) {
         Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),
                                        TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
@@ -39,6 +51,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         drawLine(pen, vertex, leftPoint);
         drawLine(pen, leftPoint, rightPoint);
         drawLine(pen, rightPoint, vertex);
+        return finish;
     }
 
     @Override
@@ -60,6 +73,18 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         }
     }
 
+    @Override
+    public void reset () {
+        clearTrail();
+    }
+
+    /**
+     * Draws Line from Location start to finish
+     * 
+     * @param pen - Graphics tool
+     * @param start - Begin Location
+     * @param finish - End Location
+     */
     protected void drawLine (Graphics pen, Location start, Location finish) {
         start = getView().translateCoordinates(start);
         finish = getView().translateCoordinates(finish);
