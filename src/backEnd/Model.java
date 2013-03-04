@@ -53,12 +53,16 @@ public class Model {
     	String output= "";
     	while(toExecute.length !=0){
     		Function function = myFunctions.get(toExecute[0]);
-        	String s = function.execute(toExecute);
-        	output += (s + " ");
-        	toExecute = function.getOutput(toExecute);
+        	double value = function.execute(toExecute);
+        	output += (value + " ");
+        	//toExecute = function.getOutput(toExecute);
     	}
     	System.out.println(output);
     	return output;
     	
+    }
+    
+    public Map<String, Function> getMap () {
+        return myFunctions;
     }
 }

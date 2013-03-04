@@ -46,7 +46,7 @@ public class Factory {
      * @return map of makers
      */
     public Map<String, Function> make (Turtle turtle, Model model) {
-        Map<String, Function> map = new HashMap<String, Function>();
+        Map<String, Function> map = new HashMap();
         
         Function repeat = new Repeat(model);
         map.put("repeat", repeat);
@@ -54,7 +54,7 @@ public class Factory {
         Function forward = new Forward(turtle);
         map.put("forward", forward);
         map.put("fd", forward);
-        Function left = new Left(turtle);
+        Function left = new Left(turtle, model);
         map.put("left", left);
         map.put("lt", left);
         Function right = new Right(turtle);
@@ -76,7 +76,6 @@ public class Factory {
         map.put("pu", penup);
         Function setxy = new SetXY(turtle);
         map.put("setxy", setxy);
-        
         Function sum = new Sum();
         map.put("SUM", sum);
         map.put("+", sum);
@@ -97,8 +96,6 @@ public class Factory {
         map.put("~", minus);
         Function max = new RandomNumber();
         map.put("max", max);
-        
-        
         Function less = new Less();
         map.put("less", less);
         Function greater = new Greater();
@@ -107,14 +104,12 @@ public class Factory {
         map.put("equal", equal);
         Function notEqual = new NotEqual();
         map.put("notequal", notEqual);
-        
         Function andOperation = new AndOperation(model);
         map.put("and", andOperation);
         Function orOperation = new OrOperation(model);
         map.put("or", orOperation);
         Function notOperation = new NotOperation(model);
         map.put("not", notOperation);
-        
         Function xcor = new Xcor(turtle);
         map.put("xcor", xcor);
         Function ycor = new Ycor(turtle);
@@ -125,7 +120,6 @@ public class Factory {
         map.put("pendown?", ispendown);
         Function isvisible = new IsVisible(turtle);
         map.put("showing?", isvisible);
-        
         return map;
     }
 }
