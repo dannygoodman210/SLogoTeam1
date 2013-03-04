@@ -55,7 +55,6 @@ public class Model {
         	output += (s + " ");
         	toExecute = function.getOutput(toExecute);
     	}
-    	System.out.println(output);
     	return output;
     	
     }
