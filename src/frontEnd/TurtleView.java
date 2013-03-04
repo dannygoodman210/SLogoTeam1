@@ -112,6 +112,18 @@ public class TurtleView extends JComponent {
         repaint();
     }
 
+    /**
+     * Translates Coordinates from (0,0) centered to (0,0) in the top left corner.
+     * 
+     * @param point - Location to be translated
+     * @return Translated Location
+     */
+    public Location translateCoordinates (Location point) {
+        double centerX = getBounds().getWidth() / 2;
+        double centerY = getBounds().getHeight() / 2;
+        return new Location(centerX + point.getX(), centerY - point.getY());
+    }
+
     private void drawTurtle (Graphics pen) {
         pen.setColor(Color.BLACK);
         if (myTurtlePenDown) {
@@ -138,11 +150,7 @@ public class TurtleView extends JComponent {
         myTurtleVisible = true;
         clearTrails();
         myChangesQueue = new ArrayList<Turtle>();
+        myTurtleDrawer.reset();
     }
 
-    public Location translateCoordinates (Location point) {
-        double centerX = getBounds().getWidth() / 2;
-        double centerY = getBounds().getHeight() / 2;
-        return new Location(centerX + point.getX(), centerY - point.getY());
-    }
 }

@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * Enumerated Class to handle warping about each wall of the rectangular bounds.
+ * 
+ * @author Danny Goodman
+ * 
+ */
 public enum WarpWall {
     NONE(0) {
 
@@ -172,6 +178,37 @@ public enum WarpWall {
         this.value = value;
     }
 
+    /**
+     * Returns the value of the wall. These values are derived from the binary representation of
+     * the wall.
+     * 
+     * @return value - binary representation of wall.
+     */
+    public int getValue () {
+        return value;
+    }
+
+    /**
+     * Handles Calculation of Trail points for a given path from inside the bounds to outside
+     * of the bounds. Each wall has a different implementation.
+     * 
+     * @param inBounds - Location within the bounds.
+     * @param outOfBounds - Location outside of the bounds.
+     * @param bounds - Rectangle representing bounds of the view.
+     * @return List<Location> - list of Locations that make up the trail.
+     */
+    public abstract List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds);
+
+    /**
+     * returns a list of the given Location objects. Cleans up the warp method. This method
+     * signature contains three Location inputs. This signature is called by the side WallWarps:
+     * LEFT, TOP, RIGHT, and BOTTOM.
+     * 
+     * @param intersectPoint - where path first intersects bounds
+     * @param start - point after warp
+     * @param end - end Location
+     * @return ArrayList of Locations
+     */
     protected List<Location> getList (Location intersectPoint, Location start, Location end) {
         List<Location> pointsList = new ArrayList<Location>();
         pointsList.add(intersectPoint);
@@ -180,6 +217,18 @@ public enum WarpWall {
         return pointsList;
     }
 
+    /**
+     * Returns a list of the given Location objects. Cleans up the warp method. This method
+     * signature contains five Location inputs. This signature is called by the corner WallWarps:
+     * TOPLEFT, TOPRIGHT, BOTTOMLEFT, and BOTTOMRIGHT.
+     * 
+     * @param intersect1 - where path first intersects bounds
+     * @param start1 - Location after first warp
+     * @param intersect2 - where path intersects bounds second
+     * @param start2 - Location after second warp
+     * @param end - end Location
+     * @return ArrayList of Locations
+     */
     protected List<Location> getList (Location intersect1, Location start1,
                                       Location intersect2, Location start2, Location end) {
         List<Location> pointsList = new ArrayList<Location>();
@@ -190,11 +239,5 @@ public enum WarpWall {
         pointsList.add(end);
         return pointsList;
     }
-
-    public int getValue () {
-        return value;
-    }
-
-    public abstract List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds);
 
 }

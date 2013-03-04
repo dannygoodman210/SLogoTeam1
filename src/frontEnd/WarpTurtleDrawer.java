@@ -7,7 +7,12 @@ import util.Location;
 import util.Vector;
 import util.WarpWall;
 
-
+/**
+ * Warping subclass of TurtleDrawer decorator.
+ * 
+ * @author Danny Goodman
+ *
+ */
 public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
 
     private int[] myWarpTotals; // [left][bottom][right][top]
@@ -40,6 +45,12 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
             finish = warpPosition(start, finish);
         }
         return super.drawBody(pen, start, finish, heading);
+    }
+    
+    @Override
+    public void reset(){
+        resetWarps();
+        super.reset();
     }
 
     private boolean isOutsideBounds (Location point) {

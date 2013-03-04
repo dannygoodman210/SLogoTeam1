@@ -34,7 +34,6 @@ import controller.Workspace;
  * @author Danny Goodman, David Le
  * 
  */
-@SuppressWarnings("serial")
 public class Canvas extends JPanel {
 
     // default serialization ID
