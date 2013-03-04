@@ -24,12 +24,16 @@ public class Left extends TurtleFunction {
             return Double.parseDouble(args[1]);
         }
         else {
-            String[] input = new String[args.length - 2];
-            for (int i = 2; i < args.length; i++) {
-                input[i - 2] = args[i];
+            String[] input = new String[args.length - 1];
+            for (int i = 1; i < args.length; i++) {
+                input[i - 1] = args[i];
             }
             return myModel.getMap().get(args[1]).execute(input);
         }
+    }
+    
+    public String[] getOutpu(String[] input) {
+        return new String[0];
     }
 
 }

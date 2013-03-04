@@ -51,11 +51,13 @@ public class Model {
     public String processString(String[] input) {
     	String[] toExecute = input;
     	String output= "";
+    	int count;
     	while(toExecute.length !=0){
+    	    count ++;
     		Function function = myFunctions.get(toExecute[0]);
         	double value = function.execute(toExecute);
         	output += (value + " ");
-        	//toExecute = function.getOutput(toExecute);
+        	toExecute = function.getOutput(toExecute);
     	}
     	System.out.println(output);
     	return output;
