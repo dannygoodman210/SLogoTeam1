@@ -10,7 +10,7 @@ public class Repeat extends BlockFunction{
     }
     
     @Override
-    public String execute(String[] input) {
+    public double execute(String[] input) {
     	int[] blockLocs = getBlockLocation(input);
     	int blockLength = blockLocs[1] - blockLocs[0] - 1;
     	String[] body = new String[blockLength];
