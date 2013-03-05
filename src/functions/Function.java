@@ -54,6 +54,9 @@ public abstract class Function {
             return newArray(args, 1);
         }
         for(int i = 0; i < args.length; i++) {
+            if(myModel.getMap().containsKey(args[i])) {
+                count -= myModel.getMap().get(args[i]).getArgs() - 1;
+            }
             if(!myModel.getMap().containsKey(args[i])) {
                 count++;
                 if(count == inputNum) {
@@ -71,5 +74,9 @@ public abstract class Function {
             output[i-overlap] = array[i];
         }
         return output;
+    }
+    
+    public int getArgs () {
+        return inputNum;
     }
 }
