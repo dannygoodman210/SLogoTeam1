@@ -51,9 +51,9 @@ public abstract class Function {
         String[] result = null;
         int totalNum = 1;
         int count = 0;
-        if(inputNum == 0) {
-            return newArray(args, 1);
-        }
+//        if(inputNum == 0) {
+//            return newArray(args, 1);
+//        }
         for(int i = 0; i < args.length; i++) {
             if(myModel.getMap().containsKey(args[i]) && myModel.getMap().get(args[i]).getArgs() > 1) {
                 totalNum += myModel.getMap().get(args[i]).getArgs() - 1;
