@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -38,26 +39,19 @@ public class Canvas extends JPanel {
 
     // default serialization ID
     private static final long serialVersionUID = 1L;
-    private static final String BEGIN_LINE = "> ";
-    private static final String NEW_LINE = "\n";
-    private static final String TEXT_SUBMIT = "text-submit";
-    private static final String INSERT_BREAK = "insert-break";
-    private static final String FILE_MENU = "File";
-    private static final String USER_DIR = "user.dir";
-    private static final String NEW_WORKSPACE = "New Worksapce";
-    private static final String OPEN_FILE = "Open File";
-    private static final String EXIT_PROGRAM = "Quit";
     private static final int COMMAND_HEIGHT = 4;
     private static final int COMMAND_WIDTH = 65;
     private static final int HISTORY_HEIGHT = 31;
     private static final int HISTORY_WIDTH = 20;
-    private static final String CLEAR_NAME = "Clear";
+    private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
+
 
     private JFileChooser myChooser;
     private Workspace myController;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
     private JTextArea myHistoryView;
+    private ResourceBundle myResources;
 
     /**
      * Canvas object created in Main class. Takes in size of JPanel.
@@ -72,12 +66,13 @@ public class Canvas extends JPanel {
         // prepare to receive input
         setFocusable(true);
         requestFocus();
+        myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
         add(makeTurtleView(), BorderLayout.CENTER);
         add(makeHistoryPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
         myController = new Workspace(this);
         // make file chooser
-        myChooser = new JFileChooser(USER_DIR);
+        myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
         setVisible(true);
     }
@@ -97,9 +92,10 @@ public class Canvas extends JPanel {
      * @param text - string to be printed
      */
     public void writeHistory (String text) {
-        String[] commandLines = text.split(NEW_LINE);
+        String[] commandLines = text.split(myResources.getString("NewLine"));
         for (String command : commandLines) {
-            myHistoryView.append(BEGIN_LINE + command + NEW_LINE);
+            myHistoryView.append(myResources.getString("BeginLine") + command + 
+                                 myResources.getString("NewLine"));
         }
     }
 
@@ -124,7 +120,7 @@ public class Canvas extends JPanel {
 
     // convenience Button
     private JButton makeClearButton () {
-        JButton result = new JButton(CLEAR_NAME);
+        JButton result = new JButton(myResources.getString("Clear"));
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -138,12 +134,12 @@ public class Canvas extends JPanel {
     private JComponent makeCommandPrompt () {
         myCommandPrompt = new JTextArea(COMMAND_HEIGHT, COMMAND_WIDTH);
         InputMap input = myCommandPrompt.getInputMap();
-        KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
-        KeyStroke shiftEnter = KeyStroke.getKeyStroke("shift ENTER");
-        input.put(shiftEnter, INSERT_BREAK);
-        input.put(enter, TEXT_SUBMIT);
+        KeyStroke enter = KeyStroke.getKeyStroke(myResources.getString("EnterKey"));
+        KeyStroke shiftEnter = KeyStroke.getKeyStroke(myResources.getString("ShiftEnterKey"));
+        input.put(shiftEnter, myResources.getString("InsertBreak"));
+        input.put(enter, myResources.getString("Submit"));
         ActionMap actions = myCommandPrompt.getActionMap();
-        actions.put(TEXT_SUBMIT, new AbstractAction() {
+        actions.put(myResources.getString("Submit"), new AbstractAction() {
             private static final long serialVersionUID = 1L;
 
             public void actionPerformed (ActionEvent e) {
@@ -160,14 +156,14 @@ public class Canvas extends JPanel {
     }
 
     private JMenu makeFileMenu () {
-        JMenu fileMenu = new JMenu(FILE_MENU);
-        fileMenu.add(new AbstractAction(NEW_WORKSPACE) {
+        JMenu fileMenu = new JMenu(myResources.getString("FileMenu"));
+        fileMenu.add(new AbstractAction(myResources.getString("NewCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
                 // TODO: make workspace
             }
         });
-        fileMenu.add(new AbstractAction(OPEN_FILE) {
+        fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
                 int response = myChooser.showOpenDialog(null);
@@ -177,7 +173,7 @@ public class Canvas extends JPanel {
             }
         });
         fileMenu.add(new JSeparator());
-        fileMenu.add(new AbstractAction(EXIT_PROGRAM) {
+        fileMenu.add(new AbstractAction(myResources.getString("ExitCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
                 // clean up; exit.
