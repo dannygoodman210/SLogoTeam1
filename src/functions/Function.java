@@ -7,7 +7,6 @@ public abstract class Function {
     private Model myModel;
     private int inputNum; 
 
-    // Cut isn't used, I'm keeping it for now just in case
     public Function (int num, Model model) {
         myModel = model;
         inputNum = num;
@@ -24,30 +23,30 @@ public abstract class Function {
     
     public double[] getValue (String[] input, int numVals) {
         double[] values = new double[numVals];
-        String[] intermediate = null;
-        String begin = input[0];
+        String[] intermediate = input;
         for(int i = 0; i < numVals; i++) {
-            values[i] = getValue(input);
-            intermediate = getIntermediate(input);
-            input = new String[intermediate.length + 1];
-            input[0] = begin;
-            for(int j = 1; j < input.length; j++){
-                input[j] = intermediate[j - 1];
-            }
+            values[i] = getValue(intermediate);
+            intermediate = getIntermediate(intermediate);
         }
         return values;
     }
     
     public String[] getIntermediate (String[] input) {
-        String[] result = null;
+        String[] intArray = null;
         for (int i = 0; i < input.length; i++) {
             if(!myModel.getMap().containsKey(input[i])) {
-                result = newArray(input, i + 1);
+                intArray = newArray(input, i + 1);
                 break;
             }
         }
+        String[] result = new String[intArray.length + 1];
+        result[0] = input[0];
+        for(int j = 1; j < result.length; j++) {
+            result[j] = intArray[j-1];
+        }
         return result;
     }
+    
     public String[] getOutput (String[] args) {
         String[] result = null;
         int count = 0;
