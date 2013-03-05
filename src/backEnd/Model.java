@@ -2,6 +2,8 @@ package backEnd;
 
 import controller.Workspace;
 import functions.Function;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class Model {
@@ -21,7 +23,14 @@ public class Model {
         myController = controller;
         Factory factory = new Factory();
         myTurtle = new Turtle(myController);
-        myFunctions = factory.make(myTurtle, this);
+        try {
+			myFunctions = factory.make(myTurtle, this);
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			System.out.println("ERROR");//improve
+		}
     }
 
     /**
