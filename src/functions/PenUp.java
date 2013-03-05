@@ -1,19 +1,20 @@
 package functions;
 
+import backEnd.Model;
 import backEnd.Turtle;
 
 public class PenUp extends TurtleFunction{
 	
-	private static final int PCUT = 1;
+	private static final int DEFAULT_ARGS = 0;
 	
-	public PenUp(Turtle turtle){
-		super(turtle, PCUT);
+	public PenUp(Turtle turtle, Model model){
+		super(turtle, model, DEFAULT_ARGS);
 	}
 	
 	@Override
-	public String execute(String[] input) {
+	public double execute(String[] input) {
 		getTurtle().setPenDown(false);
-		return "0";
+		return 0;
 	}
 
 

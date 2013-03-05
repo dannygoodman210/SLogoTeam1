@@ -5,10 +5,10 @@ import backEnd.Turtle;
 
 public class SetXY extends TurtleFunction {
 
-    private static final int DEFAULT_NUM = 2;
+    private static final int DEFAULT_ARGS = 2;
     
     public SetXY(Turtle turtle, Model model) {
-        super(turtle, model, DEFAULT_NUM);
+        super(turtle, model, DEFAULT_ARGS);
     }
 
     @Override

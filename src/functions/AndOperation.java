@@ -1,33 +1,20 @@
 package functions;
 
-import java.util.Arrays;
-
 import backEnd.Model;
 
-public class AndOperation extends BooleanBlockFunction {
+public class AndOperation extends MathFunction {
 
-	public AndOperation(Model model) {
-		super(model);
-		
-	}
-	
-	@Override
-	public String execute(String[] input) {
-		int[] blockLocs = getBlockLocation(input);
-		int blockLength = blockLocs[1] - blockLocs[0] - 1;
-		String [] body = new String[blockLength];
-		for(int i = 0 ; i < body.length ; i++){
-    		body[i] = input[i+2];
-    	}
-		String allOutputs = getModel().processString(body);
-		String[] output = getModel().formatString(allOutputs);
-		
-		boolean result = true;
-		for (int i = 0; i < output.length; i++) {
-			result = result && Boolean.parseBoolean(output[i]);
-		}
-    	return result + "";
-	}
-	
-	
+    public AndOperation(Model model) {
+        super(model);
+
+    }
+
+    @Override
+    public double execute (String[] input) {
+        double[] values = getValue(input, 2);
+        if(values[0] != 0 && values[0] != 0) {
+            return 1;
+        }
+        return 0;
+    }
 }

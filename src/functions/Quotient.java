@@ -1,12 +1,17 @@
 package functions;
 
+import backEnd.Model;
+
 public class Quotient extends MathFunction {
 
+    public Quotient (Model model) {
+        super(model);
+    }
     @Override
-    public String execute (String[] input) {
-        double[] values = getValues(input);
-        double result = values[0]/values[1];
-        return result + "";
+    public double execute (String[] input) {
+        double[] values = getValue(input, 2);
+        return values[0]/values[1];
+        
     }
 
 }

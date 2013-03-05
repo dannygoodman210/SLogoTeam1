@@ -1,19 +1,16 @@
 package functions;
 
+import backEnd.Model;
+
 public abstract class MathFunction extends Function {
 
-   private static final int CUT = 3;
+   private static final int DEFAULT_ARGS = 2;
     
-    public MathFunction () {
-        this(CUT);
+    public MathFunction (Model model) {
+        this(model, DEFAULT_ARGS);
     }
     
-    public MathFunction (int cut) {
-        super(cut);
-    }
-    
-    public double[] getValues (String[] input) {
-        double[] values =  {Double.parseDouble(input[1]), Double.parseDouble(input[2])};
-        return values;
+    public MathFunction (Model model, int num) {
+        super(num, model);
     }
 }

@@ -4,11 +4,11 @@ import backEnd.Model;
 import backEnd.Turtle;
 
 public abstract class TurtleFunction extends Function {
-    private static final int DEFAULT_NUM = 1;
+    private static final int DEFAULT_ARGS = 1;
     private Turtle myTurtle;
     
     public TurtleFunction (Turtle turtle, Model model) {
-        super(DEFAULT_NUM, model);
+        super(DEFAULT_ARGS, model);
         myTurtle = turtle;
     }
     

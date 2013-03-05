@@ -74,10 +74,13 @@ public class Turtle extends Observable {
      * @param x - x value of point
      * @param y - y value of point
      */
-    public void setTowards (double x, double y) {
+    public double setTowards (double x, double y) {
+        double start = myHeading;
         Vector between = new Vector(myLocation, new Location(x, y));
         setHeading(between.getDirection());
+        double end = myHeading;
         setChanged();
+        return end-start;
     }
 
     /**

@@ -1,17 +1,19 @@
 package functions;
 
+import backEnd.Model;
 import backEnd.Turtle;
 
 public class IsPenDown extends TurtleQuery {
-	
-	public IsPenDown(Turtle turtle) {
-		super(turtle);
-	}
 
-	
-	@Override
-	public String execute(String[] input) {
-		return getTurtle().isPenDown() + "";
-	}
+    public IsPenDown(Turtle turtle, Model model) {
+        super(turtle, model);
+    }
 
+    @Override
+    public double execute(String[] input) {
+        if(getTurtle().isPenDown()) {
+            return 1;
+        }
+        return 0;
+    }
 }

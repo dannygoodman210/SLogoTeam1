@@ -1,16 +1,18 @@
 package functions;
 
+import backEnd.Model;
 import backEnd.Turtle;
 public class Back extends TurtleFunction {
     
-    public Back (Turtle turtle) {
-        super(turtle);
+    public Back (Turtle turtle, Model model) {
+        super(turtle, model);
     }
+    
     @Override
-    public String execute(String[] input) {
-    	int distance = Integer.parseInt(input[1]);
+    public double execute (String[] input) {
+    	double distance = getValue(input);
         getTurtle().move(-distance);
-        return "";
+        return distance;
     }
     
 

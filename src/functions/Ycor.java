@@ -1,17 +1,17 @@
 package functions;
 
+import backEnd.Model;
 import backEnd.Turtle;
 
 public class Ycor extends TurtleQuery {
-	
-	public Ycor(Turtle turtle) {
-		super(turtle);
-	}
 
-	
-	@Override
-	public String execute(String[] input) {
-		return getTurtle().getLocation().y + "";
-	}
+    public Ycor(Turtle turtle, Model model) {
+        super(turtle, model);
+    }
 
+
+    @Override
+    public double execute(String[] input) {
+        return getTurtle().getLocation().y;
+    }
 }

@@ -1,11 +1,19 @@
 package functions;
 
-public class Less extends BooleanFunction {
+import backEnd.Model;
 
-	@Override
-	public String execute(String[] input) {
-		double[] values = getValues(input);
-		boolean result = values[0] < values[1];
-		return result + "";
-	}
+public class Less extends MathFunction {
+
+    public Less (Model model) {
+        super(model);
+    }
+
+    @Override
+    public double execute(String[] input) {
+        double[] values = getValue(input, 2);
+        if(values[0] < values[1]) {
+            return 1;
+        }
+        return 0;
+    }
 }

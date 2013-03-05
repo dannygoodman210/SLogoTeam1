@@ -1,17 +1,18 @@
 package functions;
 
+import backEnd.Model;
+
 public class Minus extends MathFunction {
     
-    public static final int CUT = 2;
+    private static final int DEFAULT_ARGS = 1;
     
-    public Minus () {
-        super(CUT);
+    public Minus (Model model) {
+        super(model, DEFAULT_ARGS);
     }
     
     @Override
-    public String execute (String[] input) {
-        double value = -Double.parseDouble(input[1]);
-        return value + "";
+    public double execute (String[] input) {
+        return -getValue(input);
     }
 
 }

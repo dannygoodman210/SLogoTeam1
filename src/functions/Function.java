@@ -11,7 +11,7 @@ public abstract class Function {
         myModel = model;
         inputNum = num;
     }
-
+    
     public abstract double execute (String[] input);
 
     public double getValue (String[] input) {
