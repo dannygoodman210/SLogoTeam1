@@ -1,6 +1,8 @@
 package backEnd;
 
 import functions.Function;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class Interpreter {
@@ -16,7 +18,15 @@ public class Interpreter {
      */
     public Interpreter (Turtle turtle, Model model) {
         Factory factory = new Factory();
-        myFunctions = factory.make(turtle, model);
+        try {
+			myFunctions = factory.make(turtle, model);
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     public Function processString (String[] s) {
