@@ -1,21 +1,19 @@
 package functions;
 
+import backEnd.Model;
 import backEnd.Turtle;
 
 public class SetXY extends TurtleFunction {
 
-	private static final int SCUT = 3;
-	
-	public SetXY(Turtle turtle){
-		super(turtle,SCUT);
-	}
-	
-	@Override
-	public String execute(String[] input) {
-		int x = Integer.parseInt(input[1]);
-		int y = Integer.parseInt(input[2]);
-		getTurtle().setLocation(x, y);
-		return "";
-	}
+    public SetXY(Turtle turtle, Model model){
+        super(turtle, model);
+    }
+
+    @Override
+    public double execute(String[] input) {
+        double[] values = getValue(input, 2);
+        getTurtle().setLocation(values[0], values[1]);
+        return values[0] + values[1];
+    }
 
 }

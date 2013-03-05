@@ -50,10 +50,10 @@ public class Factory {
         
 //        Function repeat = new Repeat(model);
 //        map.put("repeat", repeat);
-//        
-//        Function forward = new Forward(turtle);
-//        map.put("forward", forward);
-//        map.put("fd", forward);
+        
+        Function forward = new Forward(turtle, model);
+        map.put("forward", forward);
+        map.put("fd", forward);
         Function left = new Left(turtle, model);
         map.put("left", left);
         map.put("lt", left);
@@ -65,17 +65,17 @@ public class Factory {
 //        map.put("bk", back);
 //        Function towards = new Towards(turtle);
 //        map.put("towards", towards);
-//        Function setheading = new SetHeading(turtle);
-//        map.put("setheading", setheading);
-//        map.put("seth", setheading);
+        Function setheading = new SetHeading(turtle, model);
+        map.put("setheading", setheading);
+        map.put("seth", setheading);
 //        Function pendown = new PenDown(turtle);
 //        map.put("pendown", pendown);
 //        map.put("pd", pendown);
 //        Function penup = new PenUp(turtle);
 //        map.put("penup", penup);
 //        map.put("pu", penup);
-//        Function setxy = new SetXY(turtle);
-//        map.put("setxy", setxy);
+        Function setxy = new SetXY(turtle, model);
+        map.put("setxy", setxy);
 //        Function sum = new Sum();
 //        map.put("SUM", sum);
 //        map.put("+", sum);

@@ -1,18 +1,19 @@
 package functions;
 
+import backEnd.Model;
 import backEnd.Turtle;
 
 public class SetHeading extends TurtleFunction {
 
-	public SetHeading(Turtle turtle){
-		super(turtle);
-	}
-	
-	@Override
-	public String execute(String[] input) {
-		int angle = Integer.parseInt(input[1]);
-		getTurtle().setHeading(angle);
-		return angle + "";
-	}
+    public SetHeading(Turtle turtle, Model model){
+        super(turtle, model);
+    }
+
+    @Override
+    public double execute(String[] input) {
+        double angle = getValue(input);
+        getTurtle().setHeading(angle);
+        return angle;
+    }
 
 }
