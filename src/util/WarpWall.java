@@ -13,10 +13,11 @@ import java.util.List;
  */
 public enum WarpWall {
     NONE(0) {
-
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            return getList(outOfBounds, outOfBounds, outOfBounds);
+            List<Location> pointsList = new ArrayList<Location>();
+            pointsList.add(outOfBounds);
+            return pointsList;
         }
 
     },
@@ -24,52 +25,7 @@ public enum WarpWall {
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
             double left = -bounds.getWidth() / 2;
-            Vector between = new Vector(inBounds, outOfBounds);
-            Location intersectPoint =
-                    new Location(left, inBounds.getY() + ((left - inBounds.getX()) *
-                                       Math.tan(Math.toRadians(between.getDirection()))));
-            Location start = new Location(-left, intersectPoint.getY());
-            Location end = new Location(start);
-            between.difference(new Vector(inBounds, intersectPoint));
-            end.translate(between);
-            return getList(intersectPoint, start, end);
-        }
-
-    },
-    TOP(2) {
-        @Override
-        public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            double top = bounds.getHeight() / 2;
-            Vector between = new Vector(inBounds, outOfBounds);
-            Location intersectPoint =
-                    new Location(inBounds.getX() + ((top - inBounds.getY()) /
-                                 Math.tan(Math.toRadians(between.getDirection()))), top);
-            Location start = new Location(intersectPoint.getX(), -top);
-            Location end = new Location(start);
-            between.difference(new Vector(inBounds, intersectPoint));
-            end.translate(between);
-            return getList(intersectPoint, start, end);
-        }
-
-    },
-    TOPLEFT(3) {
-        @Override
-        public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            List<Location> listFirst = new ArrayList<Location>();
-            List<Location> listSecond = new ArrayList<Location>();
-            Location corner = new Location(-bounds.getWidth() / 2, bounds.getHeight() / 2);
-            Vector between = new Vector(inBounds, outOfBounds);
-            Vector toCorner = new Vector(inBounds, corner);
-            if (between.getDirection() > toCorner.getDirection()) {
-                listFirst = WarpWall.LEFT.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.TOP.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            else {
-                listFirst = WarpWall.TOP.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.LEFT.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            return getList(listFirst.get(0), listFirst.get(1),
-                           listSecond.get(0), listSecond.get(1), listSecond.get(2));
+            return leftRightWarp(inBounds, outOfBounds, left);
         }
 
     },
@@ -77,37 +33,32 @@ public enum WarpWall {
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
             double right = bounds.getWidth() / 2;
-            Vector between = new Vector(inBounds, outOfBounds);
-            Location intersectPoint =
-                    new Location(right, inBounds.getY() + ((right - inBounds.getX()) *
-                                        Math.tan(Math.toRadians(between.getDirection()))));
-            Location start = new Location(-right, intersectPoint.getY());
-            Location end = new Location(start);
-            between.difference(new Vector(inBounds, intersectPoint));
-            end.translate(between);
-            return getList(intersectPoint, start, end);
+            return leftRightWarp(inBounds, outOfBounds, right);
         }
 
     },
-    TOPRIGHT(6) {
-
+    TOP(2) {
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            List<Location> listFirst = new ArrayList<Location>();
-            List<Location> listSecond = new ArrayList<Location>();
+            double top = bounds.getHeight() / 2;
+            return topBottomWarp(inBounds, outOfBounds, top);
+        }
+
+    },
+    LEFT_TOP(3) {
+        @Override
+        public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
+            Location corner = new Location(-bounds.getWidth() / 2, bounds.getHeight() / 2);
+            return cornerWarp(inBounds, outOfBounds, bounds, corner);
+        }
+
+    },
+
+    TOP_RIGHT(6) {
+        @Override
+        public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
             Location corner = new Location(bounds.getWidth() / 2, bounds.getHeight() / 2);
-            Vector between = new Vector(inBounds, outOfBounds);
-            Vector toCorner = new Vector(inBounds, corner);
-            if (between.getDirection() > toCorner.getDirection()) {
-                listFirst = WarpWall.TOP.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.RIGHT.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            else {
-                listFirst = WarpWall.RIGHT.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.TOP.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            return getList(listFirst.get(0), listFirst.get(1),
-                           listSecond.get(0), listSecond.get(1), listSecond.get(2));
+            return cornerWarp(inBounds, outOfBounds, bounds, corner);
         }
 
     },
@@ -115,65 +66,40 @@ public enum WarpWall {
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
             double bottom = -bounds.getHeight() / 2;
-            Vector between = new Vector(inBounds, outOfBounds);
-            Location intersectPoint =
-                    new Location(inBounds.getX() + ((bottom - inBounds.getY()) /
-                                 Math.tan(Math.toRadians(between.getDirection()))), bottom);
-            Location start = new Location(intersectPoint.getX(), -bottom);
-            Location end = new Location(start);
-            between.difference(new Vector(inBounds, intersectPoint));
-            end.translate(between);
-            return getList(intersectPoint, start, end);
+            return topBottomWarp(inBounds, outOfBounds, bottom);
         }
 
     },
-    BOTTOMLEFT(9) {
+    BOTTOM_LEFT(9) {
 
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            List<Location> listFirst = new ArrayList<Location>();
-            List<Location> listSecond = new ArrayList<Location>();
             Location corner = new Location(-bounds.getWidth() / 2, -bounds.getHeight() / 2);
-            Vector between = new Vector(inBounds, outOfBounds);
-            Vector toCorner = new Vector(inBounds, corner);
-            if (between.getDirection() > toCorner.getDirection()) {
-                listFirst = WarpWall.BOTTOM.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.LEFT.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            else {
-                listFirst = WarpWall.LEFT.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.BOTTOM.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            return getList(listFirst.get(0), listFirst.get(1),
-                           listSecond.get(0), listSecond.get(1), listSecond.get(2));
+            return cornerWarp(inBounds, outOfBounds, bounds, corner);
         }
 
     },
-    BOTTOMRIGHT(12) {
+    RIGHT_BOTTOM(12) {
 
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            List<Location> listFirst = new ArrayList<Location>();
-            List<Location> listSecond = new ArrayList<Location>();
             Location corner = new Location(-bounds.getWidth() / 2, bounds.getHeight() / 2);
-            Vector between = new Vector(inBounds, outOfBounds);
-            Vector toCorner = new Vector(inBounds, corner);
-            if (between.getDirection() > toCorner.getDirection()) {
-                listFirst = WarpWall.RIGHT.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.BOTTOM.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            else {
-                listFirst = WarpWall.BOTTOM.warp(inBounds, outOfBounds, bounds);
-                listSecond = WarpWall.RIGHT.warp(listFirst.get(1), listFirst.get(2), bounds);
-            }
-            return getList(listFirst.get(0), listFirst.get(1),
-                           listSecond.get(0), listSecond.get(1), listSecond.get(2));
+            return cornerWarp(inBounds, outOfBounds, bounds, corner);
         }
 
     };
 
     private int myWallID;
 
+    /**
+     * Assigns the binaryID to the myWallID instance variable.
+     * binaryID is given by: MSB to LSB is BOTTOM, RIGHT, TOP, LEFT.
+     * Example: 0010 represents TOP and has an int value of 2.
+     * 0011 represents TOP_LEFT and has an int value of 3.
+     * 
+     * @param binaryID - binary representation of wall.
+     * 
+     */
     private WarpWall (int binaryID) {
         this.myWallID = binaryID;
     }
@@ -192,52 +118,134 @@ public enum WarpWall {
      * Handles Calculation of Trail points for a given path from inside the bounds to outside
      * of the bounds. Each wall has a different implementation.
      * 
-     * @param inBounds - Location within the bounds.
-     * @param outOfBounds - Location outside of the bounds.
+     * @param inBounds - Initial location within the bounds of the view
+     * @param outOfBounds - Final unwarped location outside the bounds of the view
      * @param bounds - Rectangle representing bounds of the view.
-     * @return List<Location> - list of Locations that make up the trail.
+     * @return List of points that make up the warped trail.
      */
     public abstract List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds);
 
     /**
-     * returns a list of the given Location objects. Cleans up the warp method. This method
-     * signature contains three Location inputs. This signature is called by the side WallWarps:
-     * LEFT, TOP, RIGHT, and BOTTOM.
+     * Calculations for a point outside of the bounds on two sides (a corner).
      * 
-     * @param intersectPoint - where path first intersects bounds
-     * @param start - point after warp
-     * @param end - end Location
-     * @return ArrayList of Locations
+     * @param inBounds - Initial location within the bounds of the view
+     * @param outOfBounds - Final unwarped location outside the bounds of the view
+     * @param bounds
+     * @param corner
+     * @return List of points that represent the warped path
      */
-    protected List<Location> getList (Location intersectPoint, Location start, Location end) {
-        List<Location> pointsList = new ArrayList<Location>();
-        pointsList.add(intersectPoint);
-        pointsList.add(start);
-        pointsList.add(end);
-        return pointsList;
+    protected List<Location> cornerWarp (Location inBounds, Location outOfBounds,
+                                         Rectangle bounds, Location corner) {
+        Vector between = new Vector(inBounds, outOfBounds);
+        Vector toCorner = new Vector(inBounds, corner);
+        String[] sides = getSides();
+        if (between.getDirection() < toCorner.getDirection()) {
+            flipSides(sides);
+        }
+        List<Location> firstWarp;
+        List<Location> secondWarp;
+        try {
+            firstWarp = Enum.valueOf(WarpWall.class, sides[0]).warp(inBounds, outOfBounds, bounds);
+            secondWarp = Enum.valueOf(WarpWall.class, sides[1]).warp(firstWarp.get(1),
+                                                                     firstWarp.get(2), bounds);
+            return generatePointsList(firstWarp.get(0), firstWarp.get(1), secondWarp.get(0),
+                                      secondWarp.get(1), secondWarp.get(2));
+        }
+        catch (SecurityException | IllegalArgumentException e) {
+            // TODO send error to view
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
-     * Returns a list of the given Location objects. Cleans up the warp method. This method
-     * signature contains five Location inputs. This signature is called by the corner WallWarps:
-     * TOPLEFT, TOPRIGHT, BOTTOMLEFT, and BOTTOMRIGHT.
+     * Calculations for a point outside of the bounds on either the left or right side
      * 
-     * @param intersect1 - where path first intersects bounds
-     * @param start1 - Location after first warp
-     * @param intersect2 - where path intersects bounds second
-     * @param start2 - Location after second warp
-     * @param end - end Location
-     * @return ArrayList of Locations
+     * @param inBounds - Initial location within the bounds of the view
+     * @param outOfBounds - Final unwarped location outside the bounds of the view
+     * @param side - x value of either left or right side of bounds
+     * @return List of points that represent the warped path
      */
-    protected List<Location> getList (Location intersect1, Location start1,
-                                      Location intersect2, Location start2, Location end) {
+    protected List<Location> leftRightWarp (Location inBounds, Location outOfBounds, double side) {
+        Vector between = new Vector(inBounds, outOfBounds);
+        Location intersectPoint =
+                new Location(side, inBounds.getY() + ((side - inBounds.getX()) *
+                                   Math.tan(Math.toRadians(between.getDirection()))));
+        Location start = new Location(-side, intersectPoint.getY());
+        return calculatePointsList(inBounds, intersectPoint, start, between);
+    }
+
+    /**
+     * Calculations for a point outside of the bounds on either the top or bottom side
+     * 
+     * @param inBounds - Initial location within the bounds of the view
+     * @param outOfBounds - Final unwarped location outside the bounds of the view
+     * @param side - y value of either top or bottom side of bounds
+     * @return List of points that represent the warped path
+     */
+    protected List<Location> topBottomWarp (Location inBounds, Location outOfBounds, double side) {
+        Vector between = new Vector(inBounds, outOfBounds);
+        Location intersectPoint =
+                new Location(inBounds.getX() + ((side - inBounds.getY()) /
+                             Math.tan(Math.toRadians(between.getDirection()))), side);
+        Location start = new Location(intersectPoint.getX(), -side);
+        return calculatePointsList(inBounds, intersectPoint, start, between);
+    }
+
+    /**
+     * Calculates final point to be added to the pointsList. Generates and returns the pointsList
+     * object.
+     * 
+     * @param inBounds - Initial location within the bounds of the view
+     * @param intersect - Location where path intersects bounds
+     * @param start - Location where path starts after the warp occurs
+     * @param between - Vector representing the path from inBounds to the unwarped final Location.
+     * @return pointsList containing the intersect, start, and end points.
+     */
+    protected List<Location> calculatePointsList (Location inBounds, Location intersect,
+                                                  Location start, Vector between) {
+        Location end = new Location(start);
+        between.difference(new Vector(inBounds, intersect));
+        end.translate(between);
+        return generatePointsList(intersect, start, end);
+    }
+
+    /**
+     * Create a List of points from any number of points
+     * 
+     * @param points - Location objects to include in list
+     * @return pointsList
+     */
+    protected List<Location> generatePointsList (Location ... points) {
         List<Location> pointsList = new ArrayList<Location>();
-        pointsList.add(intersect1);
-        pointsList.add(start1);
-        pointsList.add(intersect2);
-        pointsList.add(start2);
-        pointsList.add(end);
+        for (Location p : points) {
+            pointsList.add(p);
+        }
         return pointsList;
+
+    }
+
+    /**
+     * Generates a String Array of each side making up the name of the WarpWall
+     * field separated by the "_" token. Example: "LEFT_TOP" => ["LEFT","TOP"].
+     * 
+     * @return String[] of names of associated WarpWall fields
+     */
+    protected String[] getSides () {
+        return this.toString().split("_");
+    }
+
+    /**
+     * Takes in String Array and flips the first two elements in the array. Used to determine
+     * calculations based on which wall was intersected first as the path reached outOfBounds from
+     * a corner.
+     * 
+     * @param sides - String[] of sides of bounds that the path has intersected
+     */
+    protected void flipSides (String[] sides) {
+        String sideTwo = sides[1];
+        sides[1] = sides[0];
+        sides[0] = sideTwo;
     }
 
 }
