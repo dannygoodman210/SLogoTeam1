@@ -1,7 +1,11 @@
 package backEnd;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import functions.AndOperation;
 
@@ -45,9 +49,26 @@ public class Factory {
      * @param turtle for the turtle commands
      * @return map of makers
      */
-    public Map<String, Function> make (Turtle turtle, Model model) {
+    public Map<String, Function> make (Turtle turtle, Model model) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Map<String, Function> map = new HashMap<String, Function>();
         
+        ResourceBundle functions = ResourceBundle.getBundle("resources.function_bundle");
+        Enumeration<String> functionKeys = functions.getKeys();
+        while(functionKeys.hasMoreElements()){
+        	String key = (String)functionKeys.nextElement();
+        	String classpath = functions.getString(key);
+        	
+        	
+        	Class<?> current = Class.forName(classpath);
+        	Constructor<?> currentConstructor = current.getConstructor(Turtle.class);
+        	Object toAdd = currentConstructor.newInstance(turtle);
+        	Function toMap = (Function) toAdd;
+        	map.put(key, toMap);
+        	
+        }
+        
+        
+        /*
         Function repeat = new Repeat(model);
         map.put("repeat", repeat);
         
@@ -125,6 +146,7 @@ public class Factory {
         map.put("pendown?", ispendown);
         Function isvisible = new IsVisible(turtle);
         map.put("showing?", isvisible);
+        */
         
         return map;
     }

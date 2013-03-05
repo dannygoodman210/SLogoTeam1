@@ -2,6 +2,8 @@ package backEnd;
 
 import controller.Workspace;
 import functions.Function;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -16,13 +18,21 @@ public class Model {
     private Workspace myController;
     private Turtle myTurtle;
     private Map<String, Function> myFunctions;
-    
+
     
     public Model (Workspace controller) {
         myController = controller;
         Factory factory = new Factory();
         myTurtle = new Turtle(myController);
-        myFunctions = factory.make(myTurtle, this);
+        try {
+			myFunctions = factory.make(myTurtle, this);
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     /**
@@ -57,7 +67,6 @@ public class Model {
         	output += (s + " ");
         	toExecute = function.getOutput(toExecute);
     	}
-    	System.out.println(output);
     	return output;
     	
     }
