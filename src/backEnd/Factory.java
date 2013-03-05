@@ -10,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 import functions.Function;
 
 public class Factory {
+	
+  	private static final  String TURTLE = "turtle";
+	private static final String DEFAULTLANG = "resources.English";
     
     /**
      * This function makes all the instances of classes. No need for modification. Just
@@ -29,8 +32,6 @@ public class Factory {
     ClassNotFoundException, NoSuchMethodException, SecurityException, 
     InstantiationException, IllegalAccessException, IllegalArgumentException, 
     InvocationTargetException {
-    	final String TURTLE = "turtle";
-    	final String DEFAULTLANG = "resources.English";
         Map<String, Function> map = new HashMap<String,Function>();
 		Class[] paramTypes = {Turtle.class, Model.class};
         Object[] params = {turtle, model};
