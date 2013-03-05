@@ -19,6 +19,7 @@ public abstract class Function {
     public abstract double execute (String[] input);
 
     public double getValue (String[] input) {
+        //System.out.println(input.length);
         if(!myModel.getMap().containsKey(input[1])) {
             return Double.parseDouble(input[1]);
         }
@@ -30,12 +31,11 @@ public abstract class Function {
         String[] intermediate = null;
         String begin = input[0];
         for(int i = 0; i < numVals; i++) {
-            System.out.println(i);
             values[i] = getValue(input);
             intermediate = getOutput(input);
             input = new String[intermediate.length + 1];
             input[0] = begin;
-            for(int j = 1; j < intermediate.length; j++){
+            for(int j = 1; j < input.length; j++){
                 input[j] = intermediate[j - 1];
             }
         }
@@ -46,7 +46,8 @@ public abstract class Function {
         String[] result = null;
         for(int i = 0; i < args.length; i++) {
             if(!myModel.getMap().containsKey(args[i])) {
-                result = newArray(args, i + 1);      
+                result = newArray(args, i + 1);
+                break;
             }
         }
         return result;

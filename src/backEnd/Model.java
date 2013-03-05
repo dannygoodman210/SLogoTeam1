@@ -50,7 +50,7 @@ public class Model {
     public String processString(String[] input) {
         String[] toExecute = input;
         String output= "";
-        while(toExecute.length !=0){
+        while(toExecute.length != 0){
             Function function = myFunctions.get(toExecute[0]);
             double value = function.execute(toExecute);
             output += (value + " ");
