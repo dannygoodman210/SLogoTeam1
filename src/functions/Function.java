@@ -4,22 +4,18 @@ import backEnd.Model;
 
 public abstract class Function {
 
-    private static final int DEFAULT_CUT = 2;
     private Model myModel;
-
-    public Function(Model model){
-        this(DEFAULT_CUT, model);
-    }
+    private int inputNum; 
 
     // Cut isn't used, I'm keeping it for now just in case
-    public Function (int cut, Model model) {
+    public Function (int num, Model model) {
         myModel = model;
+        inputNum = num;
     }
 
     public abstract double execute (String[] input);
 
     public double getValue (String[] input) {
-        //System.out.println(input.length);
         if(!myModel.getMap().containsKey(input[1])) {
             return Double.parseDouble(input[1]);
         }
@@ -32,7 +28,7 @@ public abstract class Function {
         String begin = input[0];
         for(int i = 0; i < numVals; i++) {
             values[i] = getValue(input);
-            intermediate = getOutput(input);
+            intermediate = getIntermediate(input);
             input = new String[intermediate.length + 1];
             input[0] = begin;
             for(int j = 1; j < input.length; j++){
@@ -42,12 +38,29 @@ public abstract class Function {
         return values;
     }
     
+    public String[] getIntermediate (String[] input) {
+        String[] result = null;
+        for (int i = 0; i < input.length; i++) {
+            if(!myModel.getMap().containsKey(input[i])) {
+                result = newArray(input, i + 1);
+                break;
+            }
+        }
+        return result;
+    }
     public String[] getOutput (String[] args) {
         String[] result = null;
+        int count = 0;
+        if(inputNum == 0) {
+            return newArray(args, 1);
+        }
         for(int i = 0; i < args.length; i++) {
             if(!myModel.getMap().containsKey(args[i])) {
-                result = newArray(args, i + 1);
-                break;
+                count++;
+                if(count == inputNum) {
+                    result = newArray(args, i + 1);
+                    break;
+                }
             }
         }
         return result;
