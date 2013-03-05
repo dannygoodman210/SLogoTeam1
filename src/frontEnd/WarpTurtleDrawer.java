@@ -7,11 +7,12 @@ import util.Location;
 import util.Vector;
 import util.WarpWall;
 
+
 /**
  * Warping subclass of TurtleDrawer decorator.
  * 
  * @author Danny Goodman
- *
+ * 
  */
 public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
 
@@ -25,16 +26,13 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
     @Override
     public void addTrail (Location start, Location finish) {
         finish = new Location(calculateWarps(finish));
-        if (isOutsideBounds(finish)) {
-            while (isOutsideBounds(finish)) {
-                System.out.println(finish);
-                List<Location> list = warpTrails(start, finish);
-                start = list.get(list.size()-2);
-                finish = list.get(list.size()-1);
-            }
-        }
-        else {
+        if (!isOutsideBounds(finish)) {
             super.addTrail(start, finish);
+        }
+        while (isOutsideBounds(finish)) {
+            List<Location> list = warpTrails(start, finish);
+            start = list.get(list.size() - 2);
+            finish = list.get(list.size() - 1);
         }
     }
 
@@ -46,9 +44,9 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
         }
         return super.drawBody(pen, start, finish, heading);
     }
-    
+
     @Override
-    public void reset(){
+    public void reset () {
         resetWarps();
         super.reset();
     }
@@ -70,7 +68,7 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
 
     private Location warpPosition (Location inBounds, Location outOfBounds) {
         WarpWall warper = determineWarpWall(inBounds, outOfBounds);
-        addToWarps(warper.getValue());
+        addToWarps(warper.getWallID());
         List<Location> pointsList = warper.warp(inBounds, outOfBounds, getView().getBounds());
         return pointsList.get(pointsList.size() - 1);
     }
@@ -81,7 +79,7 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
         int wallValue = bounds.outcode(translatedPoint);
         WarpWall warper = WarpWall.NONE;
         for (WarpWall w : WarpWall.values()) {
-            if (w.getValue() == wallValue) {
+            if (w.getWallID() == wallValue) {
                 warper = w;
             }
         }

@@ -172,20 +172,20 @@ public enum WarpWall {
 
     };
 
-    private int value;
+    private int myWallID;
 
-    private WarpWall (int value) {
-        this.value = value;
+    private WarpWall (int binaryID) {
+        this.myWallID = binaryID;
     }
 
     /**
      * Returns the value of the wall. These values are derived from the binary representation of
      * the wall.
      * 
-     * @return value - binary representation of wall.
+     * @return myWallID - binary representation of wall.
      */
-    public int getValue () {
-        return value;
+    public int getWallID () {
+        return myWallID;
     }
 
     /**
