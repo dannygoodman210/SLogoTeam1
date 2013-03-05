@@ -49,17 +49,18 @@ public abstract class Function {
     
     public String[] getOutput (String[] args) {
         String[] result = null;
+        int totalNum = 1;
         int count = 0;
         if(inputNum == 0) {
             return newArray(args, 1);
         }
         for(int i = 0; i < args.length; i++) {
-            if(myModel.getMap().containsKey(args[i]) && inputNum == 1) {
-                count -= myModel.getMap().get(args[i]).getArgs() - 1;
+            if(myModel.getMap().containsKey(args[i]) && myModel.getMap().get(args[i]).getArgs() > 1) {
+                totalNum += myModel.getMap().get(args[i]).getArgs() - 1;
             }
             if(!myModel.getMap().containsKey(args[i])) {
                 count++;
-                if(count == inputNum) {
+                if(count == totalNum) {
                     result = newArray(args, i + 1);
                     break;
                 }
