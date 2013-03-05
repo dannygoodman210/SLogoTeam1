@@ -8,36 +8,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import functions.Function;
-import functions.Repeat;
-import functions.bool.AndOperation;
-import functions.bool.Equal;
-import functions.bool.Greater;
-import functions.bool.Less;
-import functions.bool.NotEqual;
-import functions.bool.NotOperation;
-import functions.bool.OrOperation;
-import functions.math.Difference;
-import functions.math.Minus;
-import functions.math.Product;
-import functions.math.Quotient;
-import functions.math.RandomNumber;
-import functions.math.Remainder;
-import functions.math.Sum;
-import functions.turtle.Back;
-import functions.turtle.Forward;
-import functions.turtle.Heading;
-import functions.turtle.IsPenDown;
-import functions.turtle.IsVisible;
-import functions.turtle.Left;
-import functions.turtle.PenDown;
-import functions.turtle.PenUp;
-import functions.turtle.Right;
-import functions.turtle.SetHeading;
-import functions.turtle.SetXY;
-import functions.turtle.Towards;
-import functions.turtle.Xcor;
-import functions.turtle.Ycor;
-
 
 public class Factory {
     
@@ -52,9 +22,7 @@ public class Factory {
      * @throws InvocationTargetException 
      * @throws IllegalArgumentException 
      * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     * 
-     * 
+     * @throws InstantiationException
      * 
      */
     public Map<String, Function> make (Turtle turtle, Model model) throws 
