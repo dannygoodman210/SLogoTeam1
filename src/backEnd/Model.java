@@ -48,12 +48,15 @@ public class Model {
     public double processInstruction(Instruction toExecute) {
         double output= 0;
         while(toExecute.length() != 0){
+        	
             double value = process(toExecute);
             output = value;
         }
         return output;
 
     }
+    
+   
 
 	public double process(Instruction toExecute) {
 		Executable function = myMap.get(toExecute.get(0));

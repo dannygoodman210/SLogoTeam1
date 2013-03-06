@@ -46,8 +46,9 @@ public class Instruction {
 			}
 			block.add(ins);
 		}
-		myInstruction = myInstruction.subList(block.size(), myInstruction.size());
-		return new Instruction(block.subList(1, block.size()-1));
+		myInstruction = myInstruction.subList(block.size()-2, myInstruction.size());
+		
+		return new Instruction(block.subList(1, block.size()-3));
 		
 		
 	}
