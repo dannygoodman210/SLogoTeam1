@@ -9,7 +9,10 @@ public class Instruction {
 	
 	public Instruction(String[] arguments){
 		loadInstruction(arguments);
-
+	}
+	
+	public Instruction(List<String> inst){
+		myInstruction = inst;
 	}
 	
 	private void loadInstruction(String[] arguments){
@@ -24,6 +27,34 @@ public class Instruction {
 		return this;
 	}
 	
+	public Instruction block(){
+		if(!myInstruction.get(0).equals("[")){
+			//throw exception
+		}
+		int bracket1Count = 1;
+		int bracket2Count = 0;
+		List<String> block = new ArrayList<String>();
+		for(String ins: myInstruction){
+			if(bracket1Count == bracket2Count){
+				break;
+			}
+			if(ins.equals("]")){
+				bracket2Count++;
+			}
+			if(ins.equals("[")){
+				bracket1Count++;
+			}
+			block.add(ins);
+		}
+		myInstruction = myInstruction.subList(block.size(), myInstruction.size());
+		return new Instruction(block.subList(1, block.size()-1));
+		
+		
+	}
+	
+	public Instruction clone(){
+		return new Instruction(myInstruction);
+	}
 	
 	public String get(int index){
 		return myInstruction.get(index);	

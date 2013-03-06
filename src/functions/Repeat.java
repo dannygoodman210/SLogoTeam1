@@ -1,25 +1,25 @@
 package functions;
 
+import backEnd.Instruction;
 import backEnd.Model;
 
-public class Repeat extends BlockFunction{
+public class Repeat extends Function{
     
-
+	
     public Repeat(Model model) {
     	super(model);
     }
     
     @Override
-    public double execute(String[] input) {
-    	int[] blockLocs = getBlockLocation(input);
-    	int blockLength = blockLocs[1] - blockLocs[0] - 1;
-    	String[] body = new String[blockLength];
+    public double execute(Instruction toExecute) {
+    	double reps = getReturnValue(toExecute);
+    	Instruction blockToExecute = toExecute.block();
     	
-    	for(int i = 0 ; i < body.length ; i++){
-    		body[i] = input[i+3];
-    	}	
-    	String result = getModel().processString(body);
-    	return result;
+    	for(double i = 0 ; i < reps; i ++){
+    		getModel().processInstruction(blockToExecute.clone());
+    	}
+    	
+    	return reps;
     }
     
     
