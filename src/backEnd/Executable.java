@@ -2,8 +2,7 @@ package backEnd;
 
 public interface Executable {
 
-	public double execute(String[] input);
+	public double execute(Instruction toExecute);
 	
-	public String[] getOutput(String[] args);
 	
 }

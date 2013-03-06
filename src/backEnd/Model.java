@@ -1,10 +1,7 @@
 package backEnd;
 
 import controller.Workspace;
-import functions.Function;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 
 public class Model {
 
@@ -16,21 +13,13 @@ public class Model {
 
     private Workspace myController;
     private Turtle myTurtle;
-    private Map<String, Function> myFunctions;
+    private SmartMap myMap;
 
 
     public Model (Workspace controller) {
         myController = controller;
-        Factory factory = new Factory();
         myTurtle = new Turtle(myController);
-        try {
-			myFunctions = factory.make(myTurtle, this);
-		} catch (ClassNotFoundException | NoSuchMethodException
-				| SecurityException | InstantiationException
-				| IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			System.out.println("ERROR");//improve
-		}
+        myMap = new SmartMap(myTurtle, this);
     }
 
     /**
@@ -57,19 +46,19 @@ public class Model {
      * 
      */
     public String processString(String[] input) {
-        String[] toExecute = input;
+        Instruction toExecute = new Instruction(input);
         String output= "";
-        while(toExecute.length != 0){
-            Function function = myFunctions.get(toExecute[0]);
-            double value = function.execute(toExecute);
+        while(toExecute.length() != 0){
+            Executable function = myMap.get(toExecute.get(0));
+            double value = function.execute(toExecute.progress());
             output += (value + " ");
-            toExecute = function.getOutput(toExecute);
+            //toExecute = function.getOutput(toExecute);
         }
         return output;
 
     }
 
-    public Map<String, Function> getMap () {
-        return myFunctions;
+    public SmartMap getMap () {
+        return myMap;
     }
 }

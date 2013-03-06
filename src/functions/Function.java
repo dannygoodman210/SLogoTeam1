@@ -1,8 +1,10 @@
 package functions;
 
+import backEnd.Executable;
+import backEnd.Instruction;
 import backEnd.Model;
 
-public abstract class Function {
+public abstract class Function implements Executable {
 
     private Model myModel;
     private int inputNum; 
@@ -12,8 +14,19 @@ public abstract class Function {
         inputNum = num;
     }
     
-    public abstract double execute (String[] input);
-
+    public abstract double execute (Instruction toExecute);
+    
+    	
+    public int getArgs () {
+        return inputNum;
+    }
+    
+    public Executable getExecutable(String key){
+    	return myModel.getMap().get(key);
+    }
+   
+    
+    /*
     public double getValue (String[] input) {
         if(!myModel.getMap().containsKey(input[1])) {
             return Double.parseDouble(input[1]);
@@ -76,8 +89,7 @@ public abstract class Function {
         }
         return output;
     }
+    */
     
-    public int getArgs () {
-        return inputNum;
-    }
+
 }

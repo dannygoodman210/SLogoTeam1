@@ -21,15 +21,25 @@ public class Instruction {
 	}
 
 	public Instruction progress(){
-		myInstruction = myInstruction.subList(1, myInstruction.size() -1);
+		myInstruction = myInstruction.subList(1, myInstruction.size());
 		return this;
 	}
 	
-
 	
 	public String get(int index){
-		return myInstruction.get(index);
-		
+		return myInstruction.get(index);	
+	}
+	
+	public int length(){
+		return myInstruction.size();
+	}
+	
+	public String toString(){
+		String a = "";
+		for(String b: myInstruction){
+			a+=b;
+		}
+		return a;
 	}
 	
 	

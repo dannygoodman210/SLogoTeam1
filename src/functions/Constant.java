@@ -1,6 +1,7 @@
 package functions;
 
 import backEnd.Executable;
+import backEnd.Instruction;
 
 
 public class Constant implements Executable{
@@ -12,14 +13,11 @@ public class Constant implements Executable{
 	}
 		
 
-	public double execute(String[] input) {
+	public double execute(Instruction toExecute) {
 		return myValue;
 	}
 	
-	@Override
-	public String[] getOutput(String[] args){
-		return new String[0];
-	}
+
 	
 	
 }
