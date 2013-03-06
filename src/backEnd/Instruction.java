@@ -25,5 +25,10 @@ public class Instruction {
 		return new Instruction();
 	}
 	
+	public String get(int index){
+		return myInstruction.get(index);
+		
+	}
+	
 	
 }
