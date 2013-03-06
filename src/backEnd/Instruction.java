@@ -7,23 +7,25 @@ public class Instruction {
 	
 	List<String> myInstruction;
 	
-	public Instruction( ){
+	public Instruction(String[] arguments){
+		loadInstruction(arguments);
 		
+		
+	}
+	
+	private void loadInstruction(String[] arguments){
 		myInstruction = new ArrayList<String>();
-		
-		
+		for(int i = 0 ; i < arguments.length ; i++){
+			myInstruction.add(arguments[i]);
+		}
 	}
 
 	public Instruction progress(){
-		//return the rest of list after a constant occurs
-		
-		return new Instruction();
+		myInstruction = myInstruction.subList(1, myInstruction.size() -1);
+		return this;
 	}
 	
-	public Instruction getNextChunk(){
-		
-		return new Instruction();
-	}
+
 	
 	public String get(int index){
 		return myInstruction.get(index);
