@@ -31,24 +31,27 @@ public class Instruction {
 		if(!myInstruction.get(0).equals("[")){
 			//throw exception
 		}
+		progress();
 		int bracket1Count = 1;
 		int bracket2Count = 0;
 		List<String> block = new ArrayList<String>();
 		for(String ins: myInstruction){
-			if(bracket1Count == bracket2Count){
-				break;
-			}
 			if(ins.equals("]")){
 				bracket2Count++;
 			}
+
+			if(bracket1Count == bracket2Count){
+				break;
+			}
+			
 			if(ins.equals("[")){
 				bracket1Count++;
 			}
+
 			block.add(ins);
 		}
-		myInstruction = myInstruction.subList(block.size()-2, myInstruction.size());
-		
-		return new Instruction(block.subList(1, block.size()-3));
+		myInstruction = myInstruction.subList(block.size()+1, myInstruction.size());
+		return new Instruction(block);
 		
 		
 	}
