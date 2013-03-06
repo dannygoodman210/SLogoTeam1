@@ -20,7 +20,7 @@ public class Towards extends TurtleFunction {
     	double value1 = getReturnValue(toExecute);
     	double value2 = getReturnValue(toExecute);
         double turn = getTurtle().setTowards(value1, value2);
-        return turn;
+        return Math.abs(turn);
     }
 
 }

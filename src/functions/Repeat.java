@@ -13,8 +13,9 @@ public class Repeat extends Function{
     @Override
     public double execute(Instruction toExecute) {
     	double reps = getReturnValue(toExecute);
+    	System.out.println(reps);
     	Instruction blockToExecute = toExecute.block();
-    	
+    	System.out.println(blockToExecute.toString());
     	for(double i = 0 ; i < reps; i ++){
     		executeBlock(blockToExecute);
     	}
