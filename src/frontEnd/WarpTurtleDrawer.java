@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.List;
 import util.Location;
-import util.Vector;
 import util.WarpWall;
 
 
@@ -25,12 +24,12 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
      */
     public WarpTurtleDrawer (TurtleDrawer referenceDrawer) {
         super(referenceDrawer);
-        resetWarps();
+        myWarpTotals = getView().getTurtleWarps();
     }
 
     @Override
     public void addTrail (Location start, Location finish) {
-        finish = new Location(calculateWarps(finish));
+        // finish = new Location(calculateWarps(finish));
         if (!isOutsideBounds(finish)) {
             super.addTrail(start, finish);
         }
@@ -42,23 +41,18 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
     }
 
     @Override
-    public Location drawBody (Graphics pen, Location start, Location finish, double heading) {
-        finish = calculateWarps(finish);
+    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
+        // finish = calculateWarps(finish);
         while (isOutsideBounds(finish)) {
             finish = warpPosition(start, finish);
         }
-        return super.drawBody(pen, start, finish, heading);
+        super.drawBody(pen, start, finish, heading);
     }
-
+    
     @Override
-    public void reset () {
-        resetWarps();
-        super.reset();
-    }
-
-    private boolean isOutsideBounds (Location point) {
-        Location translatedPoint = getView().translateCoordinates(point);
-        return !getView().getBounds().contains(translatedPoint);
+    public TurtleDrawer removeReference (TurtleDrawer turtleDrawer) {
+        getView().setTurtleWarps(myWarpTotals);
+        return super.removeReference(turtleDrawer);
     }
 
     private List<Location> warpTrails (Location inBounds, Location outOfBounds) {
@@ -91,28 +85,12 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
         return warper;
     }
 
-    private Location calculateWarps (Location point) {
-        for (int i = 0; i < myWarpTotals.length; i++) {
-            double size = 0;
-            if (i % 2 == 0)
-                size = getView().getBounds().getWidth();
-            else size = getView().getBounds().getHeight();
-            Vector v = new Vector(i * 90, myWarpTotals[i] * size);
-            point.translate(v);
-        }
-        return point;
-    }
-
     private void addToWarps (Integer value) {
         char[] c = Integer.toBinaryString(value).toCharArray();
         for (int i = c.length - 1; i >= 0; i--) {
             myWarpTotals[Math.abs(i - (c.length - 1) + myWarpTotals.length) % myWarpTotals.length] +=
                     Character.getNumericValue(c[i]);
         }
-    }
-
-    private void resetWarps () {
-        myWarpTotals = new int[] { 0, 0, 0, 0 };
     }
 
 }

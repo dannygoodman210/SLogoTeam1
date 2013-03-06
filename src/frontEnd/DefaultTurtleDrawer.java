@@ -1,6 +1,5 @@
 package frontEnd;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,13 +8,14 @@ import java.util.Set;
 import util.Location;
 import util.Vector;
 
+
 /**
  * Default Implementation of TurtleDrawer. The Simple Branch of the hierarchy (No decorations).
  * Draws an unfilled triangle for the body, solid lines for the trail, and does not implement
  * warping functionality.
  * 
  * @author Danny Goodman
- *
+ * 
  */
 public class DefaultTurtleDrawer extends TurtleDrawer {
 
@@ -37,7 +37,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public Location drawBody (Graphics pen, Location start, Location finish, double heading) {
+    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
         Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),
                                        TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
@@ -53,7 +53,6 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         drawLine(pen, vertex, leftPoint);
         drawLine(pen, leftPoint, rightPoint);
         drawLine(pen, rightPoint, vertex);
-        return finish;
     }
 
     @Override
@@ -69,9 +68,11 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
 
     @Override
     public void drawTrail (Graphics pen) {
-        pen.setColor(Color.BLACK);
         for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
-            drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
+            if ((!isOutsideBounds(myTrailPoints.get(i))) ||        // if statement prevents
+                (!isOutsideBounds(myTrailPoints.get(i + 1)))) {    // unnecessary drawing
+                drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
+            }
         }
     }
 
@@ -81,15 +82,10 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         turtleDrawerSet.add(this);
         return turtleDrawerSet;
     }
-    
-    @Override
-    public TurtleDrawer removeReference(TurtleDrawer turtleDrawer){
-        return this;
-    }
 
     @Override
-    public void reset () {
-        clearTrail();
+    public TurtleDrawer removeReference (TurtleDrawer turtleDrawer) {
+        return this;
     }
 
     /**

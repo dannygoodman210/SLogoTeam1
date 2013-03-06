@@ -25,9 +25,8 @@ public abstract class TurtleDrawer {
      * @param start - Beginning Location of Turtle
      * @param finish - next Location of Turtle
      * @param heading - current Turtle heading
-     * @return Location - next Location. Can be different from what is passed in.
      */
-    public abstract Location drawBody (Graphics pen, Location start, Location finish, double heading);
+    public abstract void drawBody (Graphics pen, Location start, Location finish, double heading);
 
     /**
      * Adds a pair of trail points to the Trail List.
@@ -62,11 +61,15 @@ public abstract class TurtleDrawer {
 
     public abstract TurtleDrawer removeReference (TurtleDrawer turtleDrawer);
 
-    /**
-     * Resets instance variables related to TurtleLocation such as the trail points and total warps
-     * lists.
-     */
-    public abstract void reset ();
+    @Override
+    public int hashCode () {
+        return this.getClass().getName().hashCode();
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        return (this.hashCode() == o.hashCode());
+    }
 
     /**
      * Returns the view associated with the TurtleDrawer.
@@ -86,14 +89,9 @@ public abstract class TurtleDrawer {
         myView = view;
     }
 
-    @Override
-    public int hashCode () {
-        return this.getClass().getName().hashCode();
-    }
-
-    @Override
-    public boolean equals (Object o) {
-        return (this.hashCode() == o.hashCode());
+    protected boolean isOutsideBounds (Location point) {
+        Location translatedPoint = getView().translateCoordinates(point);
+        return !getView().getBounds().contains(translatedPoint);
     }
 
 }

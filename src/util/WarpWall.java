@@ -15,9 +15,7 @@ public enum WarpWall {
     NONE(0) {
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            List<Location> pointsList = new ArrayList<Location>();
-            pointsList.add(outOfBounds);
-            return pointsList;
+            return generatePointsList(outOfBounds);
         }
 
     },

@@ -28,9 +28,8 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public Location drawBody (Graphics pen, Location start, Location finish, double heading) {
-        return myReferenceDrawer.drawBody(pen, start, finish, heading);
-
+    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
+        myReferenceDrawer.drawBody(pen, start, finish, heading);
     }
 
     @Override
@@ -55,21 +54,16 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
         return turtleDrawerSet;
     }
 
-    public TurtleDrawer removeReference(TurtleDrawer turtleDrawer){
-        if(this.equals(turtleDrawer)){
+    public TurtleDrawer removeReference (TurtleDrawer turtleDrawer) {
+        if (this.equals(turtleDrawer)) {
             return myReferenceDrawer;
         }
-        else{
+        else {
             myReferenceDrawer.removeReference(turtleDrawer);
             return this;
         }
     }
 
-    @Override
-    public void reset () {
-        myReferenceDrawer.reset();
-    }
-    
     /**
      * Returns the reference for this decorator.
      * 

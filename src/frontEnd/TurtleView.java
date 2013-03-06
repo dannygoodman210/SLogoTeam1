@@ -11,6 +11,7 @@ import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import util.Location;
+import util.Vector;
 import backEnd.Turtle;
 
 
@@ -22,14 +23,16 @@ import backEnd.Turtle;
  */
 public class TurtleView extends JComponent {
 
+    private static final Color BACKGROUND_COLOR = Color.WHITE;
+    private static final Color PEN_COLOR = Color.BLACK;
     private static final int DEFAULT_HEADING = 90;
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 495;
     private static final int VIEW_WIDTH = 620;
-    public static final int FRAMES_PER_SECOND = 1000;
-    public static final int ONE_SECOND = 1000;
-    public static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
+    private static final int FRAMES_PER_SECOND = 1000;
+    private static final int ONE_SECOND = 1000;
+    private static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
 
     private Location myTurtleLocation;
     private Location myTurtleNextLocation;
@@ -39,6 +42,7 @@ public class TurtleView extends JComponent {
     private List<Turtle> myChangesQueue;
     private Timer myTimer;
     private TurtleDrawer myTurtleDrawer;
+    private int[] myTurtleWarps;
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
@@ -68,7 +72,7 @@ public class TurtleView extends JComponent {
      */
     @Override
     public void paintComponent (Graphics pen) {
-        pen.setColor(Color.WHITE);
+        pen.setColor(BACKGROUND_COLOR);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         drawTurtle(pen);
     }
@@ -124,22 +128,42 @@ public class TurtleView extends JComponent {
         return new Location(centerX + point.getX(), centerY - point.getY());
     }
 
-    private void drawTurtle (Graphics pen) {
-        pen.setColor(Color.BLACK);
-        if (myTurtlePenDown) {
-            myTurtleDrawer.addTrail(new Location(myTurtleLocation),
-                                    new Location(myTurtleNextLocation));
-        }
-        myTurtleDrawer.drawTrail(pen);
-        if (myTurtleVisible) {
-            pen.setColor(Color.BLACK);
+    public void toggleWarp () {
+        TurtleDrawer warpDrawer = new WarpTurtleDrawer(myTurtleDrawer);
+        Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
+        if (referenceSet.contains(warpDrawer)) {
+            myTurtleDrawer = myTurtleDrawer.removeReference(warpDrawer);
         }
         else {
-            pen.setColor(Color.WHITE);
+            myTurtleDrawer = warpDrawer;
         }
-        myTurtleLocation =
-                myTurtleDrawer.drawBody(pen, new Location(myTurtleLocation),
-                                        new Location(myTurtleNextLocation), myTurtleHeading);
+    }
+
+    public int[] getTurtleWarps () {
+        return myTurtleWarps;
+    }
+
+    public void setTurtleWarps (int[] warps) {
+        this.myTurtleWarps = warps;
+    }
+
+    private void drawTurtle (Graphics pen) {
+        if (myTurtlePenDown) {
+            myTurtleDrawer.addTrail(new Location(myTurtleLocation),
+                                    calculateWarps(new Location(myTurtleNextLocation)));
+        }
+        pen.setColor(PEN_COLOR);
+        myTurtleDrawer.drawTrail(pen);
+        if (myTurtleVisible) {
+            pen.setColor(PEN_COLOR);
+        }
+        else {
+            pen.setColor(BACKGROUND_COLOR);
+        }
+        myTurtleDrawer.drawBody(pen, new Location(myTurtleLocation),
+                                calculateWarps(new Location(myTurtleNextLocation)),
+                                myTurtleHeading);
+        myTurtleLocation = calculateWarps(new Location(myTurtleNextLocation));
     }
 
     private void resetTurtleView () {
@@ -148,20 +172,25 @@ public class TurtleView extends JComponent {
         myTurtleHeading = DEFAULT_HEADING;
         myTurtlePenDown = true;
         myTurtleVisible = true;
+        resetWarps();
         clearTrails();
         myChangesQueue = new ArrayList<Turtle>();
-        myTurtleDrawer.reset();
     }
 
-    public void toggleWarp () {
-        TurtleDrawer warpDrawer = new WarpTurtleDrawer(myTurtleDrawer);
-        Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
-        if(referenceSet.contains(warpDrawer)){
-            myTurtleDrawer = myTurtleDrawer.removeReference(warpDrawer);
+    private Location calculateWarps (Location point) {
+        for (int i = 0; i < myTurtleWarps.length; i++) {
+            double size = 0;
+            if (i % 2 == 0)
+                size = getBounds().getWidth();
+            else size = getBounds().getHeight();
+            Vector v = new Vector(i * 90, myTurtleWarps[i] * size);
+            point.translate(v);
         }
-        else{
-            myTurtleDrawer = warpDrawer;
-        }
+        return point;
+    }
+
+    private void resetWarps () {
+        myTurtleWarps = new int[] { 0, 0, 0, 0 };
     }
 
 }

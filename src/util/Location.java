@@ -62,5 +62,9 @@ public class Location extends Point2D.Double {
         return new Vector(this, other);
     }
     
+    @Override
+    public String toString(){
+        return "("+(int) getX()+", "+(int) getY()+") ";        
+    }
     
 }
