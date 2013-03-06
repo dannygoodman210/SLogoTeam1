@@ -1,13 +1,14 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.util.Set;
 import util.Location;
 
 
 /**
  * Abstract Class to define a TurtleDrawer. Will have two subclass branches, one being a simple
  * TurtleDrawer and one being a DecoratedTurtleDrawer. The DecoratedTurtleDrawer changes the state
- * or functionality of the TurtleDrawer dynamically.
+ * or functionality of the TurtleDrawer dynamically. see Decorator Pattern.
  * 
  * @author Danny Goodman
  * 
@@ -45,18 +46,27 @@ public abstract class TurtleDrawer {
     public abstract void clearTrail ();
 
     /**
-     * Resets instance variables related to TurtleLocation such as the trail points and total warps
-     * lists.
-     */
-    public abstract void reset ();
-
-    /**
      * Draws the trail from the trail list. can be implemented to draw in different ways with the
      * default being a solid line from point to point.
      * 
      * @param pen - Graphics tool
      */
     public abstract void drawTrail (Graphics pen);
+
+    /**
+     * returns all references to other TurtleDrawers
+     * 
+     * @return Set of referenced TurtleDrawers.
+     */
+    public abstract Set<TurtleDrawer> getReferences ();
+
+    public abstract TurtleDrawer removeReference (TurtleDrawer turtleDrawer);
+
+    /**
+     * Resets instance variables related to TurtleLocation such as the trail points and total warps
+     * lists.
+     */
+    public abstract void reset ();
 
     /**
      * Returns the view associated with the TurtleDrawer.
@@ -75,4 +85,15 @@ public abstract class TurtleDrawer {
     protected void setView (TurtleView view) {
         myView = view;
     }
+
+    @Override
+    public int hashCode () {
+        return this.getClass().getName().hashCode();
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        return (this.hashCode() == o.hashCode());
+    }
+
 }

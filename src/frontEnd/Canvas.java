@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -152,6 +153,7 @@ public class Canvas extends JPanel {
     public JMenuBar makeMenus () {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(makeFileMenu());
+        menuBar.add(makeViewMenu());
         return menuBar;
     }
 
@@ -181,6 +183,18 @@ public class Canvas extends JPanel {
             }
         });
         return fileMenu;
+    }
+    
+    private JMenu makeViewMenu(){
+        JMenu viewMenu = new JMenu(myResources.getString("ViewMenu"));
+        viewMenu.add(new AbstractAction(myResources.getString("WarpCommand")){
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                myTurtleView.toggleWarp();
+            }
+            
+        });
+        return viewMenu;
     }
 
     private void submitInput () {

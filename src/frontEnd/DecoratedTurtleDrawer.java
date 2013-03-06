@@ -1,6 +1,7 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.util.Set;
 import util.Location;
 
 
@@ -33,15 +34,13 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public void addTrail (Location start, Location finish) {
-        myReferenceDrawer.addTrail(start, finish);
-
+    public void clearTrail () {
+        myReferenceDrawer.clearTrail();
     }
 
     @Override
-    public void clearTrail () {
-        myReferenceDrawer.clearTrail();
-
+    public void addTrail (Location start, Location finish) {
+        myReferenceDrawer.addTrail(start, finish);
     }
 
     @Override
@@ -50,10 +49,27 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
+    public Set<TurtleDrawer> getReferences () {
+        Set<TurtleDrawer> turtleDrawerSet = myReferenceDrawer.getReferences();
+        turtleDrawerSet.add(this);
+        return turtleDrawerSet;
+    }
+
+    public TurtleDrawer removeReference(TurtleDrawer turtleDrawer){
+        if(this.equals(turtleDrawer)){
+            return myReferenceDrawer;
+        }
+        else{
+            myReferenceDrawer.removeReference(turtleDrawer);
+            return this;
+        }
+    }
+
+    @Override
     public void reset () {
         myReferenceDrawer.reset();
     }
-
+    
     /**
      * Returns the reference for this decorator.
      * 

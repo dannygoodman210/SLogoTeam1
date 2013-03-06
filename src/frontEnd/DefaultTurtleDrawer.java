@@ -3,7 +3,9 @@ package frontEnd;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import util.Location;
 import util.Vector;
 
@@ -71,6 +73,18 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
             drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
         }
+    }
+
+    @Override
+    public Set<TurtleDrawer> getReferences () {
+        Set<TurtleDrawer> turtleDrawerSet = new HashSet<TurtleDrawer>();
+        turtleDrawerSet.add(this);
+        return turtleDrawerSet;
+    }
+    
+    @Override
+    public TurtleDrawer removeReference(TurtleDrawer turtleDrawer){
+        return this;
     }
 
     @Override

@@ -18,9 +18,14 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
 
     private int[] myWarpTotals; // [left][bottom][right][top]
 
+    /**
+     * Calls superclass constructor. Initializes myWarpTotals.
+     * 
+     * @param referenceDrawer
+     */
     public WarpTurtleDrawer (TurtleDrawer referenceDrawer) {
         super(referenceDrawer);
-        myWarpTotals = new int[] { 0, 0, 0, 0 };
+        resetWarps();
     }
 
     @Override
@@ -58,8 +63,7 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
 
     private List<Location> warpTrails (Location inBounds, Location outOfBounds) {
         WarpWall warper = determineWarpWall(inBounds, outOfBounds);
-        List<Location> pointsList;
-        pointsList = warper.warp(inBounds, outOfBounds, getView().getBounds());
+        List<Location> pointsList = warper.warp(inBounds, outOfBounds, getView().getBounds());
         super.addTrail(inBounds, pointsList.get(0));
         for (int i = 1; i < pointsList.size() - 1; i += 2) {
             super.addTrail(pointsList.get(i), pointsList.get(i + 1));

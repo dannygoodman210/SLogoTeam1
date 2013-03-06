@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import util.Location;
@@ -47,7 +48,6 @@ public class TurtleView extends JComponent {
         setFocusable(true);
         requestFocus();
         myTurtleDrawer = new DefaultTurtleDrawer(this);
-        myTurtleDrawer = new WarpTurtleDrawer(myTurtleDrawer);
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 checkQueue();
@@ -151,6 +151,17 @@ public class TurtleView extends JComponent {
         clearTrails();
         myChangesQueue = new ArrayList<Turtle>();
         myTurtleDrawer.reset();
+    }
+
+    public void toggleWarp () {
+        TurtleDrawer warpDrawer = new WarpTurtleDrawer(myTurtleDrawer);
+        Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
+        if(referenceSet.contains(warpDrawer)){
+            myTurtleDrawer = myTurtleDrawer.removeReference(warpDrawer);
+        }
+        else{
+            myTurtleDrawer = warpDrawer;
+        }
     }
 
 }
