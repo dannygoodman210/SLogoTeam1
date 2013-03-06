@@ -16,7 +16,7 @@ public class Repeat extends Function{
     	Instruction blockToExecute = toExecute.block();
     	
     	for(double i = 0 ; i < reps; i ++){
-    		getModel().processInstruction(blockToExecute.clone());
+    		executeBlock(blockToExecute);
     	}
     	
     	return reps;

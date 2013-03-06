@@ -33,5 +33,9 @@ public abstract class Function implements Executable {
     	return myModel.process(toExectue);
     }
     
+    public void executeBlock(Instruction blockToExecute){
+    	myModel.processInstruction(blockToExecute.clone());
+    }
+    
 
 }
