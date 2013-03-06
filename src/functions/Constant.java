@@ -17,7 +17,5 @@ public class Constant implements Executable{
 		return myValue;
 	}
 	
-
-	
 	
 }

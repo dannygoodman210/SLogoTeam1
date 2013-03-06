@@ -30,9 +30,9 @@ public class Model {
      * @param input String received from workspace
      * @return a tidy array of strings
      */
-    public String[] formatString(String input){
+    public Instruction formatString(String input){
         String[] args = input.trim().toLowerCase().split("\\s+");
-        return args;
+        return new Instruction(args);
     }
 
 
@@ -45,18 +45,22 @@ public class Model {
      * @return output that should be printed in the GUI
      * 
      */
-    public String processString(String[] input) {
-        Instruction toExecute = new Instruction(input);
-        String output= "";
+    public double processInstruction(Instruction toExecute) {
+        double output= 0;
         while(toExecute.length() != 0){
-            Executable function = myMap.get(toExecute.get(0));
-            double value = function.execute(toExecute.progress());
-            output += (value + " ");
-            //toExecute = function.getOutput(toExecute);
+            double value = process(toExecute);
+            output = value;
+            
         }
         return output;
 
     }
+
+	public double process(Instruction toExecute) {
+		Executable function = myMap.get(toExecute.get(0));
+		double value = function.execute(toExecute.progress());
+		return value;
+	}
 
     public SmartMap getMap () {
         return myMap;

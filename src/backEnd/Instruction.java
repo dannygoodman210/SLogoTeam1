@@ -9,8 +9,7 @@ public class Instruction {
 	
 	public Instruction(String[] arguments){
 		loadInstruction(arguments);
-		
-		
+
 	}
 	
 	private void loadInstruction(String[] arguments){

@@ -22,7 +22,6 @@ public class Towards extends TurtleFunction {
         
         Executable nextNextFunction = getExecutable(toExecute.get(0));
         double value2 = nextFunction.execute(toExecute.progress());
-        
         double turn = getTurtle().setTowards(value1, value2);
         return turn;
     }

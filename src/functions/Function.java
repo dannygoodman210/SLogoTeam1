@@ -25,6 +25,9 @@ public abstract class Function implements Executable {
     	return myModel.getMap().get(key);
     }
    
+    public Model getModel(){
+    	return myModel;
+    }
     
     /*
     public double getValue (String[] input) {
