@@ -50,7 +50,6 @@ public class Model {
         while(toExecute.length() != 0){
             double value = process(toExecute);
             output = value;
-            
         }
         return output;
 

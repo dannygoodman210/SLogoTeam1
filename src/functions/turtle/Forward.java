@@ -14,7 +14,7 @@ public class Forward extends TurtleFunction{
     
     @Override
     public double execute (Instruction toExecute) {
-    	double distance = getModel().process(toExecute);
+    	double distance = getReturnValue(toExecute);
         getTurtle().move(distance);
         return distance;
     }

@@ -1,6 +1,7 @@
 package functions.turtle;
 
 import functions.TurtleFunction;
+import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Turtle;
 
@@ -13,10 +14,11 @@ public class SetXY extends TurtleFunction {
     }
 
     @Override
-    public double execute(String[] input) {
-        double[] values = getValue(input, 2);
-        getTurtle().setLocation(values[0], values[1]);
-        return values[0] + values[1];
+    public double execute(Instruction toExecute) {
+        double x = getReturnValue(toExecute);
+        double y = getReturnValue(toExecute);
+        getTurtle().setLocation(x, y);
+        return x+y;//NOTE MUST ACTUALLY RETURN DISTANCE
     }
 
 }

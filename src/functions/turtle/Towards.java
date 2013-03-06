@@ -17,11 +17,8 @@ public class Towards extends TurtleFunction {
 
     @Override
     public double execute(Instruction toExecute) {
-    	Executable nextFunction = getExecutable(toExecute.get(0));
-        double value1 = nextFunction.execute(toExecute.progress());
-        
-        Executable nextNextFunction = getExecutable(toExecute.get(0));
-        double value2 = nextFunction.execute(toExecute.progress());
+    	double value1 = getReturnValue(toExecute);
+    	double value2 = getReturnValue(toExecute);
         double turn = getTurtle().setTowards(value1, value2);
         return turn;
     }
