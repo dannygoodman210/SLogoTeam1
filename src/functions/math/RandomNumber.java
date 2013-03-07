@@ -18,11 +18,16 @@ public class RandomNumber extends MathFunction {
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
-    public double execute(Queue<String> commandQueue) throws Exception {
-        int value = (int)getModel().performOperation(commandQueue);
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//    	return executing? Double.valueOf(new Random().nextInt(getModel().performOperation(commandQueue, executing).intValue()) ) : null;
+    	
+        int value = getModel().performOperation(commandQueue, executing).intValue();
         double rand = new Random().nextInt(value);
-        System.out.println(" RANDOM: " + value + ": " + rand);
-        return rand;       
+        if (executing) {
+        	System.out.println(" RANDOM: " + value + ": " + rand);
+            return Double.valueOf(rand);       
+        } else return null;
+        
     }
 
 }

@@ -17,8 +17,12 @@ public class Ycor extends TurtleQuery {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-    	System.out.println("Ycor = " + getTurtle().getLocation().y);
-        return getTurtle().getLocation().y;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//		return executing? Double.valueOf(getTurtle().getLocation().y) : null;	
+		if (executing) {
+			System.out.println("Ycor = " + getTurtle().getLocation().y);
+			return Double.valueOf(getTurtle().getLocation().y);
+		} return null;
+		
     }
 }

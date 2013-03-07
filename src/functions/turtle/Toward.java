@@ -17,11 +17,17 @@ public class Toward extends TurtleFunction {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-		double arg1 = getModel().performOperation(commandQueue);
-		double arg2 = getModel().performOperation(commandQueue);
-		double turn = getTurtle().setTowards(arg1, arg2);
-		System.out.println(" TOWARD: toward(" + arg1 + ", " + arg2 + ") = " + Math.abs(turn));
-		return Math.abs(turn);
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//		double turn = getTurtle().setTowards(getModel().performOperation(commandQueue, executing), getModel().performOperation(commandQueue, executing));
+//		return executing? Double.valueOf(Math.abs(turn)) : null;
+    	
+		double arg1 = getModel().performOperation(commandQueue, executing);
+		double arg2 = getModel().performOperation(commandQueue, executing);
+		if (executing) {
+			double turn = getTurtle().setTowards(arg1, arg2);
+			System.out.println(" TOWARD: toward(" + arg1 + ", " + arg2 + ") = " + Math.abs(turn));
+			return Double.valueOf(Math.abs(turn));
+		} return null;
+		
 	}
 }

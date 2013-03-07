@@ -19,9 +19,13 @@ public class PenDown extends TurtleFunction {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-    	System.out.println(" PENDOWN");
-        return 1;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+    	if (executing) { 
+    		System.out.println(" PENDOWN"); //Delete in the final implementation
+    		getTurtle().setPenDown(true);
+    		return Double.valueOf(1.0);
+    	} return null;
+    	
     }
 
 }

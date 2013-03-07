@@ -16,9 +16,15 @@ public class Less extends MathFunction {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-		double arg = (getModel().performOperation(commandQueue) < getModel().performOperation(commandQueue))? 1.0 : 0.0;
-		System.out.println(" LESS? " + arg);
-		return arg;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//		Double output = (getModel().performOperation(commandQueue, executing) < getModel().performOperation(commandQueue, executing))? 1.0 : 0.0;
+//		return executing? Double.valueOf(output) : null;
+		
+		Double arg = (getModel().performOperation(commandQueue, executing) < getModel().performOperation(commandQueue, executing))? 1.0 : 0.0;
+		if (executing) {
+			System.out.println(" LESS? " + arg);
+			return Double.valueOf(arg);	
+		} else return null;
+
 	}
 }

@@ -17,9 +17,14 @@ public class Xcor extends TurtleQuery {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
 	@Override
-	public double execute(Queue<String> commandQueue) throws Exception {
-		System.out.println("Xcor = " + getTurtle().getLocation().x);
-		return getTurtle().getLocation().x;
+	public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//		return executing? Double.valueOf(getTurtle().getLocation().x) : null;
+		
+		if (executing) {
+			System.out.println("Xcor = " + getTurtle().getLocation().x);
+			return Double.valueOf(getTurtle().getLocation().x);
+		} return null;
+		
 	}
 
 }

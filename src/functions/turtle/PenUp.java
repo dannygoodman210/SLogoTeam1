@@ -17,11 +17,12 @@ public class PenUp extends TurtleFunction{
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
 	@Override
-	public double execute(Queue<String> commandQueue) throws Exception {
-		System.out.println(" PENUP");
-		getTurtle().setPenDown(false);
-		return 0;
+	public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+		if (executing) {
+    		System.out.println(" PENUP"); //Delete in the final implementation
+    		getTurtle().setPenDown(false);
+    		return Double.valueOf(0.0);
+    	} return null;
+
 	}
-
-
 }

@@ -19,7 +19,7 @@ public abstract class Function{
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
-    public abstract double execute (Queue<String> commandQueue) throws Exception;
+    public abstract Double execute (Queue<String> commandQueue, boolean executing) throws Exception;
     
 
     

@@ -18,11 +18,18 @@ public class NotOperation extends MathFunction {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-		double arg = getModel().performOperation(commandQueue);
-		double output = arg>0? 1.0 : 0.0;
-		System.out.println(" NOT(" + arg + ") = " + output);
-		return output;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//		Double output = (getModel().performOperation(commandQueue, executing)>0)? 1.0 : 0.0;
+//		return executing? Double.valueOf(output) : null;
+		
+    	
+		Double arg = getModel().performOperation(commandQueue, executing);
+		Double output = arg>0? 1.0 : 0.0;
+		if (executing) {
+			System.out.println(" NOT(" + arg + ") = " + output);
+			return Double.valueOf(output);
+		} else return null;
+		
 		
 	}
 }

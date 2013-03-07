@@ -99,17 +99,17 @@ public class Model {
 	 * @return
 	 * @throws Exception
 	 */
-	public double performOperation(Queue<String> commandQueue) throws Exception {	
+	public Double performOperation(Queue<String> commandQueue, boolean executing) throws Exception {	
 		String headOfQueue = commandQueue.poll();
 		if (isNumeric(headOfQueue)) return Double.parseDouble(headOfQueue);
-		return myMap.get(headOfQueue).execute(commandQueue);
+		return myMap.get(headOfQueue).execute(commandQueue, executing);
 		
 	}
     
 	public void processString(String command) throws Exception {
 		Queue<String> commandQueue = Parser.queueCommands(command);
 		while (!commandQueue.isEmpty()) {
-			performOperation(commandQueue);
+			performOperation(commandQueue, true);
 			System.out.println("\n");
 		}
 	}

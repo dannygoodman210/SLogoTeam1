@@ -17,10 +17,13 @@ public class Right extends TurtleFunction {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-        double angle = getModel().performOperation(commandQueue);
-        getTurtle().rotate(-angle);
-        System.out.println(" RIGHT: right(" + angle + ") = " + angle);
-        return angle;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+        double arg = getModel().performOperation(commandQueue, executing);
+        if (executing) {
+        	System.out.println(" RIGHT: right(" + arg + ") = " + arg); //Delete in the final implementation
+        	getTurtle().rotate(-arg);
+            return Double.valueOf(arg);
+        } return null;
+        
     }
 }

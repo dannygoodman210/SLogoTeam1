@@ -16,8 +16,13 @@ public class IsVisible extends TurtleQuery {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-    	System.out.println("IsVisible = " + (getTurtle().isVisible()));
-    	return (getTurtle().isVisible())? 1.0 : 2.0;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//    	return executing? ( Double.valueOf((getTurtle().isVisible())? 1.0 : 0.0) ) : null;
+    	
+    	if (executing) {
+    		System.out.println("IsVisible = " + (getTurtle().isVisible()));
+        	return Double.valueOf( (getTurtle().isVisible())? 1.0 : 0.0 );
+    	} return null;
+    	
     }
 }

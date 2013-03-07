@@ -17,9 +17,14 @@ public class Heading extends TurtleQuery {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-    	System.out.println("Heading: " + getTurtle().getHeading());
-    	return getTurtle().getHeading();
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//    	return executing? Double.valueOf(getTurtle().getHeading()) : null;
+   
+    	if(executing) {
+    		System.out.println("Heading: " + getTurtle().getHeading());
+        	return Double.valueOf(getTurtle().getHeading());
+    	} return null;
+    	
     }
 
 }

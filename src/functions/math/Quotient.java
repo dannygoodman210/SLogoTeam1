@@ -16,11 +16,17 @@ public class Quotient extends MathFunction {
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
      */
     @Override
-    public double execute(Queue<String> commandQueue) throws Exception {
-		double arg1 = getModel().performOperation(commandQueue);
-		double arg2 = getModel().performOperation(commandQueue);
-		System.out.println(" DIVIDE: " + arg1 + " / " + arg2 + " = " + (arg1/arg2));
-		return arg1/arg2;
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
+//		return executing? Double.valueOf(getModel().performOperation(commandQueue, executing)/getModel().performOperation(commandQueue, executing)) : null;
+    	
+		double arg1 = getModel().performOperation(commandQueue, executing);
+		double arg2 = getModel().performOperation(commandQueue, executing);
+		if (executing) {
+			System.out.println(" DIVIDE: " + arg1 + " / " + arg2 + " = " + (arg1/arg2));
+			return Double.valueOf(arg1/arg2);
+		} else return null;	
 	}
+
+
 
 }
