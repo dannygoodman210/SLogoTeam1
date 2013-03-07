@@ -41,7 +41,7 @@ public class Workspace implements Observer {
      * @throws Exception 
      */
     public void sendInput (String text) throws Exception {
-        myModel.processString(text);
+        myModel.processString(text.toLowerCase());
 
     }
 
