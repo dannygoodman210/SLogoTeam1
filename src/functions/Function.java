@@ -1,10 +1,9 @@
 package functions;
 
 import java.util.Queue;
-import backEnd.Executable;
 import backEnd.Model;
 
-public abstract class Function implements Executable {
+public abstract class Function{
     private Model myModel;
 
 

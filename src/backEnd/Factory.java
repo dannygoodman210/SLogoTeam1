@@ -28,11 +28,8 @@ public class Factory {
      * @throws InstantiationException
      * 
      */
-    public Map<String, Executable> make (Turtle turtle, Model model) throws 
-    ClassNotFoundException, NoSuchMethodException, SecurityException, 
-    InstantiationException, IllegalAccessException, IllegalArgumentException, 
-    InvocationTargetException {
-        Map<String, Executable> map = new HashMap<String, Executable>();
+    public Map<String, Function> make (Turtle turtle, Model model) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        Map<String, Function> map = new HashMap<String, Function>();
 		Class[] paramTypes = {Turtle.class, Model.class};
         Object[] params = {turtle, model};
         
