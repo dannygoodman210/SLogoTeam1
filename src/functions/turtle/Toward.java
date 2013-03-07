@@ -1,16 +1,17 @@
-package functions.math;
+package functions.turtle;
 
 import java.util.Queue;
 
-import functions.MathFunction;
+import functions.TurtleFunction;
 import backEnd.Model;
+import backEnd.Turtle;
 
-public class Product extends MathFunction {
-
-    public Product (Model model) {
-        super(model);
+public class Toward extends TurtleFunction {
+   
+    public Toward(Turtle turtle, Model model){
+        super(turtle, model);
     }
-    
+
     /**
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
@@ -19,8 +20,8 @@ public class Product extends MathFunction {
     public double execute(Queue<String> commandQueue) throws Exception {
 		double arg1 = getModel().performOperation(commandQueue);
 		double arg2 = getModel().performOperation(commandQueue);
-		System.out.println(" PROD: " + arg1 + " * " + arg2 + " = " + (arg1*arg2));
-		return arg1*arg2;
+		double turn = getTurtle().setTowards(arg1, arg2);
+		System.out.println(" TOWARD: toward(" + arg1 + ", " + arg2 + ") = " + Math.abs(turn));
+		return Math.abs(turn);
 	}
-
 }

@@ -1,5 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JFrame;
 import frontEnd.Canvas;
 
@@ -21,8 +23,15 @@ public class Main {
 
     /**
      * main --- where the program starts
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
+     * @throws ClassNotFoundException 
      */
-    public static void main (String args[]) {
+    public static void main (String args[]) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
     	
         // view of user's content
         Canvas display = new Canvas(SIZE);

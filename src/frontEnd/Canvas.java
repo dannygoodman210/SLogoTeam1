@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -65,8 +67,15 @@ public class Canvas extends JPanel {
      * Initializes JComponents. Instantiates Workspace.
      * 
      * @param size
+     * @throws InvocationTargetException 
+     * @throws IllegalArgumentException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws SecurityException 
+     * @throws NoSuchMethodException 
+     * @throws ClassNotFoundException 
      */
-    public Canvas (Dimension size) {
+    public Canvas (Dimension size) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         // set size (a bit of a pain)
         setPreferredSize(size);
         setSize(size);
@@ -148,7 +157,12 @@ public class Canvas extends JPanel {
             private static final long serialVersionUID = 1L;
 
             public void actionPerformed (ActionEvent e) {
-                submitInput();
+                try {
+					submitInput();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
         return new JScrollPane(myCommandPrompt);
@@ -188,7 +202,7 @@ public class Canvas extends JPanel {
         return fileMenu;
     }
 
-    private void submitInput () {
+    private void submitInput () throws Exception {
         myController.sendInput(myCommandPrompt.getText());
         writeHistory(myCommandPrompt.getText());
         myCommandPrompt.setText("");

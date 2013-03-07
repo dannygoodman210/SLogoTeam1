@@ -1,19 +1,24 @@
 package functions.turtle;
 
+import java.util.Queue;
+
 import functions.TurtleFunction;
 import backEnd.Model;
 import backEnd.Turtle;
 
 public class PenUp extends TurtleFunction{
 	
-	private static final int DEFAULT_ARGS = 0;
-	
 	public PenUp(Turtle turtle, Model model){
-		super(turtle, model, DEFAULT_ARGS);
+		super(turtle, model);
 	}
 	
+	/**
+     * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
+     * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
+     */
 	@Override
-	public double execute(String[] input) {
+	public double execute(Queue<String> commandQueue) throws Exception {
+		System.out.println(" PENUP");
 		getTurtle().setPenDown(false);
 		return 0;
 	}

@@ -1,22 +1,28 @@
 package functions.math;
 
 import backEnd.Model;
+
+import java.util.Queue;
 import java.util.Random;
 
 import functions.MathFunction;
 
 public class RandomNumber extends MathFunction {
-    
-    private static final int DEFAULT_ARGS = 1;
+   
     
     public RandomNumber(Model model) {
-        super(model, DEFAULT_ARGS);
+        super(model);
     }
-    @Override
-    public double execute (String[] input) {
-        Random rand = new Random();
-        int value = (int)getValue(input);
-        return rand.nextInt(value);       
+    
+    /**
+     * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
+     * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
+     */
+    public double execute(Queue<String> commandQueue) throws Exception {
+        int value = (int)getModel().performOperation(commandQueue);
+        double rand = new Random().nextInt(value);
+        System.out.println(" RANDOM: " + value + ": " + rand);
+        return rand;       
     }
 
 }

@@ -1,7 +1,8 @@
 package functions;
 
-import backEnd.Instruction;
+import java.util.Queue;
 import backEnd.Model;
+import backEnd.Parser;
 
 public class Repeat extends Function{
     
@@ -10,15 +11,22 @@ public class Repeat extends Function{
     	super(model);
     }
     
+    /**
+     * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
+     * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
+     */
     @Override
-    public double execute(Instruction toExecute) {
-    	double reps = getReturnValue(toExecute);
-    	Instruction blockToExecute = toExecute.block();
-    	for(double i = 0 ; i < reps; i ++){
-    		executeBlock(blockToExecute);
-    	}
-    	
-    	return reps;
+    public double execute(Queue<String> commandQueue) throws Exception {
+    	int numReps = (int)getModel().performOperation(commandQueue);
+		Queue<String> copied;
+		for (int n = 1; n <numReps; n++) { 
+			System.out.println("REPEAT: " + n);
+			copied = Parser.copyQueue(commandQueue);
+			getModel().performOperation(copied);
+		}
+		System.out.println("REPEAT: " + numReps);
+		getModel().performOperation(commandQueue);
+		return numReps;
     }
     
     

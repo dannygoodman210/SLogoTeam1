@@ -1,9 +1,10 @@
 package controller;
 
-import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Turtle;
 import frontEnd.Canvas;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,7 +20,7 @@ public class Workspace implements Observer {
     private Canvas myView;
     private Model myModel;
 
-    public Workspace (Canvas view) {
+    public Workspace (Canvas view) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         myView = view;
         myModel = new Model(this);
     }
@@ -37,10 +38,10 @@ public class Workspace implements Observer {
      * the un-parsed text from the controller to the model.
      * 
      * @param text
+     * @throws Exception 
      */
-    public void sendInput (String text) {
-        Instruction commands = myModel.formatString(text);
-        myModel.processInstruction(commands);
+    public void sendInput (String text) throws Exception {
+        myModel.processString(text);
 
     }
 
