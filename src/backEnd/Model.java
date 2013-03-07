@@ -48,7 +48,7 @@ public class Model {
      * @throws IllegalArgumentException
      * @throws InvocationTargetException
      */
-    public Map<String, Function> makeMap(Turtle turtle, Model model) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    private Map<String, Function> makeMap(Turtle turtle, Model model) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Map<String, Function> map = new HashMap<String, Function>();
 		Class[] paramTypes = {Turtle.class, Model.class};
         Object[] params = {turtle, model};
@@ -81,7 +81,7 @@ public class Model {
     }
     
     
-    public boolean isNumeric(String s) throws Exception {
+    private boolean isNumeric(String s) throws Exception {
 		try {
 			Double.parseDouble(s);
 			return true;
@@ -90,6 +90,10 @@ public class Model {
 			return false;
 		}
 	}
+    
+    private boolean isVariable(String s) {
+    	return s.charAt(0)==':';
+    }
     
     
     
@@ -103,7 +107,7 @@ public class Model {
 		String headOfQueue = commandQueue.poll();
 		if (isNumeric(headOfQueue)) return Double.parseDouble(headOfQueue);
 		if (myFunctionMap.containsKey(headOfQueue)) return myFunctionMap.get(headOfQueue).execute(commandQueue, executing);
-		if (myVariableDictionary.containsKey(headOfQueue)) return myVariableDictionary.get(headOfQueue);
+		if (isVariable(headOfQueue) && myVariableDictionary.containsKey(headOfQueue)) return myVariableDictionary.get(headOfQueue);
 		return null;
 	}
     
