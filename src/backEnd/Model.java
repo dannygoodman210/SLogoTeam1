@@ -102,8 +102,9 @@ public class Model {
 	public Double performOperation(Queue<String> commandQueue, boolean executing) throws Exception {	
 		String headOfQueue = commandQueue.poll();
 		if (isNumeric(headOfQueue)) return Double.parseDouble(headOfQueue);
-		return myFunctionMap.get(headOfQueue).execute(commandQueue, executing);
-		
+		if (myFunctionMap.containsKey(headOfQueue)) return myFunctionMap.get(headOfQueue).execute(commandQueue, executing);
+		if (myVariableDictionary.containsKey(headOfQueue)) return myVariableDictionary.get(headOfQueue);
+		return null;
 	}
     
 	public void processString(String command) throws Exception {
@@ -113,7 +114,11 @@ public class Model {
 			System.out.println("\n");
 		}
 	}
-	
+
+	public Double putNewVariableInDictionary(String variableName, Double value){
+		myVariableDictionary.put(variableName,value);
+		return value;
+	}
 	
 	
 	

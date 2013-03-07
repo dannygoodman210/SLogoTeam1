@@ -2,19 +2,19 @@ package functions.turtle;
 
 import java.util.Queue;
 
+import functions.TurtleFunction;
 import backEnd.Model;
 import backEnd.Turtle;
 
-public class Ycor extends TurtleQuery {
+public class Home extends TurtleFunction {
 	/**
-     * Returns the y location of turtle
+     * Brings turtle to initial location. Returns the distance traveled
      * @author Eunsu Ryu
      */
-
-    public Ycor(Turtle turtle, Model model) {
+    
+    public Home(Turtle turtle, Model model) {
         super(turtle, model);
     }
-
 
     /**
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
@@ -23,11 +23,14 @@ public class Ycor extends TurtleQuery {
      */
     @Override
     public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
-//		return executing? Double.valueOf(getTurtle().getLocation().y) : null;	
+//    	return executing? Double.valueOf(getTurtle().goHome()) : null;
+    	
 		if (executing) {
-			System.out.println("Ycor = " + getTurtle().getLocation().y);
-			return Double.valueOf(getTurtle().getLocation().y);
+			Double arg = getTurtle().goHome();
+			System.out.println(" HOME: " + arg);
+			return Double.valueOf(arg);
 		} return null;
 		
     }
+
 }

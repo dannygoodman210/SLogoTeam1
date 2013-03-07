@@ -6,6 +6,10 @@ import backEnd.Model;
 import backEnd.Turtle;
 
 public class IsPenDown extends TurtleQuery {
+	/**
+     * Determines if the pen is down
+     * @author Eunsu Ryu
+     */
 
     public IsPenDown(Turtle turtle, Model model) {
         super(turtle, model);

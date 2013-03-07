@@ -6,6 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class OrOperation extends MathFunction {
+	/**
+     * Performs boolean or operation
+     * @author Eunsu Ryu
+     */
 
     public OrOperation (Model model) {
         super(model);

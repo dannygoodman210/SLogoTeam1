@@ -5,7 +5,10 @@ import backEnd.Model;
 import backEnd.Parser;
 
 public class Repeat extends Function{
-    
+	/**
+     * Repeats x y = repeat y x times.
+     * @author Eunsu Ryu
+     */
 	
     public Repeat(Model model) {
     	super(model);

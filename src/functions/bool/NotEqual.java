@@ -6,6 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class NotEqual extends MathFunction {
+	/**
+     * Checks whether the two arguments are not equal
+     * @author Eunsu Ryu
+     */
 
     public NotEqual (Model model) {
         super(model);

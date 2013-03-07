@@ -5,16 +5,15 @@ import java.util.Queue;
 import backEnd.Model;
 import backEnd.Turtle;
 
-public class Ycor extends TurtleQuery {
+public class MakeInvisible extends TurtleQuery {
 	/**
-     * Returns the y location of turtle
+     * Hides turtle
      * @author Eunsu Ryu
      */
 
-    public Ycor(Turtle turtle, Model model) {
+    public MakeInvisible(Turtle turtle, Model model) {
         super(turtle, model);
     }
-
 
     /**
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
@@ -22,12 +21,12 @@ public class Ycor extends TurtleQuery {
      * USE COMMENTED CODE FOR FINAL IMPLEMENTATION
      */
     @Override
-    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
-//		return executing? Double.valueOf(getTurtle().getLocation().y) : null;	
-		if (executing) {
-			System.out.println("Ycor = " + getTurtle().getLocation().y);
-			return Double.valueOf(getTurtle().getLocation().y);
-		} return null;
-		
+    public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {    	
+    	if (executing) {
+    		System.out.println(" HIDE TURTLE"); //Delete in the final implementation
+    		getTurtle().setVisible(false);
+        	return Double.valueOf(0.0);
+    	} return null;
+    	
     }
 }

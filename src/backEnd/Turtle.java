@@ -123,6 +123,18 @@ public class Turtle extends Observable {
         myLocation = new Location(x, y);
         setChanged();
     }
+    
+    /**
+     * Moves turtle to initial position
+     * @return distance traveled
+     */
+    public double goHome() {
+    	double dist = new Vector(myLocation).getMagnitude();
+    	myLocation = new Location(0,0);
+    	myHeading = NORTH_DIRECTION;
+    	setChanged();
+    	return dist;
+    }
 
     /**
      * Returns heading of turtle object

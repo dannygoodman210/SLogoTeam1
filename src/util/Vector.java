@@ -42,6 +42,11 @@ public class Vector {
         setDirection(angleBetween(dx, dy));
         setMagnitude(distanceBetween(dx, dy));
     }
+    
+    public Vector (Location loc) {
+    	this(loc, new Location(0,0));
+    	
+    }
 
     /**
      * Create a vector that is identical to the given other vector.

@@ -6,6 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class Less extends MathFunction {
+	/**
+     * Checks if former is less than latter
+     * @author Eunsu Ryu
+     */
 
     public Less (Model model) {
         super(model);

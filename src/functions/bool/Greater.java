@@ -6,6 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class Greater extends MathFunction {
+	/**
+     * Checks if the former is greater than latter.
+     * @author Eunsu Ryu
+     */
 
     public Greater (Model model) {
         super(model);

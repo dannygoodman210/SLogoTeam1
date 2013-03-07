@@ -7,6 +7,10 @@ import backEnd.Turtle;
 
 public class IsVisible extends TurtleQuery {
 
+	/**
+     * Determines if the turtle is visible
+     * @author Eunsu Ryu
+     */
     public IsVisible(Turtle turtle, Model model) {
         super(turtle, model);
     }

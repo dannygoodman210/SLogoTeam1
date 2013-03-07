@@ -2,10 +2,12 @@ package functions;
 
 import java.util.Queue;
 import backEnd.Model;
-import backEnd.Parser;
 
 public class IfElseStatement extends Function{
-    
+	/**
+     * Defines Handles if-else case
+     * @author Eunsu Ryu
+     */
 	
     public IfElseStatement(Model model) {
     	super(model);

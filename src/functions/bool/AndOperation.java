@@ -6,6 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class AndOperation extends MathFunction {
+	/**
+     * Handles boolean and operation
+     * @author Eunsu Ryu
+     */
 
     public AndOperation(Model model) {
         super(model);

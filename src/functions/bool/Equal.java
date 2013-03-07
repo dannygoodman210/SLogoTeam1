@@ -6,6 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class Equal extends MathFunction {
+	/**
+     * Handles binary equal operation
+     * @author Eunsu Ryu
+     */
 
     public Equal (Model model) {
         super(model);

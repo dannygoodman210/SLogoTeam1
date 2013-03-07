@@ -7,6 +7,11 @@ import java.util.Queue;
 import backEnd.Model;
 
 public class Block extends Function {
+	/**
+     * Processes blocks
+     * @author Eunsu Ryu
+     */
+	
 	public static final String BLOCK_OPEN = "[";
 	private static final String BLOCK_CLOSED = "]";
 	

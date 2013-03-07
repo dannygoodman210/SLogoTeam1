@@ -6,7 +6,10 @@ import functions.MathFunction;
 import backEnd.Model;
 
 public class NotOperation extends MathFunction {
-    
+	/**
+     * Performs boolean negation
+     * @author Eunsu Ryu
+     */
     
     public NotOperation(Model model) {
         super(model);

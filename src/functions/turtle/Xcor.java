@@ -6,6 +6,10 @@ import backEnd.Model;
 import backEnd.Turtle;
 
 public class Xcor extends TurtleQuery {
+	/**
+     * Returns the x location of turtle
+     * @author Eunsu Ryu
+     */
 	
 	public Xcor(Turtle turtle, Model model) {
 		super(turtle, model);

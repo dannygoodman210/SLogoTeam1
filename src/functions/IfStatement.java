@@ -2,10 +2,12 @@ package functions;
 
 import java.util.Queue;
 import backEnd.Model;
-import backEnd.Parser;
 
 public class IfStatement extends Function{
-    
+	/**
+     * Handles if statements
+     * @author Eunsu Ryu
+     */
 	
     public IfStatement(Model model) {
     	super(model);
