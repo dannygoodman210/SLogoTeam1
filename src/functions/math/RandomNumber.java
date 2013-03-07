@@ -17,6 +17,7 @@ public class RandomNumber extends MathFunction {
     /**
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
+     * USE COMMENTED CODE FOR FINAL IMPLEMENTATION
      */
     public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {
 //    	return executing? Double.valueOf(new Random().nextInt(getModel().performOperation(commandQueue, executing).intValue()) ) : null;

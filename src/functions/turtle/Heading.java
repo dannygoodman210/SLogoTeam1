@@ -15,6 +15,7 @@ public class Heading extends TurtleQuery {
     /**
      * CAN BE MADE SHORTER. The println() functions are included for the testing purposes.
      * Pleas REMOVE them in the actual implementation. Most execute() methods can be reduced to one-liners.
+     * USE COMMENTED CODE FOR FINAL IMPLEMENTATION
      */
     @Override
     public Double execute(Queue<String> commandQueue, boolean executing) throws Exception {

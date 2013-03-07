@@ -24,18 +24,18 @@ public class Model {
 
     private Workspace myController;
     private Turtle myTurtle;
-    private Map<String, Function> myMap = new HashMap<String,Function>();
+    private Map<String, Function> myFunctionMap = new HashMap<String,Function>();
+    private Map<String, Double> myVariableDictionary = new HashMap<String, Double>();
 
 
     public Model (Workspace controller) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         myController = controller;
         myTurtle = new Turtle(myController);
-        myMap = makeMap(myTurtle, this);
-
-		
+        myFunctionMap = makeMap(myTurtle, this);	
     }
     
     /**
+     * TO BE REFACTORED.
      * Builds a map from function names to function classes
      * @param turtle
      * @param model
@@ -102,7 +102,7 @@ public class Model {
 	public Double performOperation(Queue<String> commandQueue, boolean executing) throws Exception {	
 		String headOfQueue = commandQueue.poll();
 		if (isNumeric(headOfQueue)) return Double.parseDouble(headOfQueue);
-		return myMap.get(headOfQueue).execute(commandQueue, executing);
+		return myFunctionMap.get(headOfQueue).execute(commandQueue, executing);
 		
 	}
     
