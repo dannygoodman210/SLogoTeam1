@@ -35,8 +35,6 @@ public class Model {
         return new Instruction(args);
     }
 
-
-
     /**
      * The model handles execute, processString can be called recursively to 
      * deal with situations such as repeat
@@ -48,21 +46,18 @@ public class Model {
     public double processInstruction(Instruction toExecute) {
         double output= 0;
         while(toExecute.length() != 0){
-        	
             double value = process(toExecute);
             output = value;
         }
         return output;
-
     }
     
-   
-
-	public double process(Instruction toExecute) {
-		Executable function = myMap.get(toExecute.get(0));
-		double value = function.execute(toExecute.progress());
-		return value;
-	}
+    // Couldn't this function just be one line in processInstruction
+    public double process(Instruction toExecute) {
+        Executable function = myMap.get(toExecute.get(0));
+        double value = function.execute(toExecute.progress());
+        return value;
+    }
 
     public SmartMap getMap () {
         return myMap;
