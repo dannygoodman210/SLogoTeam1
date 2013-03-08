@@ -62,4 +62,8 @@ public class Model {
     public SmartMap getMap () {
         return myMap;
     }
+    
+    public void add(String name, Executable toAdd) {
+        myMap.add(name, toAdd);
+    }
 }

@@ -53,4 +53,8 @@ public class SmartMap {
     public boolean isNumber(String a){
         return !myMap.containsKey(a);
     }
+    
+    public void add(String name, Executable function) {
+        myMap.put(name, function);
+    }
 }
