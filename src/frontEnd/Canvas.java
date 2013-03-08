@@ -7,6 +7,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
@@ -143,6 +144,9 @@ public class Canvas extends JPanel {
                 if (response == JFileChooser.APPROVE_OPTION) {
                     // TODO: process file; throw exception if not working.
                 }
+                else {
+                	showErrorMsg("Could not open file");
+                }
             }
         });
         fileMenu.add(new JSeparator());
@@ -172,5 +176,9 @@ public class Canvas extends JPanel {
 
         });
         return viewMenu;
+    }
+    
+    public void showErrorMsg (String text) {
+    	JOptionPane.showMessageDialog(this, text, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
