@@ -50,6 +50,7 @@ public class Model {
             double value = process(toExecute);
             output = value;
         }
+        //getManager().getController().sendHistory(output);
         return output;
     }
     

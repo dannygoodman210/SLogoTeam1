@@ -54,4 +54,9 @@ public class Controller implements Observer {
     	myModel.getManager().addTurtle();
     }
 
+    public void sendHistory (double value) {
+        myView.writeHistory(Double.toString(value));
+        
+    }
+
 }

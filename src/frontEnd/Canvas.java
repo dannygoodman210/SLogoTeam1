@@ -107,11 +107,7 @@ public class Canvas extends JPanel {
      * @param text - string to be printed
      */
     public void writeHistory (String text) {
-        String[] commandLines = text.split(myResources.getString("NewLine"));
-        for (String command : commandLines) {
-            myHistoryView.append(myResources.getString("BeginLine") + command +
-                                 myResources.getString("NewLine"));
-        }
+        getWorkspace().writeHistory(text);
     }
 
     public JMenuBar makeMenus () {
@@ -154,7 +150,7 @@ public class Canvas extends JPanel {
         viewMenu.add(new AbstractAction(myResources.getString("WarpCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTurtleView.toggleWarp();
+                getWorkspace().getTurtleView().toggleWarp();
             }
 
         });

@@ -9,7 +9,7 @@ public class WorkspaceManager {
 
 	private int myIndex;
 	private List<Turtle> myTurtles;
-	Controller myController;
+	private Controller myController;
 	 
 	 public WorkspaceManager(Controller controller) {
 		 myTurtles = new ArrayList<Turtle>();
@@ -25,6 +25,10 @@ public class WorkspaceManager {
 	 public Turtle getTurtle () {
 		 myIndex = getWorkspaceIndex();
 		 return myTurtles.get(myIndex);
+	 }
+	 
+	 public Controller getController(){
+	     return myController;
 	 }
 	
 	 private int getWorkspaceIndex () {
