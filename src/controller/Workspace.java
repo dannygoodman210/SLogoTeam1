@@ -1,5 +1,6 @@
 package controller;
 
+import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Turtle;
 import frontEnd.Canvas;
@@ -39,10 +40,10 @@ public class Workspace implements Observer {
      * 
      * @param text
      */
-    public void sendInput (String text, WorkspaceView workspace) {
-        String[] commands = myModel.formatString(text);
-        myModel.processString(commands);
 
+    public void sendInput (String text) {
+        Instruction commands = myModel.formatString(text);
+        myModel.processInstruction(commands);
     }
 
 }

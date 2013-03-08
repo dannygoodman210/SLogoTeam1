@@ -1,25 +1,45 @@
 package functions;
 
-public abstract class Function {
-    
-	private static final int DEFAULTCUT = 2;
-    private int cutNumber;
-    
-    public Function(){
-    	this(DEFAULTCUT);
+import backEnd.Executable;
+import backEnd.Instruction;
+import backEnd.Model;
+import backEnd.Turtle;
+
+public abstract class Function implements Executable {
+
+    private static final int DEFAULTINPUTS = 1;
+    private Model myModel;
+    private int inputNum; 
+
+    public Function(Model model){
+        this(DEFAULTINPUTS,model);
     }
     
-    public Function (int cut) {
-        cutNumber = cut;
+    public Function (int num, Model model) {
+        myModel = model;
+        inputNum = num;
+    }
+
+    public abstract double execute (Instruction toExecute);
+    
+    public int getArgs () {
+        return inputNum;
+    }
+
+
+    protected Model getModel(){
+        return myModel;
     }
     
-    public abstract String execute (String[] input);
-    
-    public String[] getOutput (String[] args) {
-        String[] output = new String[args.length - cutNumber];
-        for (int i = cutNumber; i < args.length; i++) {
-            output[i - cutNumber] = args[i];
-        }
-        return output;
+    protected Turtle getTurtle(){
+    	return myModel.getManager().getTurtle();
+    }
+
+    public double getReturnValue(Instruction toExectue){
+        return myModel.process(toExectue);
+    }
+
+    public double executeBlock(Instruction blockToExecute){
+        return myModel.processInstruction(blockToExecute.clone());
     }
 }

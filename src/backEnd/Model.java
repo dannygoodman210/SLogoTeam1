@@ -1,40 +1,27 @@
 package backEnd;
 
 import controller.Workspace;
-import functions.Function;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-import java.util.HashMap;
+
 
 public class Model {
-	
-/**
- * Model object takes the user input and runs the associated command/function.
- * 
- * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
- */
 
-    private Workspace myController;
-    private Turtle myTurtle;
-    private Map<String, Function> myFunctions;
+    /**
+     * Model object takes the user input and runs the associated command/function.
+     * 
+     * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
+     */
 
-    
+   
+    private SmartMap myMap;
+    private WorkspaceManager myManager;
+
+
     public Model (Workspace controller) {
-        myController = controller;
-        Factory factory = new Factory();
-        myTurtle = new Turtle(myController);
-        try {
-			myFunctions = factory.make(myTurtle, this);
-		} catch (ClassNotFoundException | NoSuchMethodException
-				| SecurityException | InstantiationException
-				| IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        myManager = new WorkspaceManager(controller);
+        myMap = new SmartMap(this);
     }
-    
+
     /**
      * The main purpose of this method is to clean up the input string
      * and convert it into an array, which is more convenient. It also 
@@ -43,13 +30,11 @@ public class Model {
      * @param input String received from workspace
      * @return a tidy array of strings
      */
-    public String[] formatString(String input){
-    	String[] args = input.trim().toLowerCase().split("\\s+");
-    	return args;
+    public Instruction formatString(String input){
+        String[] args = input.trim().toLowerCase().split("\\s+");
+        return new Instruction(args);
     }
-    
-    
-    
+
     /**
      * The model handles execute, processString can be called recursively to 
      * deal with situations such as repeat
@@ -58,16 +43,32 @@ public class Model {
      * @return output that should be printed in the GUI
      * 
      */
-    public String processString(String[] input) {
-    	String[] toExecute = input;
-    	String output= "";
-    	while(toExecute.length !=0){
-    		Function function = myFunctions.get(toExecute[0]);
-        	String s = function.execute(toExecute);
-        	output += (s + " ");
-        	toExecute = function.getOutput(toExecute);
-    	}
-    	return output;
-    	
+
+    public double processInstruction(Instruction toExecute) {
+        double output= 0;
+        while(toExecute.length() != 0){
+            double value = process(toExecute);
+            output = value;
+        }
+        return output;
+    }
+    
+   
+    public double process(Instruction toExecute) {
+        Executable function = myMap.get(toExecute.get(0));
+        double value = function.execute(toExecute.progress());
+        return value;
+    }
+
+    public SmartMap getMap () {
+        return myMap;
+    }
+    
+    public void add(String name, Executable toAdd) {
+        myMap.add(name, toAdd);
+    }
+    public WorkspaceManager getManager(){
+    	return myManager;
+
     }
 }

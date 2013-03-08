@@ -1,5 +1,6 @@
-package functions;
+package functions.block;
 
+import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
 
@@ -14,8 +15,8 @@ public class Repeat extends Function{
     public double execute(Instruction toExecute) {
         double reps = getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
-        for(double i = 0 ; i < reps; i ++){
-            executeBlock(blockToExecute);
+        for(double i = 0 ; i < reps; i++){
+            return executeBlock(blockToExecute);
         }
 
         return reps;
