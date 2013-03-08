@@ -62,6 +62,17 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
+    public List<Location> getTrail () {
+        return myTrailPoints;
+    }
+
+    @Override
+    public void setTrail (List<Location> list) {
+        myTrailPoints = list;
+        
+    }
+
+    @Override
     public void clearTrail () {
         myTrailPoints = new ArrayList<Location>();
     }
@@ -69,10 +80,10 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     @Override
     public void drawTrail (Graphics pen) {
         for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
-            if ((!isOutsideBounds(myTrailPoints.get(i))) ||        // if statement prevents
-                (!isOutsideBounds(myTrailPoints.get(i + 1)))) {    // unnecessary drawing
+           // if ((!isOutsideBounds(myTrailPoints.get(i))) ||        // if statement prevents
+             //   (!isOutsideBounds(myTrailPoints.get(i + 1)))) {    // unnecessary drawing
                 drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
-            }
+            //}
         }
     }
 
@@ -96,8 +107,8 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
      * @param finish - End Location
      */
     protected void drawLine (Graphics pen, Location start, Location finish) {
-        start = getView().translateCoordinates(start);
-        finish = getView().translateCoordinates(finish);
+        start = translateCoordinates(start);
+        finish = translateCoordinates(finish);
         pen.drawLine((int) start.getX(), (int) start.getY(),
                      (int) finish.getX(), (int) finish.getY());
     }

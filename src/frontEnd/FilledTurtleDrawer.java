@@ -37,9 +37,9 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
                                           vertex.getY() + headToLeft.getYChange());
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
                                            leftPoint.getY() + leftToRight.getYChange());
-        vertex = getView().translateCoordinates(vertex);
-        leftPoint = getView().translateCoordinates(leftPoint);
-        rightPoint = getView().translateCoordinates(rightPoint);
+        vertex = translateCoordinates(vertex);
+        leftPoint = translateCoordinates(leftPoint);
+        rightPoint = translateCoordinates(rightPoint);
         pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
                         new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
     }

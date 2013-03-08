@@ -64,7 +64,7 @@ public class Location extends Point2D.Double {
     
     @Override
     public String toString(){
-        return "("+(int) getX()+", "+(int) getY()+") ";        
+        return "("+ (int) getX()+", "+ (int) getY()+") ";        
     }
     
 }

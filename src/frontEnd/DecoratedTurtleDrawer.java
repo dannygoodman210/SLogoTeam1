@@ -1,6 +1,7 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.util.List;
 import java.util.Set;
 import util.Location;
 
@@ -33,13 +34,23 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public void clearTrail () {
-        myReferenceDrawer.clearTrail();
+    public void addTrail (Location start, Location finish) {
+        myReferenceDrawer.addTrail(start, finish);
+    }
+    
+    @Override
+    public List<Location> getTrail(){
+        return myReferenceDrawer.getTrail();
+    }
+    
+    @Override
+    public void setTrail(List<Location> list){
+        myReferenceDrawer.setTrail(list);
     }
 
     @Override
-    public void addTrail (Location start, Location finish) {
-        myReferenceDrawer.addTrail(start, finish);
+    public void clearTrail () {
+        myReferenceDrawer.clearTrail();
     }
 
     @Override

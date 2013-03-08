@@ -235,7 +235,6 @@ public class Vector {
      * Returns the angle represented by the given dx and dy
      */
     public static double angleBetween (double dx, double dy) {
-        // TODO: this is still buggy :(
         return Math.toDegrees(Math.atan2(dy, dx));
     }
 

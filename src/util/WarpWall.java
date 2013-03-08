@@ -27,14 +27,6 @@ public enum WarpWall {
         }
 
     },
-    RIGHT(4) {
-        @Override
-        public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            double right = bounds.getWidth() / 2;
-            return leftRightWarp(inBounds, outOfBounds, right);
-        }
-
-    },
     TOP(2) {
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
@@ -48,6 +40,14 @@ public enum WarpWall {
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
             Location corner = new Location(-bounds.getWidth() / 2, bounds.getHeight() / 2);
             return cornerWarp(inBounds, outOfBounds, bounds, corner);
+        }
+
+    },
+    RIGHT(4) {
+        @Override
+        public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
+            double right = bounds.getWidth() / 2;
+            return leftRightWarp(inBounds, outOfBounds, right);
         }
 
     },
@@ -137,17 +137,12 @@ public enum WarpWall {
         Vector between = new Vector(inBounds, outOfBounds);
         Vector toCorner = new Vector(inBounds, corner);
         String[] sides = getSides();
-        if (between.getDirection() < toCorner.getDirection()) {
-            flipSides(sides);
+        int side = 0; // 0 indicates first side in name while 1 indicates second.
+        if (between.getDirection() < toCorner.getDirection()) { // which side it intersects first.
+            side = 1;
         }
-        List<Location> firstWarp;
-        List<Location> secondWarp;
         try {
-            firstWarp = Enum.valueOf(WarpWall.class, sides[0]).warp(inBounds, outOfBounds, bounds);
-            secondWarp = Enum.valueOf(WarpWall.class, sides[1]).warp(firstWarp.get(1),
-                                                                     firstWarp.get(2), bounds);
-            return generatePointsList(firstWarp.get(0), firstWarp.get(1), secondWarp.get(0),
-                                      secondWarp.get(1), secondWarp.get(2));
+            return Enum.valueOf(WarpWall.class, sides[side]).warp(inBounds, outOfBounds, bounds);
         }
         catch (SecurityException | IllegalArgumentException e) {
             // TODO send error to view
@@ -219,6 +214,7 @@ public enum WarpWall {
         for (Location p : points) {
             pointsList.add(p);
         }
+        pointsList.add(new Location(myWallID, myWallID));
         return pointsList;
 
     }

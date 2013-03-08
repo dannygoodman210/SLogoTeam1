@@ -51,6 +51,7 @@ public class TurtleView extends JComponent {
         setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
         setFocusable(true);
         requestFocus();
+        getBounds().setBounds(0, 0, getBounds().width, getBounds().height);
         myTurtleDrawer = new DefaultTurtleDrawer(this);
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
             public void actionPerformed (ActionEvent e) {
@@ -87,15 +88,6 @@ public class TurtleView extends JComponent {
     }
 
     /**
-     * Updates turtle based on next turtle in the queue. Called by the timer.
-     */
-    public void checkQueue () {
-        if (!myChangesQueue.isEmpty()) {
-            updateTurtle(myChangesQueue.remove(0));
-        }
-    }
-
-    /**
      * Updates the Turtle parameters based on the new Turtle information. Calls repaint().
      * 
      * @param changedTurtle - contains changes in instance variables
@@ -116,27 +108,18 @@ public class TurtleView extends JComponent {
         repaint();
     }
 
-    /**
-     * Translates Coordinates from (0,0) centered to (0,0) in the top left corner.
-     * 
-     * @param point - Location to be translated
-     * @return Translated Location
-     */
-    public Location translateCoordinates (Location point) {
-        double centerX = getBounds().getWidth() / 2;
-        double centerY = getBounds().getHeight() / 2;
-        return new Location(centerX + point.getX(), centerY - point.getY());
-    }
-
     public void toggleWarp () {
-        TurtleDrawer warpDrawer = new WarpTurtleDrawer(myTurtleDrawer);
+        myTimer.stop();
+        TurtleDrawer warpDrawer = new WarpTurtleDrawer(new DefaultTurtleDrawer(this));
         Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
         if (referenceSet.contains(warpDrawer)) {
             myTurtleDrawer = myTurtleDrawer.removeReference(warpDrawer);
         }
         else {
-            myTurtleDrawer = warpDrawer;
+            myTurtleDrawer = new WarpTurtleDrawer(myTurtleDrawer);
         }
+        repaint();
+        myTimer.start();
     }
 
     public int[] getTurtleWarps () {
@@ -147,10 +130,47 @@ public class TurtleView extends JComponent {
         this.myTurtleWarps = warps;
     }
 
+    public Location calculateWarps (Location point, int[] warps) {
+        for (int i = 0; i < warps.length; i++) {
+            double size = 0;
+            if (i % 2 == 0) {
+                size = getBounds().getWidth();
+            }
+            else {
+                size = getBounds().getHeight();
+            }
+            Vector v = new Vector(i * 90, warps[i] * size);
+            point.translate(v);
+        }
+        return point;
+    }
+
+    /**
+     * Translates Coordinates from (0,0) centered to (0,0) in the top left corner.
+     * 
+     * @param point - Location to be translated
+     * @return Translated Location
+     */
+    public Location translateCoordinates (Location point) {
+        int centerX = (int) getBounds().getWidth() / 2;
+        int centerY = (int) getBounds().getHeight() / 2;
+        return new Location(centerX + point.getX(), centerY - point.getY());
+    }
+
+    /**
+     * Updates turtle based on next turtle in the queue. Called by the timer.
+     */
+    private void checkQueue () {
+        if (!myChangesQueue.isEmpty()) {
+            updateTurtle(myChangesQueue.remove(0));
+        }
+    }
+
     private void drawTurtle (Graphics pen) {
         if (myTurtlePenDown) {
-            myTurtleDrawer.addTrail(new Location(myTurtleLocation),
-                                    calculateWarps(new Location(myTurtleNextLocation)));
+            myTurtleDrawer.addTrail(calculateWarps(new Location(myTurtleLocation), myTurtleWarps),
+                                    calculateWarps(new Location(myTurtleNextLocation),
+                                                   myTurtleWarps));
         }
         pen.setColor(PEN_COLOR);
         myTurtleDrawer.drawTrail(pen);
@@ -160,10 +180,10 @@ public class TurtleView extends JComponent {
         else {
             pen.setColor(BACKGROUND_COLOR);
         }
-        myTurtleDrawer.drawBody(pen, new Location(myTurtleLocation),
-                                calculateWarps(new Location(myTurtleNextLocation)),
+        myTurtleDrawer.drawBody(pen, calculateWarps(new Location(myTurtleLocation), myTurtleWarps),
+                                calculateWarps(new Location(myTurtleNextLocation), myTurtleWarps),
                                 myTurtleHeading);
-        myTurtleLocation = calculateWarps(new Location(myTurtleNextLocation));
+        myTurtleLocation = new Location(myTurtleNextLocation);
     }
 
     private void resetTurtleView () {
@@ -175,18 +195,6 @@ public class TurtleView extends JComponent {
         resetWarps();
         clearTrails();
         myChangesQueue = new ArrayList<Turtle>();
-    }
-
-    private Location calculateWarps (Location point) {
-        for (int i = 0; i < myTurtleWarps.length; i++) {
-            double size = 0;
-            if (i % 2 == 0)
-                size = getBounds().getWidth();
-            else size = getBounds().getHeight();
-            Vector v = new Vector(i * 90, myTurtleWarps[i] * size);
-            point.translate(v);
-        }
-        return point;
     }
 
     private void resetWarps () {

@@ -1,6 +1,8 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.List;
 import java.util.Set;
 import util.Location;
 
@@ -35,6 +37,10 @@ public abstract class TurtleDrawer {
      * @param finish - destination point
      */
     public abstract void addTrail (Location start, Location finish);
+
+    public abstract List<Location> getTrail ();
+
+    public abstract void setTrail (List<Location> list);
 
     /**
      * clears all Locations from the trail list. Included here not because implementation will
@@ -89,9 +95,20 @@ public abstract class TurtleDrawer {
         myView = view;
     }
 
-    protected boolean isOutsideBounds (Location point) {
-        Location translatedPoint = getView().translateCoordinates(point);
-        return !getView().getBounds().contains(translatedPoint);
+    protected Location translateCoordinates (Location point) {
+        return getView().translateCoordinates(point);
     }
 
+    protected Rectangle getBounds () {
+        
+        return getView().getBounds();
+    }
+
+    protected boolean isOutsideBounds (Location point) {
+        Location translatedPoint = translateCoordinates(point);
+        System.out.println(getBounds()+"    " + translatedPoint);
+        Rectangle bounds = getBounds();
+        bounds.setBounds(0,0,bounds.width,bounds.height);
+        return !bounds.contains(translatedPoint);
+    }
 }
