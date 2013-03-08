@@ -53,7 +53,8 @@ public class Canvas extends JPanel {
         myWorkspaces = new JTabbedPane();
         add(myWorkspaces);
         myController = new Controller(this);
-        myWorkspaces.add("Workspace", makeWorkspace());
+        int workspaceCount = myWorkspaces.getTabCount() + 1;
+        myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceCount, makeWorkspace());
         // make file chooser
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
@@ -131,7 +132,8 @@ public class Canvas extends JPanel {
         fileMenu.add(new AbstractAction(myResources.getString("NewCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-            	myWorkspaces.add("Workspace", makeWorkspace());
+            	int workspaceNumber = myWorkspaces.getTabCount() + 1;
+            	myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceNumber, makeWorkspace());
             }
         });
         fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
