@@ -26,7 +26,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import backEnd.Turtle;
-import controller.Workspace;
+import controller.Controller;
 
 
 /**
@@ -46,7 +46,7 @@ public class Canvas extends JPanel {
     private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
 
     private JFileChooser myChooser;
-    private Workspace myController;
+    private Controller myController;
     private JTabbedPane myWorkspaces;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
@@ -69,8 +69,8 @@ public class Canvas extends JPanel {
         myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
         myWorkspaces = new JTabbedPane();
         add(myWorkspaces);
+        myController = new Controller(this);
         myWorkspaces.add("Workspace", makeWorkspace());
-        myController = new Workspace(this);
         // make file chooser
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
@@ -79,6 +79,7 @@ public class Canvas extends JPanel {
     
     private WorkspaceView makeWorkspace () {
     	WorkspaceView workspace = new WorkspaceView(this);
+    	workspace.makeTurtle();
         return workspace;
     }
     
@@ -87,7 +88,7 @@ public class Canvas extends JPanel {
     	return activeWorkspace;
     }
     
-    public int getWorkspaceNum () {
+    public int getWorkspaceIndex () {
     	return myWorkspaces.getSelectedIndex();
     }
 
@@ -97,7 +98,7 @@ public class Canvas extends JPanel {
      * @param changedTurtle
      */
     public void updateTurtle (Turtle changedTurtle) {
-        getWorkspace().updateTurtle(changedTurtle);
+    	getWorkspace().updateTurtle(changedTurtle);
     }
 
     /**
@@ -160,7 +161,7 @@ public class Canvas extends JPanel {
         return viewMenu;
     }
 
-    public Workspace getController() {
+    public Controller getController() {
     	return myController;
     }
 }

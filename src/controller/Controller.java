@@ -16,12 +16,12 @@ import java.util.Observer;
  * @author Danny Goodman, Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
  *
  */
-public class Workspace implements Observer {
+public class Controller implements Observer {
 
     private Canvas myView;
     private Model myModel;
 
-    public Workspace (Canvas view) {
+    public Controller (Canvas view) {
         myView = view;
         myModel = new Model(this);
     }
@@ -44,6 +44,14 @@ public class Workspace implements Observer {
     public void sendInput (String text) {
         Instruction commands = myModel.formatString(text);
         myModel.processInstruction(commands);
+    }
+    
+    public int getWorkspaceIndex () {
+    	return myView.getWorkspaceIndex();
+    }
+    
+    public void addTurtle () {
+    	myModel.getManager().addTurtle();
     }
 
 }

@@ -18,7 +18,7 @@ import javax.swing.KeyStroke;
 
 import backEnd.Turtle;
 
-import controller.Workspace;
+import controller.Controller;
 
 @SuppressWarnings("serial")
 public class WorkspaceView extends JPanel {
@@ -42,7 +42,10 @@ public class WorkspaceView extends JPanel {
         add(makeTurtleView(), BorderLayout.CENTER);
         add(makeHistoryPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
-        //TODO: add turtle in model
+    }
+    
+    public void makeTurtle () {
+        getController().addTurtle();
     }
     
 	private Component makeTurtleView () {
@@ -101,7 +104,7 @@ public class WorkspaceView extends JPanel {
             private static final long serialVersionUID = 1L;
 
             public void actionPerformed (ActionEvent e) {
-                //getController().sendInput(myCommandPrompt.getText(), this);
+                getController().sendInput(myCommandPrompt.getText());
                 writeHistory(myCommandPrompt.getText());
                 myCommandPrompt.setText(myResources.getString("Blank"));
             }
@@ -130,7 +133,7 @@ public class WorkspaceView extends JPanel {
         }
     }
     
-    private Workspace getController () {
+    private Controller getController () {
     	return myView.getController();
     }
 }

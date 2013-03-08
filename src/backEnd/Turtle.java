@@ -33,10 +33,10 @@ public class Turtle extends Observable {
     public Turtle (Observer observer) {
         myObserver = observer;
         addObserver(myObserver);
-        setLocation(INITIAL_LOCATION);
-        setHeading(NORTH_DIRECTION);
-        setPenDown(true);
-        setVisible(true);
+        myLocation = (Location) INITIAL_LOCATION.clone();
+        myHeading = NORTH_DIRECTION;
+        myPenDown = true;
+        myVisible = true;
     }
 
     /**
