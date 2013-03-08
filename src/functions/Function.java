@@ -24,10 +24,6 @@ public abstract class Function implements Executable {
     public int getArgs () {
         return inputNum;
     }
-  
-    protected Model getModel(){
-    	return myModel;
-    }
     
     public double getReturnValue(Instruction toExectue){
     	return myModel.process(toExectue);
