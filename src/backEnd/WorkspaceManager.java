@@ -15,7 +15,7 @@ import controller.Controller;
 public class WorkspaceManager {
 
 	private List<Turtle> myTurtles;
-	Controller myController;
+	private Controller myController;
 	 
 	/**
 	 * Initializes the list used to contain the turtles and sets the controller
@@ -40,6 +40,10 @@ public class WorkspaceManager {
 	  */
 	 public Turtle getTurtle () {
 		 return myTurtles.get(getWorkspaceIndex());
+	 }
+	 
+	 public Controller getController(){
+	     return myController;
 	 }
 	
 	 /**

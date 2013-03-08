@@ -115,6 +115,12 @@ public class Canvas extends JPanel {
      * 
      * @return menuBar
      */
+
+    public void writeHistory (String text) {
+        getWorkspace().writeHistory(text);
+    }
+
+
     public JMenuBar makeMenus () {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(makeFileMenu());
@@ -171,7 +177,7 @@ public class Canvas extends JPanel {
         viewMenu.add(new AbstractAction(myResources.getString("WarpCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTurtleView.toggleWarp();
+                getWorkspace().getTurtleView().toggleWarp();
             }
 
         });

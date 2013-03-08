@@ -100,7 +100,6 @@ public abstract class TurtleDrawer {
     }
 
     protected Rectangle getBounds () {
-        
         return getView().getBounds();
     }
 
