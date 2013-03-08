@@ -4,7 +4,6 @@ import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Turtle;
 import frontEnd.Canvas;
-import frontEnd.WorkspaceView;
 
 import java.util.Observable;
 import java.util.Observer;

@@ -1,30 +1,15 @@
 package frontEnd;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
 import backEnd.Turtle;
 import controller.Controller;
 
@@ -49,8 +34,6 @@ public class Canvas extends JPanel {
     private Controller myController;
     private JTabbedPane myWorkspaces;
     private TurtleView myTurtleView;
-    private JTextArea myCommandPrompt;
-    private JTextArea myHistoryView;
     private ResourceBundle myResources;
 
     /**
@@ -70,28 +53,53 @@ public class Canvas extends JPanel {
         myWorkspaces = new JTabbedPane();
         add(myWorkspaces);
         myController = new Controller(this);
-        myWorkspaces.add("Workspace", makeWorkspace());
+        int workspaceCount = myWorkspaces.getTabCount() + 1;
+        myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceCount, makeWorkspace());
         // make file chooser
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
         setVisible(true);
     }
     
+    /**
+     * Creates workspace to be added into the myWorkspaces tab manager
+     * 
+     * @return workspace to be made
+     */
     private WorkspaceView makeWorkspace () {
     	WorkspaceView workspace = new WorkspaceView(this);
     	workspace.makeTurtle();
         return workspace;
     }
     
+    /**
+     * Returns the workspace which the user is currently working in
+     * @return activeWorkspace
+     */
     public WorkspaceView getWorkspace () {
     	WorkspaceView activeWorkspace = (WorkspaceView) myWorkspaces.getSelectedComponent();
     	return activeWorkspace;
     }
     
+    /**
+     * Returns the index of the workspace which the user is currently working
+     * in
+     * 
+     * @return index of active workspace
+     */
     public int getWorkspaceIndex () {
     	return myWorkspaces.getSelectedIndex();
     }
 
+    /**
+     * Returns the controller
+     * 
+     * @return controller
+     */
+    public Controller getController() {
+    	return myController;
+    }
+    
     /**
      * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
      * 
@@ -102,13 +110,15 @@ public class Canvas extends JPanel {
     }
 
     /**
-     * Writes text into the history panel
+     * Makes the JMenuBar for the user to interact with
      * 
-     * @param text - string to be printed
+     * @return menuBar
      */
+
     public void writeHistory (String text) {
         getWorkspace().writeHistory(text);
     }
+
 
     public JMenuBar makeMenus () {
         JMenuBar menuBar = new JMenuBar();
@@ -117,12 +127,19 @@ public class Canvas extends JPanel {
         return menuBar;
     }
 
+    /**
+     * Makes the "File" menu from which the user can make new workspaces, load commands,
+     * or exit the program
+     * 
+     * @return fileMenu
+     */
     private JMenu makeFileMenu () {
         JMenu fileMenu = new JMenu(myResources.getString("FileMenu"));
         fileMenu.add(new AbstractAction(myResources.getString("NewCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-            	myWorkspaces.add("Workspace", makeWorkspace());
+            	int workspaceNumber = myWorkspaces.getTabCount() + 1;
+            	myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceNumber, makeWorkspace());
             }
         });
         fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
@@ -145,6 +162,12 @@ public class Canvas extends JPanel {
         return fileMenu;
     }
 
+    /**
+     * Makes the "View" menu from which the user can toggle warping through
+     * borders
+     * 
+     * @return viewMenu
+     */
     private JMenu makeViewMenu () {
         JMenu viewMenu = new JMenu(myResources.getString("ViewMenu"));
         viewMenu.add(new AbstractAction(myResources.getString("WarpCommand")) {
@@ -155,9 +178,5 @@ public class Canvas extends JPanel {
 
         });
         return viewMenu;
-    }
-
-    public Controller getController() {
-    	return myController;
     }
 }

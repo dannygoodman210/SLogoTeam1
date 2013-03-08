@@ -5,32 +5,52 @@ import java.util.List;
 
 import controller.Controller;
 
+/**
+ * WorkspaceManager handles the data associated with all workspaces such as
+ * the turtle and any user defined command by storing them in a list and retrieving
+ * them using the index of the currently selected workspace.
+ * 
+ * @author David Le, Francesco Agosti, Danny Goodman
+ */
 public class WorkspaceManager {
 
-	private int myIndex;
 	private List<Turtle> myTurtles;
 	private Controller myController;
 	 
+	/**
+	 * Initializes the list used to contain the turtles and sets the controller
+	 * 
+	 * @param controller
+	 */
 	 public WorkspaceManager(Controller controller) {
 		 myTurtles = new ArrayList<Turtle>();
-		 //myTurtles.add(new Turtle(controller));
 		 myController = controller;
-		 myIndex = 0;
 	 }
 	 
+	 /**
+	  * Adds a turtle to the list of turtles
+	  */
 	 public void addTurtle () {
 		 myTurtles.add(new Turtle(myController));
 	 }
 	 
+	 /**
+	  * Returns the turtle associated with the active workspace
+	  * @return turtle
+	  */
 	 public Turtle getTurtle () {
-		 myIndex = getWorkspaceIndex();
-		 return myTurtles.get(myIndex);
+		 return myTurtles.get(getWorkspaceIndex());
 	 }
 	 
 	 public Controller getController(){
 	     return myController;
 	 }
 	
+	 /**
+	  * Returns the workspace index of the currently selected workspace
+	  * 
+	  * @return index
+	  */
 	 private int getWorkspaceIndex () {
 		 return myController.getWorkspaceIndex();
 	 }
