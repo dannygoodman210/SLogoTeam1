@@ -2,11 +2,12 @@ package functions.turtle;
 
 import backEnd.Model;
 import backEnd.Turtle;
+import functions.Function;
 
-public class Ycor extends TurtleQuery {
+public class Ycor extends Function {
 
-    public Ycor(Turtle turtle, Model model) {
-        super(turtle, model);
+    public Ycor(Model model) {
+        super(model);
     }
 
 

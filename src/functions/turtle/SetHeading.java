@@ -1,13 +1,13 @@
 package functions.turtle;
 
-import functions.TurtleFunction;
+import functions.Function;
 import backEnd.Model;
 import backEnd.Turtle;
 
-public class SetHeading extends TurtleFunction {
+public class SetHeading extends Function {
 
-    public SetHeading(Turtle turtle, Model model){
-        super(turtle, model);
+    public SetHeading(Model model){
+        super(model);
     }
 
     @Override

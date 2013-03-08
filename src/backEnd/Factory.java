@@ -28,34 +28,22 @@ public class Factory {
      * @throws InstantiationException
      * 
      */
-    public Map<String, Executable> make (Turtle turtle, Model model) throws 
+    public Map<String, Executable> make (Model model) throws 
     ClassNotFoundException, NoSuchMethodException, SecurityException, 
     InstantiationException, IllegalAccessException, IllegalArgumentException, 
     InvocationTargetException {
         Map<String, Executable> map = new HashMap<String, Executable>();
-        Class[] paramTypes = {Turtle.class, Model.class};
-        Object[] params = {turtle, model};
 
         ResourceBundle functions = ResourceBundle.getBundle(DEFAULTLANG);
         Enumeration<String> functionKeys = functions.getKeys();
         while(functionKeys.hasMoreElements()){
             String key = functionKeys.nextElement();    
             String classpath = functions.getString(key);
-            String directory = classpath.split("\\.")[1];
-            //need to refactor(duplicate code)
             Class<?> current = Class.forName(classpath);
-            if(directory.equals(TURTLE)){
-                Constructor<?> currentConstructor = current.getConstructor(paramTypes);
-                Object toAdd = currentConstructor.newInstance(params);
-                Function toMap = (Function) toAdd;
-                map.put(key, toMap);
-            }
-            else{
-                Constructor<?> currentConstructor = current.getConstructor(Model.class);
-                Object toAdd = currentConstructor.newInstance(model);
-                Function toMap = (Function) toAdd;
-                map.put(key, toMap);
-            }	
+            Constructor<?> currentConstructor = current.getConstructor(Model.class);
+            Object toAdd = currentConstructor.newInstance(model);
+            Function toMap = (Function) toAdd;
+            map.put(key, toMap);	
         }
         return map;
     }

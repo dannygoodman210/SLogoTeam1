@@ -1,16 +1,16 @@
 package functions.turtle;
 
-import functions.TurtleFunction;
+import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Turtle;
 
-public class SetXY extends TurtleFunction {
+public class SetXY extends Function {
 
     private static final int DEFAULT_ARGS = 2;
     
-    public SetXY(Turtle turtle, Model model) {
-        super(turtle, model, DEFAULT_ARGS);
+    public SetXY(Model model) {
+        super(model);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package functions.turtle;
 
-import functions.TurtleFunction;
+import functions.Function;
 import backEnd.Model;
 import backEnd.Turtle;
-public class Back extends TurtleFunction {
+public class Back extends Function {
     
-    public Back (Turtle turtle, Model model) {
-        super(turtle, model);
+    public Back (Model model) {
+        super(model);
     }
     
     @Override

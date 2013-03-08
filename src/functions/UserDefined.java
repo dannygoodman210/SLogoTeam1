@@ -15,6 +15,6 @@ public class UserDefined extends Function {
     
     @Override 
     public double execute (Instruction toExecute) {
-        return getModel().processInstruction(myInstruction);
+        return getModel().processInstruction(myInstruction.clone());
     }
 }

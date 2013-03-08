@@ -1,18 +1,16 @@
 package functions.turtle;
 
-import functions.TurtleFunction;
+import functions.Function;
 import backEnd.Executable;
 import backEnd.Model;
 import backEnd.Turtle;
 import backEnd.Instruction;
 
-public class Towards extends TurtleFunction {
-
-    private static final int DEFAULT_ARGS = 2;
+public class Towards extends Function {
     
     
-    public Towards(Turtle turtle, Model model){
-        super(turtle, model, DEFAULT_ARGS);
+    public Towards(Model model){
+        super(model);
     }
 
     @Override

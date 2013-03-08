@@ -1,17 +1,18 @@
 package functions.turtle;
 
+import functions.Function;
 import backEnd.Model;
 import backEnd.Turtle;
 
-public class Heading extends TurtleQuery {
+public class Heading extends Function {
 
-    public Heading(Turtle turtle, Model model) {
-        super(turtle, model);
+    public Heading(Model model) {
+        super(model);
     }
 
 
     @Override
-    public double execute(String[] input) {
+    public double execute(Instruction instruction) {
         return getTurtle().getHeading();
     }
 

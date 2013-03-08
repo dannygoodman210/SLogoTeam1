@@ -10,12 +10,12 @@ public class SmartMap {
 
     Map<String, Executable> myMap;
 
-    public SmartMap(Turtle turtle, Model model){
+    public SmartMap(Model model){
         Factory factory = new Factory();
 
         //TEMPORARY!!!!!!!!!!
         try {
-            myMap = factory.make(turtle, model);
+            myMap = factory.make(model);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

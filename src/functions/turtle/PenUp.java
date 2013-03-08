@@ -1,15 +1,14 @@
 package functions.turtle;
 
-import functions.TurtleFunction;
+import functions.Function;
 import backEnd.Model;
 import backEnd.Turtle;
 
-public class PenUp extends TurtleFunction{
+public class PenUp extends Function{
 	
-	private static final int DEFAULT_ARGS = 0;
 	
-	public PenUp(Turtle turtle, Model model){
-		super(turtle, model, DEFAULT_ARGS);
+	public PenUp(Model model){
+		super(model);
 	}
 	
 	@Override

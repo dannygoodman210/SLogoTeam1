@@ -2,11 +2,12 @@ package functions.turtle;
 
 import backEnd.Model;
 import backEnd.Turtle;
+import functions.Function;
 
-public class IsPenDown extends TurtleQuery {
+public class IsPenDown extends Function {
 
-    public IsPenDown(Turtle turtle, Model model) {
-        super(turtle, model);
+    public IsPenDown(Model model) {
+        super(model);
     }
 
     @Override

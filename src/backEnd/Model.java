@@ -11,15 +11,14 @@ public class Model {
      * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
      */
 
-    private Workspace myController;
-    private Turtle myTurtle;
+   
     private SmartMap myMap;
+    private WorkspaceManager myManager;
 
 
     public Model (Workspace controller) {
-        myController = controller;
-        myTurtle = new Turtle(myController);
-        myMap = new SmartMap(myTurtle, this);
+        myManager = new WorkspaceManager(controller);
+        myMap = new SmartMap(this);
     }
 
     /**
@@ -52,7 +51,7 @@ public class Model {
         return output;
     }
     
-    // Couldn't this function just be one line in processInstruction
+   
     public double process(Instruction toExecute) {
         Executable function = myMap.get(toExecute.get(0));
         double value = function.execute(toExecute.progress());
@@ -65,5 +64,8 @@ public class Model {
     
     public void add(String name, Executable toAdd) {
         myMap.add(name, toAdd);
+    }
+    public WorkspaceManager getManager(){
+    	return myManager;
     }
 }

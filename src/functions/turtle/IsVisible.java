@@ -2,15 +2,16 @@ package functions.turtle;
 
 import backEnd.Model;
 import backEnd.Turtle;
+import functions.Function;
 
-public class IsVisible extends TurtleQuery {
+public class IsVisible extends Function {
 
-    public IsVisible(Turtle turtle, Model model) {
-        super(turtle, model);
+    public IsVisible(Model model) {
+        super(model);
     }
 
     @Override
-    public double execute(String[] input) {
+    public double execute(Instruction toExecute) {
         if(getTurtle().isVisible()) {
             return 1;
         }

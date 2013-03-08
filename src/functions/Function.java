@@ -3,6 +3,7 @@ package functions;
 import backEnd.Executable;
 import backEnd.Instruction;
 import backEnd.Model;
+import backEnd.Turtle;
 
 public abstract class Function implements Executable {
 
@@ -28,6 +29,10 @@ public abstract class Function implements Executable {
 
     protected Model getModel(){
         return myModel;
+    }
+    
+    protected Turtle getTurtle(){
+    	return myModel.getManager().getTurtle();
     }
 
     public double getReturnValue(Instruction toExectue){
