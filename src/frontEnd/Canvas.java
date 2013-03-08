@@ -2,6 +2,8 @@ package frontEnd;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -34,7 +36,6 @@ public class Canvas extends JPanel {
     private JFileChooser myChooser;
     private Controller myController;
     private JTabbedPane myWorkspaces;
-    private TurtleView myTurtleView;
     private ResourceBundle myResources;
 
     /**
@@ -146,12 +147,14 @@ public class Canvas extends JPanel {
         fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                int response = myChooser.showOpenDialog(null);
-                if (response == JFileChooser.APPROVE_OPTION) {
-                    // TODO: process file; throw exception if not working.
+                try {
+                    int response = myChooser.showOpenDialog(null);
+                    if (response == JFileChooser.APPROVE_OPTION) {
+                        new FileReader(myChooser.getSelectedFile());
+                    }
                 }
-                else {
-                	showErrorMsg("Could not open file");
+                catch (IOException io) {
+                    showErrorMsg(io.toString());
                 }
             }
         });
@@ -183,8 +186,12 @@ public class Canvas extends JPanel {
         });
         return viewMenu;
     }
-    
+    /**
+     * Displays an error message that the user must click to continue the program
+     * 
+     * @param text to be displayed
+     */
     public void showErrorMsg (String text) {
-    	JOptionPane.showMessageDialog(this, text, "Error", JOptionPane.ERROR_MESSAGE);
+    	JOptionPane.showMessageDialog(this, text, myResources.getString("Error"), JOptionPane.ERROR_MESSAGE);
     }
 }

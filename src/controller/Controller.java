@@ -57,5 +57,9 @@ public class Controller implements Observer {
         myView.writeHistory(Double.toString(value));
         
     }
+    
+    public void showErrorMsg (String text) {
+    	myView.showErrorMsg(text);
+    }
 
 }
