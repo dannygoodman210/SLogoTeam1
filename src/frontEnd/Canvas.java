@@ -22,6 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import backEnd.Turtle;
@@ -36,18 +37,17 @@ import controller.Workspace;
  * @author Danny Goodman, David Le
  * 
  */
+
+@SuppressWarnings("serial")
 public class Canvas extends JPanel {
 
     // default serialization ID
     private static final long serialVersionUID = 1L;
-    private static final int COMMAND_HEIGHT = 4;
-    private static final int COMMAND_WIDTH = 65;
-    private static final int HISTORY_HEIGHT = 31;
-    private static final int HISTORY_WIDTH = 20;
     private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
 
     private JFileChooser myChooser;
     private Workspace myController;
+    private JTabbedPane myWorkspaces;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
     private JTextArea myHistoryView;
@@ -67,14 +67,28 @@ public class Canvas extends JPanel {
         setFocusable(true);
         requestFocus();
         myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
-        add(makeTurtleView(), BorderLayout.CENTER);
-        add(makeHistoryPanel(), BorderLayout.EAST);
-        add(makeCommandPanel(), BorderLayout.SOUTH);
+        myWorkspaces = new JTabbedPane();
+        add(myWorkspaces);
+        myWorkspaces.add("Workspace", makeWorkspace());
         myController = new Workspace(this);
         // make file chooser
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
         setVisible(true);
+    }
+    
+    private WorkspaceView makeWorkspace () {
+    	WorkspaceView workspace = new WorkspaceView(this);
+        return workspace;
+    }
+    
+    public WorkspaceView getWorkspace () {
+    	WorkspaceView activeWorkspace = (WorkspaceView) myWorkspaces.getSelectedComponent();
+    	return activeWorkspace;
+    }
+    
+    public int getWorkspaceNum () {
+    	return myWorkspaces.getSelectedIndex();
     }
 
     /**
@@ -83,7 +97,7 @@ public class Canvas extends JPanel {
      * @param changedTurtle
      */
     public void updateTurtle (Turtle changedTurtle) {
-        myTurtleView.addToQueue(new Turtle(changedTurtle));
+        getWorkspace().updateTurtle(changedTurtle);
     }
 
     /**
@@ -111,7 +125,7 @@ public class Canvas extends JPanel {
         fileMenu.add(new AbstractAction(myResources.getString("NewCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                // TODO: make workspace
+            	myWorkspaces.add("Workspace", makeWorkspace());
             }
         });
         fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
@@ -146,60 +160,7 @@ public class Canvas extends JPanel {
         return viewMenu;
     }
 
-    private Component makeTurtleView () {
-        myTurtleView = new TurtleView();
-        return myTurtleView;
+    public Workspace getController() {
+    	return myController;
     }
-
-    private Component makeHistoryPanel () {
-        myHistoryView = new JTextArea(HISTORY_HEIGHT, HISTORY_WIDTH);
-        return new JScrollPane(myHistoryView);
-    }
-
-    private JComponent makeCommandPanel () {
-        // create with size in rows and columns
-        JPanel result = new JPanel();
-        result.add(makeCommandPrompt());
-        result.add(makeClearButton());
-
-        return result;
-    }
-
-    // convenience Button
-    private JButton makeClearButton () {
-        JButton result = new JButton(myResources.getString("Clear"));
-        result.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                myTurtleView.clearTrails();
-                myHistoryView.setText("");
-            }
-        });
-        return result;
-    }
-
-    private JComponent makeCommandPrompt () {
-        myCommandPrompt = new JTextArea(COMMAND_HEIGHT, COMMAND_WIDTH);
-        InputMap input = myCommandPrompt.getInputMap();
-        KeyStroke enter = KeyStroke.getKeyStroke(myResources.getString("EnterKey"));
-        KeyStroke shiftEnter = KeyStroke.getKeyStroke(myResources.getString("ShiftEnterKey"));
-        input.put(shiftEnter, myResources.getString("InsertBreak"));
-        input.put(enter, myResources.getString("Submit"));
-        ActionMap actions = myCommandPrompt.getActionMap();
-        actions.put(myResources.getString("Submit"), new AbstractAction() {
-            private static final long serialVersionUID = 1L;
-
-            public void actionPerformed (ActionEvent e) {
-                submitInput();
-            }
-        });
-        return new JScrollPane(myCommandPrompt);
-    }
-
-    private void submitInput () {
-        myController.sendInput(myCommandPrompt.getText());
-        writeHistory(myCommandPrompt.getText());
-        myCommandPrompt.setText("");
-    }
-
 }

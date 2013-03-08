@@ -106,7 +106,8 @@ public class Turtle extends Observable {
      * @param location - Turtle's position.
      */
     public void setLocation (Location location) {
-        myLocation = location;
+    	Location nextLocation = (Location) location.clone();
+        myLocation = nextLocation;
         setChanged();
     }
 

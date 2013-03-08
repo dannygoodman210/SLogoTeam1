@@ -3,6 +3,8 @@ package controller;
 import backEnd.Model;
 import backEnd.Turtle;
 import frontEnd.Canvas;
+import frontEnd.WorkspaceView;
+
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,7 +39,7 @@ public class Workspace implements Observer {
      * 
      * @param text
      */
-    public void sendInput (String text) {
+    public void sendInput (String text, WorkspaceView workspace) {
         String[] commands = myModel.formatString(text);
         myModel.processString(commands);
 
