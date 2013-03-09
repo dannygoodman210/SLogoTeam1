@@ -18,7 +18,7 @@ public class Definition extends Function {
             return 0;
             // Throw warning that function is already defined
         }
-        getModel().add(name, new UserDefined(getModel(), toExecute.block()));
+        getModel().getMap().add(name, new UserDefined(getModel(), toExecute.block()));
         return 1;       
     }
 }

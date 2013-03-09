@@ -8,9 +8,11 @@ import functions.Function;
 
 public class SmartMap {
 
-    Map<String, Executable> myMap;
+    private Map<String, Executable> myMap;
+    private Model myModel;
 
     public SmartMap(Model model){
+    	myModel = model;
         Factory factory = new Factory();
 
         //TEMPORARY!!!!!!!!!!
@@ -43,6 +45,9 @@ public class SmartMap {
     public Executable get(String key){
         if(myMap.containsKey(key)){
             return myMap.get(key);
+        }
+        else if(myModel.getManager().contains(key)){
+        	return myModel.getManager().getExecutable(key);
         }
         else{
             int value = Integer.parseInt(key);

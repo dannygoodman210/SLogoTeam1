@@ -64,9 +64,7 @@ public class Model {
         return myMap;
     }
     
-    public void add(String name, Executable toAdd) {
-        myMap.add(name, toAdd);
-    }
+ 
     public WorkspaceManager getManager(){
     	return myManager;
 

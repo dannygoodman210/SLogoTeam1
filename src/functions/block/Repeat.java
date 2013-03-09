@@ -16,7 +16,7 @@ public class Repeat extends Function{
         double reps = getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
         for(double i = 0 ; i < reps; i++){
-            return executeBlock(blockToExecute);
+            executeBlock(blockToExecute);
         }
 
         return reps;
