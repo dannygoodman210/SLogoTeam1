@@ -82,6 +82,7 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
                 System.out.println(i + ":loop: " + warpedPoints);
                 end = warpedPoints.remove(i + 1);
                 List<Location> pointWarp = warpPath(start, end);
+                System.out.println(pointWarp);
                 addToWarps(pointWarp);
                 warpedPoints.addAll(i + 1, pointWarp);
                 System.out.println(pointWarp);

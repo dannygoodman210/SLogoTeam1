@@ -105,7 +105,8 @@ public abstract class TurtleDrawer {
 
     protected boolean isOutsideBounds (Location point) {
         Location translatedPoint = translateCoordinates(point);
-        System.out.println(getBounds()+"    " + translatedPoint);
+        translatedPoint.floor();
+        //System.out.println(getBounds()+"    " + translatedPoint);
         Rectangle bounds = getBounds();
         bounds.setBounds(0,0,bounds.width,bounds.height);
         return !bounds.contains(translatedPoint);

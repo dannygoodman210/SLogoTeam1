@@ -62,17 +62,6 @@ public class Canvas extends JPanel {
     }
     
     /**
-     * Creates workspace to be added into the myWorkspaces tab manager
-     * 
-     * @return workspace to be made
-     */
-    private WorkspaceView makeWorkspace () {
-    	WorkspaceView workspace = new WorkspaceView(this);
-    	workspace.makeTurtle();
-        return workspace;
-    }
-    
-    /**
      * Returns the workspace which the user is currently working in
      * @return activeWorkspace
      */
@@ -125,6 +114,17 @@ public class Canvas extends JPanel {
         menuBar.add(makeFileMenu());
         menuBar.add(makeViewMenu());
         return menuBar;
+    }
+
+    /**
+     * Creates workspace to be added into the myWorkspaces tab manager
+     * 
+     * @return workspace to be made
+     */
+    private WorkspaceView makeWorkspace () {
+    	WorkspaceView workspace = new WorkspaceView(this);
+    	workspace.makeTurtle();
+        return workspace;
     }
 
     /**
