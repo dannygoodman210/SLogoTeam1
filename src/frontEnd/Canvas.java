@@ -182,7 +182,12 @@ public class Canvas extends JPanel {
             public void actionPerformed (ActionEvent e) {
                 getWorkspace().getTurtleView().toggleWarp();
             }
-
+        });
+        viewMenu.add(new AbstractAction(myResources.getString("FillTurtle")){
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                getWorkspace().getTurtleView().toggleFill();
+            } 
         });
         return viewMenu;
     }
@@ -193,5 +198,14 @@ public class Canvas extends JPanel {
      */
     public void showErrorMsg (String text) {
     	JOptionPane.showMessageDialog(this, text, myResources.getString("Error"), JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Returns the myResources ResourceBundle
+     * 
+     * @return myResources
+     */
+    public ResourceBundle getResources () {
+        return myResources;
     }
 }

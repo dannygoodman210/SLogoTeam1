@@ -6,8 +6,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -27,7 +29,7 @@ public class TurtleView extends JComponent {
 
     private static final Color BACKGROUND_COLOR = Color.WHITE;
     private static final Color PEN_COLOR = Color.BLACK;
-    private static final Color TRANSPARENT_COLOR = new Color(0,0,0,0);
+    private static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
     private static final int DEFAULT_HEADING = 90;
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final long serialVersionUID = 1L;
@@ -37,6 +39,7 @@ public class TurtleView extends JComponent {
     private static final int ONE_SECOND = 1000;
     private static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
 
+    private ResourceBundle myResources;
     private Location myTurtleLocation;
     private Location myTurtleNextLocation;
     private double myTurtleHeading;
@@ -46,14 +49,17 @@ public class TurtleView extends JComponent {
     private Timer myTimer;
     private TurtleDrawer myTurtleDrawer;
     private int[] myTurtleWarps;
+    private WorkspaceView myView;
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
      */
-    public TurtleView () {
+    public TurtleView (WorkspaceView view) {
         setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
         setFocusable(true);
         requestFocus();
+        myView = view;
+        myResources = myView.getView().getResources();
         getBounds().setBounds(0, 0, getBounds().width, getBounds().height);
         myTurtleDrawer = new DefaultTurtleDrawer(this);
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
@@ -112,14 +118,28 @@ public class TurtleView extends JComponent {
     }
 
     public void toggleWarp () {
+        toggleDecorator(new WarpTurtleDrawer(new DefaultTurtleDrawer(this)));
+    }
+
+    public void toggleFill () {
+        toggleDecorator(new FilledTurtleDrawer(new DefaultTurtleDrawer(this)));
+    }
+
+    private void toggleDecorator (TurtleDrawer decorator) {
         myTimer.stop();
-        TurtleDrawer warpDrawer = new WarpTurtleDrawer(new DefaultTurtleDrawer(this));
         Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
-        if (referenceSet.contains(warpDrawer)) {
-            myTurtleDrawer = myTurtleDrawer.removeReference(warpDrawer);
+        if (referenceSet.contains(decorator)) {
+            myTurtleDrawer = myTurtleDrawer.removeReference(decorator);
         }
         else {
-            myTurtleDrawer = new WarpTurtleDrawer(myTurtleDrawer);
+            try {
+                myTurtleDrawer = decorator.getClass().
+                        getConstructor(TurtleDrawer.class).newInstance(myTurtleDrawer);
+            }
+            catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                myView.getView().showErrorMsg(myResources.getString("DecoratorError"));
+            }
         }
         repaint();
         myTimer.start();
@@ -159,7 +179,6 @@ public class TurtleView extends JComponent {
         int centerY = (int) getBounds().getHeight() / 2;
         return new Location(centerX + point.getX(), centerY - point.getY());
     }
-    
 
     public boolean isOutsideBounds (Location point) {
         Location translatedPoint = translateCoordinates(point);
@@ -213,8 +232,8 @@ public class TurtleView extends JComponent {
     }
 
     public Trail calculateWarps (Trail trail, int[] warps) {
-        trail.getStart().setLocation(calculateWarps(trail.getStart(),warps));
-        trail.getEnd().setLocation(calculateWarps(trail.getEnd(),warps));
+        trail.getStart().setLocation(calculateWarps(trail.getStart(), warps));
+        trail.getEnd().setLocation(calculateWarps(trail.getEnd(), warps));
         return trail;
     }
 

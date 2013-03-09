@@ -1,5 +1,6 @@
 package frontEnd;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import util.Location;
 import util.Vector;
@@ -28,7 +29,7 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
     }
 
     /**
-     * Implements a filled triangle body
+     * Implements a filled Triangle body
      */
     @Override
     public void drawBody (Graphics pen, double heading) {
@@ -50,7 +51,6 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
         rightPoint = translateCoordinates(rightPoint);
         pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
                         new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
-        super.drawBody(pen, heading);
     }
 
 }

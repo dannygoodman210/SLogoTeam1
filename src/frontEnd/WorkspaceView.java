@@ -33,8 +33,6 @@ public class WorkspaceView extends JPanel {
     private static final int COMMAND_WIDTH = 65;
     private static final int HISTORY_HEIGHT = 31;
     private static final int HISTORY_WIDTH = 20;
-    private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
-	
     private Canvas myView;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
@@ -48,7 +46,7 @@ public class WorkspaceView extends JPanel {
      */
     public WorkspaceView (Canvas view) {
     	myView = view;
-        myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
+        myResources = myView.getResources();
     	setLayout(new BorderLayout());
         add(makeTurtleView(), BorderLayout.CENTER);
         add(makeHistoryPanel(), BorderLayout.EAST);
@@ -68,7 +66,7 @@ public class WorkspaceView extends JPanel {
      * @return turtle view to be instantiated
      */
 	private Component makeTurtleView () {
-        myTurtleView = new TurtleView();
+        myTurtleView = new TurtleView(this);
         return myTurtleView;
     }
 
@@ -196,4 +194,14 @@ public class WorkspaceView extends JPanel {
             myHistoryView.append(myResources.getString("BeginLine") + command + myResources.getString("NewLine"));
         }
     }
+
+    /** 
+     * Returns Canvas that contains this object.
+     * 
+     * @return myView
+     */
+    public Canvas getView () {
+        return myView;
+    }
+
 }
