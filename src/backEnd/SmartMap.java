@@ -46,9 +46,10 @@ public class SmartMap {
         if(myMap.containsKey(key)){
             return myMap.get(key);
         }
+        
         else if(myModel.getManager().contains(key)){
         	return myModel.getManager().getExecutable(key);
-        }
+       	}
         else{
             int value = Integer.parseInt(key);
             return new Constant(value);

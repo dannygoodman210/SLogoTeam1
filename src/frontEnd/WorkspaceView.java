@@ -18,8 +18,14 @@ import javax.swing.KeyStroke;
 
 import backEnd.Turtle;
 
-import controller.Workspace;
+import controller.Controller;
 
+/**
+ * WorkspaceView contains all of the views necessary for a single workspace tab: command prompt, history,
+ * and the turtle views; also responsible for instantiating the workspace's turtle.
+ * 
+ * @author David Le, Danny Goodman
+ */
 @SuppressWarnings("serial")
 public class WorkspaceView extends JPanel {
 	
@@ -35,6 +41,11 @@ public class WorkspaceView extends JPanel {
     private JTextArea myHistoryView;
     private ResourceBundle myResources;
     
+    /**
+     * Constructs WorkspaceView and adds the views necessary per tab
+     * 
+     * @param view which workspace is connected to
+     */
     public WorkspaceView (Canvas view) {
     	myView = view;
         myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
@@ -42,19 +53,41 @@ public class WorkspaceView extends JPanel {
         add(makeTurtleView(), BorderLayout.CENTER);
         add(makeHistoryPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
-        //TODO: add turtle in model
     }
     
+    /**
+     * Instantiates the turtle that will be displayed in this workspace
+     */
+    public void makeTurtle () {
+        getController().addTurtle();
+    }
+    
+    /**
+     * Instantiates the turtle view that will be displayed in this workspace
+     * 
+     * @return turtle view to be instantiated
+     */
 	private Component makeTurtleView () {
         myTurtleView = new TurtleView();
         return myTurtleView;
     }
 
+    /**
+     * Instantiates the history view that will be displayed in this workspace
+     * 
+     * @return history view to be instantiated
+     */
     private Component makeHistoryPanel () {
         myHistoryView = new JTextArea(HISTORY_HEIGHT, HISTORY_WIDTH);
         return new JScrollPane(myHistoryView);
     }
     
+    /**
+     * Instantiates the command view (includes prompt + clear button) that will be 
+     * displayed in this workspace
+     * 
+     * @return command view to be instantiated
+     */
     private JComponent makeCommandPanel () {
         // create with size in rows and columns
         JPanel result = new JPanel();
@@ -64,18 +97,11 @@ public class WorkspaceView extends JPanel {
         return result;
     }
     
-    public TurtleView getTurtleView () {
-    	return myTurtleView;
-    }
-    
-    public JTextArea getCommandPrompt () {
-    	return myCommandPrompt;
-    }
-    
-    public JTextArea getHistoryView () {
-    	return myHistoryView;
-    }
-
+    /**
+     * Creates the clear button used to clear all trails
+     * 
+     * @return clear button to be made
+     */
     // convenience Button
     private JButton makeClearButton () {
         JButton result = new JButton(myResources.getString("Clear"));
@@ -89,6 +115,11 @@ public class WorkspaceView extends JPanel {
         return result;
     }
 
+    /**
+     * Makes the command prompt which the user will type into
+     * 
+     * @return command prompt to be made
+     */
     private JComponent makeCommandPrompt () {
         myCommandPrompt = new JTextArea(COMMAND_HEIGHT, COMMAND_WIDTH);
         InputMap input = myCommandPrompt.getInputMap();
@@ -101,12 +132,48 @@ public class WorkspaceView extends JPanel {
             private static final long serialVersionUID = 1L;
 
             public void actionPerformed (ActionEvent e) {
-                //getController().sendInput(myCommandPrompt.getText(), this);
+                getController().sendInput(myCommandPrompt.getText());
                 writeHistory(myCommandPrompt.getText());
                 myCommandPrompt.setText(myResources.getString("Blank"));
             }
         });
         return new JScrollPane(myCommandPrompt);
+    }
+    
+    /**
+     * Returns turtle view corresponding to this workspace
+     * 
+     * @return turtle view corresponding to this workspace
+     */
+    public TurtleView getTurtleView () {
+    	return myTurtleView;
+    }
+    
+    /**
+     * Returns command prompt corresponding to this workspace
+     * 
+     * @return command prompt corresponding to this workspace
+     */
+    public JTextArea getCommandPrompt () {
+    	return myCommandPrompt;
+    }
+    
+    /**
+     * Returns history view corresponding to this workspace
+     * 
+     * @return history view corresponding to this workspace
+     */
+    public JTextArea getHistoryView () {
+    	return myHistoryView;
+    }
+    
+    /**
+     * Fetches the controller from the model
+     * 
+     * @return controller
+     */
+    private Controller getController () {
+    	return myView.getController();
     }
     
     /**
@@ -128,9 +195,5 @@ public class WorkspaceView extends JPanel {
         for (String command : commandLines) {
             myHistoryView.append(myResources.getString("BeginLine") + command + myResources.getString("NewLine"));
         }
-    }
-    
-    private Workspace getController () {
-    	return myView.getController();
     }
 }

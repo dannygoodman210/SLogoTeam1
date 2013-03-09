@@ -1,6 +1,6 @@
 package backEnd;
 
-import controller.Workspace;
+import controller.Controller;
 
 
 
@@ -17,7 +17,7 @@ public class Model {
     private WorkspaceManager myManager;
 
 
-    public Model (Workspace controller) {
+    public Model (Controller controller) {
         myManager = new WorkspaceManager(controller);
         myMap = new SmartMap(this);
     }
@@ -50,6 +50,7 @@ public class Model {
             double value = process(toExecute);
             output = value;
         }
+        //getManager().getController().sendHistory(output);
         return output;
     }
     

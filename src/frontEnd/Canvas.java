@@ -1,32 +1,20 @@
 package frontEnd;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
 import backEnd.Turtle;
-import controller.Workspace;
+import controller.Controller;
 
 
 /**
@@ -46,11 +34,8 @@ public class Canvas extends JPanel {
     private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
 
     private JFileChooser myChooser;
-    private Workspace myController;
+    private Controller myController;
     private JTabbedPane myWorkspaces;
-    private TurtleView myTurtleView;
-    private JTextArea myCommandPrompt;
-    private JTextArea myHistoryView;
     private ResourceBundle myResources;
 
     /**
@@ -69,49 +54,73 @@ public class Canvas extends JPanel {
         myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
         myWorkspaces = new JTabbedPane();
         add(myWorkspaces);
-        myWorkspaces.add("Workspace", makeWorkspace());
-        myController = new Workspace(this);
+        myController = new Controller(this);
+        int workspaceCount = myWorkspaces.getTabCount() + 1;
+        myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceCount, makeWorkspace());
         // make file chooser
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
         setVisible(true);
     }
     
+    /**
+     * Creates workspace to be added into the myWorkspaces tab manager
+     * 
+     * @return workspace to be made
+     */
     private WorkspaceView makeWorkspace () {
     	WorkspaceView workspace = new WorkspaceView(this);
+    	workspace.makeTurtle();
         return workspace;
     }
     
+    /**
+     * Returns the workspace which the user is currently working in
+     * @return activeWorkspace
+     */
     public WorkspaceView getWorkspace () {
     	WorkspaceView activeWorkspace = (WorkspaceView) myWorkspaces.getSelectedComponent();
     	return activeWorkspace;
     }
     
-    public int getWorkspaceNum () {
+    /**
+     * Returns the index of the workspace which the user is currently working
+     * in
+     * 
+     * @return index of active workspace
+     */
+    public int getWorkspaceIndex () {
     	return myWorkspaces.getSelectedIndex();
     }
 
+    /**
+     * Returns the controller
+     * 
+     * @return controller
+     */
+    public Controller getController() {
+    	return myController;
+    }
+    
     /**
      * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
      * 
      * @param changedTurtle
      */
     public void updateTurtle (Turtle changedTurtle) {
-        getWorkspace().updateTurtle(changedTurtle);
+    	getWorkspace().updateTurtle(changedTurtle);
     }
 
     /**
-     * Writes text into the history panel
+     * Makes the JMenuBar for the user to interact with
      * 
-     * @param text - string to be printed
+     * @return menuBar
      */
+
     public void writeHistory (String text) {
-        String[] commandLines = text.split(myResources.getString("NewLine"));
-        for (String command : commandLines) {
-            myHistoryView.append(myResources.getString("BeginLine") + command +
-                                 myResources.getString("NewLine"));
-        }
+        getWorkspace().writeHistory(text);
     }
+
 
     public JMenuBar makeMenus () {
         JMenuBar menuBar = new JMenuBar();
@@ -120,20 +129,32 @@ public class Canvas extends JPanel {
         return menuBar;
     }
 
+    /**
+     * Makes the "File" menu from which the user can make new workspaces, load commands,
+     * or exit the program
+     * 
+     * @return fileMenu
+     */
     private JMenu makeFileMenu () {
         JMenu fileMenu = new JMenu(myResources.getString("FileMenu"));
         fileMenu.add(new AbstractAction(myResources.getString("NewCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-            	myWorkspaces.add("Workspace", makeWorkspace());
+            	int workspaceNumber = myWorkspaces.getTabCount() + 1;
+            	myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceNumber, makeWorkspace());
             }
         });
         fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                int response = myChooser.showOpenDialog(null);
-                if (response == JFileChooser.APPROVE_OPTION) {
-                    // TODO: process file; throw exception if not working.
+                try {
+                    int response = myChooser.showOpenDialog(null);
+                    if (response == JFileChooser.APPROVE_OPTION) {
+                        new FileReader(myChooser.getSelectedFile());
+                    }
+                }
+                catch (IOException io) {
+                    showErrorMsg(io.toString());
                 }
             }
         });
@@ -148,19 +169,29 @@ public class Canvas extends JPanel {
         return fileMenu;
     }
 
+    /**
+     * Makes the "View" menu from which the user can toggle warping through
+     * borders
+     * 
+     * @return viewMenu
+     */
     private JMenu makeViewMenu () {
         JMenu viewMenu = new JMenu(myResources.getString("ViewMenu"));
         viewMenu.add(new AbstractAction(myResources.getString("WarpCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTurtleView.toggleWarp();
+                getWorkspace().getTurtleView().toggleWarp();
             }
 
         });
         return viewMenu;
     }
-
-    public Workspace getController() {
-    	return myController;
+    /**
+     * Displays an error message that the user must click to continue the program
+     * 
+     * @param text to be displayed
+     */
+    public void showErrorMsg (String text) {
+    	JOptionPane.showMessageDialog(this, text, myResources.getString("Error"), JOptionPane.ERROR_MESSAGE);
     }
 }
