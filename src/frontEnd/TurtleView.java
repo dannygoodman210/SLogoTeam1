@@ -117,55 +117,38 @@ public class TurtleView extends JComponent {
         repaint();
     }
 
+    /**
+     * ToggleWarp. Called by viewMenu item. Calls toggleDecorator with the WarpTurtleDrawer
+     * decorator.
+     */
     public void toggleWarp () {
         toggleDecorator(new WarpTurtleDrawer(new DefaultTurtleDrawer(this)));
     }
 
+    /**
+     * ToggleFill. Called by viewMenu item. Calls toggleDecorator with the FillTurtleDrawer
+     * decorator. Draws the body of the turtle as a filled in triangle.
+     */
     public void toggleFill () {
         toggleDecorator(new FilledTurtleDrawer(new DefaultTurtleDrawer(this)));
     }
 
-    private void toggleDecorator (TurtleDrawer decorator) {
-        myTimer.stop();
-        Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
-        if (referenceSet.contains(decorator)) {
-            myTurtleDrawer = myTurtleDrawer.removeReference(decorator);
-        }
-        else {
-            try {
-                myTurtleDrawer = decorator.getClass().
-                        getConstructor(TurtleDrawer.class).newInstance(myTurtleDrawer);
-            }
-            catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                myView.getView().showErrorMsg(myResources.getString("DecoratorError"));
-            }
-        }
-        repaint();
-        myTimer.start();
-    }
-
+    /**
+     * Returns the int[] of turtleWarps.
+     * 
+     * @return myTurtleWarps
+     */
     public int[] getTurtleWarps () {
         return myTurtleWarps;
     }
 
+    /**
+     * sets myTurtleWarps to the given int[].
+     * 
+     * @param warps - int[] containing warpTotals.
+     */
     public void setTurtleWarps (int[] warps) {
         this.myTurtleWarps = warps;
-    }
-
-    public Location calculateWarps (Location point, int[] warps) {
-        for (int i = 0; i < warps.length; i++) {
-            double size = 0;
-            if (i % 2 == 0) {
-                size = getBounds().getWidth();
-            }
-            else {
-                size = getBounds().getHeight();
-            }
-            Vector v = new Vector(i * 90, warps[i] * size);
-            point.translate(v);
-        }
-        return point;
     }
 
     /**
@@ -180,10 +163,22 @@ public class TurtleView extends JComponent {
         return new Location(centerX + point.getX(), centerY - point.getY());
     }
 
+    /**
+     * Return true if the point is outside of the view's bounds.
+     * 
+     * @param point
+     * @return true if outside of bounds.
+     */
     public boolean isOutsideBounds (Location point) {
         Location translatedPoint = translateCoordinates(point);
         Rectangle bounds = getBounds();
         return !bounds.contains(translatedPoint);
+    }
+
+    public Trail calculateWarps (Trail trail, int[] warps) {
+        trail.getStart().setLocation(calculateWarps(trail.getStart(), warps));
+        trail.getEnd().setLocation(calculateWarps(trail.getEnd(), warps));
+        return trail;
     }
 
     /**
@@ -195,6 +190,11 @@ public class TurtleView extends JComponent {
         }
     }
 
+    /**
+     * Calls TurtleDrawer functions to draw the Turtle.
+     * 
+     * @param pen
+     */
     private void drawTurtle (Graphics pen) {
         if (myTurtlePenDown) {
             pen.setColor(PEN_COLOR);
@@ -216,6 +216,7 @@ public class TurtleView extends JComponent {
         myTurtleLocation = new Location(myTurtleNextLocation);
     }
 
+    // resets TurtleParameters.
     private void resetTurtleView () {
         myTurtleLocation = DEFAULT_LOCATION;
         myTurtleNextLocation = DEFAULT_LOCATION;
@@ -227,14 +228,56 @@ public class TurtleView extends JComponent {
         myChangesQueue = new ArrayList<Turtle>();
     }
 
+    // resets myTurtleWarps.
     private void resetWarps () {
         myTurtleWarps = new int[] { 0, 0, 0, 0 };
     }
 
-    public Trail calculateWarps (Trail trail, int[] warps) {
-        trail.getStart().setLocation(calculateWarps(trail.getStart(), warps));
-        trail.getEnd().setLocation(calculateWarps(trail.getEnd(), warps));
-        return trail;
+    /**
+     * Calculates the Location a point warps to given an int[] of warps.
+     * 
+     * @param point
+     * @param warps
+     * @return warped Location
+     */
+    private Location calculateWarps (Location point, int[] warps) {
+        for (int i = 0; i < warps.length; i++) {
+            double size = 0;
+            if (i % 2 == 0) {
+                size = getBounds().getWidth();
+            }
+            else {
+                size = getBounds().getHeight();
+            }
+            Vector v = new Vector(i * 90, warps[i] * size);
+            point.translate(v);
+        }
+        return point;
+    }
+
+    /**
+     * Toggles the use of a certain DecoratedTurtleDrawer.
+     * 
+     * @param decorator
+     */
+    private void toggleDecorator (DecoratedTurtleDrawer decorator) {
+        myTimer.stop();
+        Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
+        if (referenceSet.contains(decorator)) {
+            myTurtleDrawer = myTurtleDrawer.removeReference(decorator);
+        }
+        else {
+            try {
+                myTurtleDrawer = decorator.getClass().
+                        getConstructor(TurtleDrawer.class).newInstance(myTurtleDrawer);
+            }
+            catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                myView.getView().showErrorMsg(myResources.getString("DecoratorError"));
+            }
+        }
+        repaint();
+        myTimer.start();
     }
 
 }

@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -15,20 +14,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-
 import backEnd.Turtle;
-
 import controller.Controller;
 
+
 /**
- * WorkspaceView contains all of the views necessary for a single workspace tab: command prompt, history,
+ * WorkspaceView contains all of the views necessary for a single workspace tab: command prompt,
+ * history,
  * and the turtle views; also responsible for instantiating the workspace's turtle.
  * 
  * @author David Le, Danny Goodman
  */
 @SuppressWarnings("serial")
 public class WorkspaceView extends JPanel {
-	
+
     private static final int COMMAND_HEIGHT = 4;
     private static final int COMMAND_WIDTH = 65;
     private static final int HISTORY_HEIGHT = 31;
@@ -38,34 +37,92 @@ public class WorkspaceView extends JPanel {
     private JTextArea myCommandPrompt;
     private JTextArea myHistoryView;
     private ResourceBundle myResources;
-    
+
     /**
      * Constructs WorkspaceView and adds the views necessary per tab
      * 
      * @param view which workspace is connected to
      */
     public WorkspaceView (Canvas view) {
-    	myView = view;
+        myView = view;
         myResources = myView.getResources();
-    	setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
         add(makeTurtleView(), BorderLayout.CENTER);
         add(makeHistoryPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
     }
-    
+
     /**
      * Instantiates the turtle that will be displayed in this workspace
      */
     public void addDimensionToModel () {
         getController().addDimension();
     }
-    
+
+    /**
+     * Writes text into the history panel
+     * 
+     * @param text - string to be printed
+     */
+    public void writeHistory (String text) {
+        String[] commandLines = text.split(myResources.getString("NewLine"));
+        for (String command : commandLines) {
+            myHistoryView.append(myResources.getString("BeginLine") + command +
+                                 myResources.getString("NewLine"));
+        }
+    }
+
+    /**
+     * Returns turtle view corresponding to this workspace
+     * 
+     * @return turtle view corresponding to this workspace
+     */
+    public TurtleView getTurtleView () {
+        return myTurtleView;
+    }
+
+    /**
+     * Returns command prompt corresponding to this workspace
+     * 
+     * @return command prompt corresponding to this workspace
+     */
+    public JTextArea getCommandPrompt () {
+        return myCommandPrompt;
+    }
+
+    /**
+     * Returns history view corresponding to this workspace
+     * 
+     * @return history view corresponding to this workspace
+     */
+    public JTextArea getHistoryView () {
+        return myHistoryView;
+    }
+
+    /**
+     * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
+     * 
+     * @param changedTurtle
+     */
+    public void updateTurtle (Turtle changedTurtle) {
+        myTurtleView.addToQueue(new Turtle(changedTurtle));
+    }
+
+    /**
+     * Returns Canvas that contains this object.
+     * 
+     * @return myView
+     */
+    public Canvas getView () {
+        return myView;
+    }
+
     /**
      * Instantiates the turtle view that will be displayed in this workspace
      * 
      * @return turtle view to be instantiated
      */
-	private Component makeTurtleView () {
+    private Component makeTurtleView () {
         myTurtleView = new TurtleView(this);
         return myTurtleView;
     }
@@ -79,9 +136,9 @@ public class WorkspaceView extends JPanel {
         myHistoryView = new JTextArea(HISTORY_HEIGHT, HISTORY_WIDTH);
         return new JScrollPane(myHistoryView);
     }
-    
+
     /**
-     * Instantiates the command view (includes prompt + clear button) that will be 
+     * Instantiates the command view (includes prompt + clear button) that will be
      * displayed in this workspace
      * 
      * @return command view to be instantiated
@@ -94,7 +151,7 @@ public class WorkspaceView extends JPanel {
 
         return result;
     }
-    
+
     /**
      * Creates the clear button used to clear all trails
      * 
@@ -137,71 +194,14 @@ public class WorkspaceView extends JPanel {
         });
         return new JScrollPane(myCommandPrompt);
     }
-    
-    /**
-     * Returns turtle view corresponding to this workspace
-     * 
-     * @return turtle view corresponding to this workspace
-     */
-    public TurtleView getTurtleView () {
-    	return myTurtleView;
-    }
-    
-    /**
-     * Returns command prompt corresponding to this workspace
-     * 
-     * @return command prompt corresponding to this workspace
-     */
-    public JTextArea getCommandPrompt () {
-    	return myCommandPrompt;
-    }
-    
-    /**
-     * Returns history view corresponding to this workspace
-     * 
-     * @return history view corresponding to this workspace
-     */
-    public JTextArea getHistoryView () {
-    	return myHistoryView;
-    }
-    
+
     /**
      * Fetches the controller from the model
      * 
      * @return controller
      */
     private Controller getController () {
-    	return myView.getController();
-    }
-    
-    /**
-     * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
-     * 
-     * @param changedTurtle
-     */
-    public void updateTurtle (Turtle changedTurtle) {
-        myTurtleView.addToQueue(new Turtle(changedTurtle));
-    }
-    
-    /**
-     * Writes text into the history panel
-     * 
-     * @param text - string to be printed
-     */
-    public void writeHistory (String text) {
-        String[] commandLines = text.split(myResources.getString("NewLine"));
-        for (String command : commandLines) {
-            myHistoryView.append(myResources.getString("BeginLine") + command + myResources.getString("NewLine"));
-        }
-    }
-
-    /** 
-     * Returns Canvas that contains this object.
-     * 
-     * @return myView
-     */
-    public Canvas getView () {
-        return myView;
+        return myView.getController();
     }
 
 }

@@ -110,12 +110,34 @@ public class Canvas extends JPanel {
         getWorkspace().writeHistory(text);
     }
 
-
+    /**
+     * Makes the MenuBar for the Canvas. Called by Main.
+     * 
+     * @return JMenuBar
+     */
     public JMenuBar makeMenus () {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(makeFileMenu());
         menuBar.add(makeViewMenu());
         return menuBar;
+    }
+
+    /**
+     * Displays an error message that the user must click to continue the program
+     * 
+     * @param text to be displayed
+     */
+    public void showErrorMsg (String text) {
+    	JOptionPane.showMessageDialog(this, text, myResources.getString("Error"), JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Returns the myResources ResourceBundle
+     * 
+     * @return myResources
+     */
+    public ResourceBundle getResources () {
+        return myResources;
     }
 
     /**
@@ -190,22 +212,5 @@ public class Canvas extends JPanel {
             } 
         });
         return viewMenu;
-    }
-    /**
-     * Displays an error message that the user must click to continue the program
-     * 
-     * @param text to be displayed
-     */
-    public void showErrorMsg (String text) {
-    	JOptionPane.showMessageDialog(this, text, myResources.getString("Error"), JOptionPane.ERROR_MESSAGE);
-    }
-
-    /**
-     * Returns the myResources ResourceBundle
-     * 
-     * @return myResources
-     */
-    public ResourceBundle getResources () {
-        return myResources;
     }
 }

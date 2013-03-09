@@ -1,6 +1,5 @@
 package frontEnd;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import util.Location;
 import util.Vector;
