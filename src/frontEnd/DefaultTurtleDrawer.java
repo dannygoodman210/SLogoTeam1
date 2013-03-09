@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import util.Location;
+import util.Trail;
 import util.Vector;
 
 
@@ -24,7 +25,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     private static final double TRIANGLE_DEGREES = 180;
     private static final double RIGHT_ANGLE = 90;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
-    protected List<Location> myTrailPoints;
+    protected List<Trail> myTrailList;
 
     /**
      * Initialize trailPoints and set the view.
@@ -32,20 +33,21 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
      * @param view - TurtleView
      */
     public DefaultTurtleDrawer (TurtleView view) {
-        myTrailPoints = new ArrayList<Location>();
+        myTrailList = new ArrayList<Trail>();
         setView(view);
     }
 
     @Override
-    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
+    public void drawBody (Graphics pen, double heading) {
+        Location center = getTrail().get(getTrail().size() - 1).getEnd();
         Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),
                                        TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
         Vector leftToRight =
                 new Vector(heading + RIGHT_ANGLE,
                            2 * TURTLE_HEIGHT / Math.tan(Math.toRadians(TURTLE_ANGLE_2)));
-        Location vertex = new Location(finish.getX() + centerToHead.getXChange(),
-                                       finish.getY() + centerToHead.getYChange());
+        Location vertex = new Location(center.getX() + centerToHead.getXChange(),
+                                       center.getY() + centerToHead.getYChange());
         Location leftPoint = new Location(vertex.getX() + headToLeft.getXChange(),
                                           vertex.getY() + headToLeft.getYChange());
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
@@ -56,34 +58,30 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public void addTrail (Location start, Location finish) {
-        myTrailPoints.add(new Location(start));
-        myTrailPoints.add(new Location(finish));
+    public void addTrail (Location start, Location finish, Graphics pen) {
+        myTrailList.add(new Trail(start, finish, pen.getColor(), getBounds()));
     }
 
     @Override
-    public List<Location> getTrail () {
-        return myTrailPoints;
+    public List<Trail> getTrail () {
+        return myTrailList;
     }
 
     @Override
-    public void setTrail (List<Location> list) {
-        myTrailPoints = list;
-        
+    public void setTrail (List<Trail> list) {
+        myTrailList = list;
+
     }
 
     @Override
     public void clearTrail () {
-        myTrailPoints = new ArrayList<Location>();
+        myTrailList = new ArrayList<Trail>();
     }
 
     @Override
     public void drawTrail (Graphics pen) {
-        for (int i = 0; i < myTrailPoints.size() - 1; i += 2) {
-           // if ((!isOutsideBounds(myTrailPoints.get(i))) ||        // if statement prevents
-             //   (!isOutsideBounds(myTrailPoints.get(i + 1)))) {    // unnecessary drawing
-                drawLine(pen, myTrailPoints.get(i), myTrailPoints.get(i + 1));
-            //}
+        for (int i = 0; i < myTrailList.size(); i++) {
+            myTrailList.get(i).paint(pen);
         }
     }
 

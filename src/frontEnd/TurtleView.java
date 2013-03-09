@@ -3,6 +3,7 @@ package frontEnd;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import util.Location;
+import util.Trail;
 import util.Vector;
 import backEnd.Turtle;
 
@@ -25,6 +27,7 @@ public class TurtleView extends JComponent {
 
     private static final Color BACKGROUND_COLOR = Color.WHITE;
     private static final Color PEN_COLOR = Color.BLACK;
+    private static final Color TRANSPARENT_COLOR = new Color(0,0,0,0);
     private static final int DEFAULT_HEADING = 90;
     private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final long serialVersionUID = 1L;
@@ -156,6 +159,14 @@ public class TurtleView extends JComponent {
         int centerY = (int) getBounds().getHeight() / 2;
         return new Location(centerX + point.getX(), centerY - point.getY());
     }
+    
+
+    public boolean isOutsideBounds (Location point) {
+        Location translatedPoint = translateCoordinates(point);
+        translatedPoint.floor();
+        Rectangle bounds = getBounds();
+        return !bounds.contains(translatedPoint);
+    }
 
     /**
      * Updates turtle based on next turtle in the queue. Called by the timer.
@@ -168,21 +179,22 @@ public class TurtleView extends JComponent {
 
     private void drawTurtle (Graphics pen) {
         if (myTurtlePenDown) {
-            myTurtleDrawer.addTrail(calculateWarps(new Location(myTurtleLocation), myTurtleWarps),
-                                    calculateWarps(new Location(myTurtleNextLocation),
-                                                   myTurtleWarps));
+            pen.setColor(PEN_COLOR);
         }
-        pen.setColor(PEN_COLOR);
+        else {
+            pen.setColor(TRANSPARENT_COLOR);
+        }
+        myTurtleDrawer.addTrail(calculateWarps(new Location(myTurtleLocation), myTurtleWarps),
+                                calculateWarps(new Location(myTurtleNextLocation),
+                                               myTurtleWarps), pen);
         myTurtleDrawer.drawTrail(pen);
         if (myTurtleVisible) {
             pen.setColor(PEN_COLOR);
         }
         else {
-            pen.setColor(BACKGROUND_COLOR);
+            pen.setColor(TRANSPARENT_COLOR);
         }
-        myTurtleDrawer.drawBody(pen, calculateWarps(new Location(myTurtleLocation), myTurtleWarps),
-                                calculateWarps(new Location(myTurtleNextLocation), myTurtleWarps),
-                                myTurtleHeading);
+        myTurtleDrawer.drawBody(pen, myTurtleHeading);
         myTurtleLocation = new Location(myTurtleNextLocation);
     }
 
@@ -199,6 +211,12 @@ public class TurtleView extends JComponent {
 
     private void resetWarps () {
         myTurtleWarps = new int[] { 0, 0, 0, 0 };
+    }
+
+    public Trail calculateWarps (Trail trail, int[] warps) {
+        trail.getStart().setLocation(calculateWarps(trail.getStart(),warps));
+        trail.getEnd().setLocation(calculateWarps(trail.getEnd(),warps));
+        return trail;
     }
 
 }

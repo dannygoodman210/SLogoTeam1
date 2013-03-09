@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import java.util.Set;
 import util.Location;
+import util.Trail;
 
 
 /**
@@ -28,7 +29,7 @@ public abstract class TurtleDrawer {
      * @param finish - next Location of Turtle
      * @param heading - current Turtle heading
      */
-    public abstract void drawBody (Graphics pen, Location start, Location finish, double heading);
+    public abstract void drawBody (Graphics pen, double heading);
 
     /**
      * Adds a pair of trail points to the Trail List.
@@ -36,11 +37,11 @@ public abstract class TurtleDrawer {
      * @param start - initial point
      * @param finish - destination point
      */
-    public abstract void addTrail (Location start, Location finish);
+    public abstract void addTrail (Location start, Location finish, Graphics pen);
 
-    public abstract List<Location> getTrail ();
+    public abstract List<Trail> getTrail ();
 
-    public abstract void setTrail (List<Location> list);
+    public abstract void setTrail (List<Trail> list);
 
     /**
      * clears all Locations from the trail list. Included here not because implementation will
@@ -104,11 +105,6 @@ public abstract class TurtleDrawer {
     }
 
     protected boolean isOutsideBounds (Location point) {
-        Location translatedPoint = translateCoordinates(point);
-        translatedPoint.floor();
-        //System.out.println(getBounds()+"    " + translatedPoint);
-        Rectangle bounds = getBounds();
-        bounds.setBounds(0,0,bounds.width,bounds.height);
-        return !bounds.contains(translatedPoint);
+        return getView().isOutsideBounds(point);
     }
 }

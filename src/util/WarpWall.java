@@ -81,7 +81,7 @@ public enum WarpWall {
 
         @Override
         public List<Location> warp (Location inBounds, Location outOfBounds, Rectangle bounds) {
-            Location corner = new Location(-bounds.getWidth() / 2, bounds.getHeight() / 2);
+            Location corner = new Location(bounds.getWidth() / 2, -bounds.getHeight() / 2);
             return cornerWarp(inBounds, outOfBounds, bounds, corner);
         }
 

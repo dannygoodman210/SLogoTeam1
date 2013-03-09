@@ -24,15 +24,16 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
     }
 
     @Override
-    public void drawBody (Graphics pen, Location start, Location finish, double heading) {
+    public void drawBody (Graphics pen, double heading) {
+        Location center = getTrail().get(getTrail().size() - 1).getEnd();
         Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),
                                        TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
         Vector leftToRight =
                 new Vector(heading + RIGHT_ANGLE,
                            2 * TURTLE_HEIGHT / Math.tan(Math.toRadians(TURTLE_ANGLE_2)));
-        Location vertex = new Location(finish.getX() + centerToHead.getXChange(),
-                                       finish.getY() + centerToHead.getYChange());
+        Location vertex = new Location(center.getX() + centerToHead.getXChange(),
+                                       center.getY() + centerToHead.getYChange());
         Location leftPoint = new Location(vertex.getX() + headToLeft.getXChange(),
                                           vertex.getY() + headToLeft.getYChange());
         Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
@@ -42,6 +43,7 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
         rightPoint = translateCoordinates(rightPoint);
         pen.fillPolygon(new int[] { (int) vertex.x, (int) leftPoint.x, (int) rightPoint.x },
                         new int[] { (int) vertex.y, (int) leftPoint.y, (int) rightPoint.y }, 3);
+        super.drawBody(pen, heading);
     }
 
 }
