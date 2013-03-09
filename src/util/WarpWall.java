@@ -145,9 +145,8 @@ public enum WarpWall {
             return Enum.valueOf(WarpWall.class, sides[side]).warp(inBounds, outOfBounds, bounds);
         }
         catch (SecurityException | IllegalArgumentException e) {
-            // TODO send error to view
-            e.printStackTrace();
-            return null;
+            // should never each this code.
+            return WarpWall.NONE.warp(inBounds, outOfBounds, bounds);
         }
     }
 

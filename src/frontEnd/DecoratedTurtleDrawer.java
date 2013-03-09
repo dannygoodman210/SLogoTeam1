@@ -38,15 +38,10 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     public void addTrail (Location start, Location finish, Graphics pen) {
         myReferenceDrawer.addTrail(start, finish, pen);
     }
-    
+
     @Override
-    public List<Trail> getTrail(){
+    public List<Trail> getTrail () {
         return myReferenceDrawer.getTrail();
-    }
-    
-    @Override
-    public void setTrail(List<Trail> list){
-        myReferenceDrawer.setTrail(list);
     }
 
     @Override
@@ -66,6 +61,12 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
         return turtleDrawerSet;
     }
 
+    /**
+     * If this object equals the reference to remove, return the reference of this object, thus
+     * removing this object node from the reference tree. Else call removeReference on
+     * myReferenceDrawer.
+     */
+    @Override
     public TurtleDrawer removeReference (TurtleDrawer turtleDrawer) {
         if (this.equals(turtleDrawer)) {
             return myReferenceDrawer;
@@ -79,7 +80,7 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     /**
      * Returns the reference for this decorator.
      * 
-     * @return
+     * @return myReferenceDrawer
      */
     protected TurtleDrawer getReference () {
         return myReferenceDrawer;

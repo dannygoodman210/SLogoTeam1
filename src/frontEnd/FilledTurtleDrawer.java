@@ -19,10 +19,17 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
     private static final double RIGHT_ANGLE = 90;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
 
+    /**
+     * Calls Super class constructor. 
+     * @param referenceDrawer
+     */
     public FilledTurtleDrawer (TurtleDrawer referenceDrawer) {
         super(referenceDrawer);
     }
 
+    /**
+     * Implements a filled triangle body
+     */
     @Override
     public void drawBody (Graphics pen, double heading) {
         Location center = getTrail().get(getTrail().size() - 1).getEnd();

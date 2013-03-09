@@ -37,6 +37,9 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         setView(view);
     }
 
+    /**
+     * Implements an unfilled Triangle body.
+     */
     @Override
     public void drawBody (Graphics pen, double heading) {
         Location center = getTrail().get(getTrail().size() - 1).getEnd();
@@ -57,6 +60,9 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         drawLine(pen, rightPoint, vertex);
     }
 
+    /**
+     * Creates a new Trail object from the start and finish Locations and adds it to the TrailList.
+     */
     @Override
     public void addTrail (Location start, Location finish, Graphics pen) {
         myTrailList.add(new Trail(start, finish, pen.getColor(), getBounds()));
@@ -68,16 +74,13 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public void setTrail (List<Trail> list) {
-        myTrailList = list;
-
-    }
-
-    @Override
     public void clearTrail () {
         myTrailList = new ArrayList<Trail>();
     }
 
+    /**
+     * Iterates through Trails in TrailList and calls their paint method.
+     */
     @Override
     public void drawTrail (Graphics pen) {
         for (int i = 0; i < myTrailList.size(); i++) {
@@ -85,6 +88,9 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         }
     }
 
+    /**
+     * returns a Set containing only this object. DefaultTurtleDrawer contains no references.
+     */
     @Override
     public Set<TurtleDrawer> getReferences () {
         Set<TurtleDrawer> turtleDrawerSet = new HashSet<TurtleDrawer>();
@@ -92,6 +98,9 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         return turtleDrawerSet;
     }
 
+    /**
+     * DefaultTurtleDrawer cannot remove references. Returns itself.
+     */
     @Override
     public TurtleDrawer removeReference (TurtleDrawer turtleDrawer) {
         return this;

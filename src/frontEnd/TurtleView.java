@@ -163,7 +163,6 @@ public class TurtleView extends JComponent {
 
     public boolean isOutsideBounds (Location point) {
         Location translatedPoint = translateCoordinates(point);
-        translatedPoint.floor();
         Rectangle bounds = getBounds();
         return !bounds.contains(translatedPoint);
     }

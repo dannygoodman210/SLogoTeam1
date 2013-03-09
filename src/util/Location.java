@@ -62,13 +62,4 @@ public class Location extends Point2D.Double {
         return new Vector(this, other);
     }
     
-    public void floor(){
-        setLocation(Math.floor(getX()),Math.floor(getY()));
-    }
-    
-    @Override
-    public String toString(){
-        return "("+ (int) getX()+" , "+ (int) getY()+")";        
-    }
-    
 }
