@@ -70,7 +70,7 @@ public class Canvas extends JPanel {
      */
     private WorkspaceView makeWorkspace () {
     	WorkspaceView workspace = new WorkspaceView(this);
-    	workspace.makeTurtle();
+    	workspace.addDimensionToModel();
         return workspace;
     }
     

@@ -34,14 +34,15 @@ public class WorkspaceManager {
 		 myTurtles = new ArrayList<Turtle>();
 		 myController = controller;
 		 myUserExecutables = new ArrayList<HashMap<String, Executable>>();
-		 myUserExecutables.add(new HashMap<String,Executable>());
+		 
 	 }
 	 
 	 /**
-	  * Adds a turtle to the list of turtles
+	  * Adds a turtle and a map to the our lists
 	  */
-	 public void addTurtle () {
+	 public void addDimension () {
 		 myTurtles.add(new Turtle(myController));
+		 myUserExecutables.add(new HashMap<String,Executable>());
 	 }
 	 
 	 /**
