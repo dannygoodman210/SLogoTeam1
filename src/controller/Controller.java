@@ -49,13 +49,17 @@ public class Controller implements Observer {
     	return myView.getWorkspaceIndex();
     }
     
-    public void addTurtle () {
-    	myModel.getManager().addTurtle();
+    public void addDimension () {
+    	myModel.getManager().addDimension();
     }
 
     public void sendHistory (double value) {
         myView.writeHistory(Double.toString(value));
         
+    }
+    
+    public void showErrorMsg (String text) {
+    	myView.showErrorMsg(text);
     }
 
 }
