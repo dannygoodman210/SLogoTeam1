@@ -1,5 +1,8 @@
 package backEnd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import controller.Controller;
 
 
@@ -14,12 +17,14 @@ public class Model {
 
    
     private SmartMap myMap;
-    private WorkspaceManager myManager;
+    private List<Turtle> myTurtles;
+    private Controller myController;
 
 
     public Model (Controller controller) {
-        myManager = new WorkspaceManager(controller);
+        myController = controller;
         myMap = new SmartMap(this);
+        myTurtles = new ArrayList<Turtle>();
     }
 
     /**
@@ -65,9 +70,15 @@ public class Model {
         return myMap;
     }
     
- 
-    public WorkspaceManager getManager(){
-    	return myManager;
-
+    public Controller getController(){
+    	return myController; 
+    }
+    
+    public void addTurtle(){
+    	myTurtles.add(new Turtle(myController));
+    }
+    
+    public Turtle getTurtle(){
+    	return myTurtles.get(myController.getWorkspaceIndex());
     }
 }

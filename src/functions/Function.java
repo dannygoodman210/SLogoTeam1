@@ -32,7 +32,7 @@ public abstract class Function implements Executable {
     }
     
     protected Turtle getTurtle(){
-    	return myModel.getManager().getTurtle();
+    	return myModel.getTurtle();
     }
 
     public double getReturnValue(Instruction toExectue){

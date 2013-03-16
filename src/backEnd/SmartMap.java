@@ -43,12 +43,12 @@ public class SmartMap {
     }
 
     public Executable get(String key){
+    	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
         if(myMap.containsKey(key)){
             return myMap.get(key);
         }
-        
-        else if(myModel.getManager().contains(key)){
-        	return myModel.getManager().getExecutable(key);
+        else if(myMap.containsKey(workSpaceIndex + key)){
+        	return myMap.get(workSpaceIndex + key);
        	}
         else{
             int value = Integer.parseInt(key);
@@ -61,6 +61,7 @@ public class SmartMap {
     }
     
     public void add(String name, Executable function) {
-        myMap.put(name, function);
+    	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
+        myMap.put(workSpaceIndex+name, function);
     }
 }

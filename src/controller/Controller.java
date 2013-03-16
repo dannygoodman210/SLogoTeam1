@@ -50,7 +50,7 @@ public class Controller implements Observer {
     }
     
     public void addDimension () {
-    	myModel.getManager().addDimension();
+    	myModel.addTurtle();
     }
 
     public void sendHistory (double value) {

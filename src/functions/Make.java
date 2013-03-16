@@ -14,7 +14,8 @@ public class Make extends Function{
 		String variable = toExecute.get(0);
 		toExecute.progress();
 		double value = getReturnValue(toExecute);
-		getModel().getManager().addVariable(variable, (int)value);
+		Constant toAdd = new Constant((int)value);
+		getModel().getMap().add(variable, toAdd);
 		return value;
 		
 	}
