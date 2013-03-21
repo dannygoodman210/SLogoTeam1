@@ -3,7 +3,6 @@ package functions.turtle;
 import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
-import backEnd.Turtle;
 
 public class Left extends Function {
     

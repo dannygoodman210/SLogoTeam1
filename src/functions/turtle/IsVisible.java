@@ -1,7 +1,7 @@
 package functions.turtle;
 
+import backEnd.Instruction;
 import backEnd.Model;
-import backEnd.Turtle;
 import functions.Function;
 
 public class IsVisible extends Function {

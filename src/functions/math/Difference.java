@@ -1,6 +1,7 @@
 package functions.math;
 
 import functions.Function;
+import backEnd.Instruction;
 import backEnd.Model;
 public class Difference extends Function {
 
@@ -8,9 +9,7 @@ public class Difference extends Function {
         super(model);
     }
     
-    @Override
-    public double execute (String[] input) {
-        double[] values = getValue(input, 2);
-        return values[0] - values[1];
+    public double execute (Instruction toExecute) {
+        return getReturnValue(toExecute) - getReturnValue(toExecute);
     }
 }

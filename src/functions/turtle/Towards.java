@@ -1,14 +1,11 @@
 package functions.turtle;
 
-import functions.Function;
-import backEnd.Executable;
-import backEnd.Model;
-import backEnd.Turtle;
 import backEnd.Instruction;
+import backEnd.Model;
+import functions.Function;
 
 public class Towards extends Function {
-    
-    
+       
     public Towards(Model model){
         super(model);
     }

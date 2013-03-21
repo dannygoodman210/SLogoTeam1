@@ -1,6 +1,7 @@
 package functions.math;
 
 import functions.Function;
+import backEnd.Instruction;
 import backEnd.Model;
 
 public class Product extends Function {
@@ -10,9 +11,7 @@ public class Product extends Function {
     }
     
     @Override
-    public double execute (String[] input) {
-        double[] values = getValue(input, 2);
-        return values[0] * values[1];
+    public double execute (Instruction toExecute) {
+        return getReturnValue(toExecute) * getReturnValue(toExecute);
     }
-
 }

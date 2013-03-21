@@ -1,6 +1,7 @@
 package functions.bool;
 
 import functions.Function;
+import backEnd.Instruction;
 import backEnd.Model;
 
 public class Less extends Function {
@@ -9,10 +10,8 @@ public class Less extends Function {
         super(model);
     }
 
-    @Override
-    public double execute(String[] input) {
-        double[] values = getValue(input, 2);
-        if(values[0] < values[1]) {
+    public double execute (Instruction toExecute) {
+        if(getReturnValue(toExecute) < getReturnValue(toExecute)) {
             return 1;
         }
         return 0;

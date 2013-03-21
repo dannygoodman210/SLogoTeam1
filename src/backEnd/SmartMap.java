@@ -2,9 +2,7 @@ package backEnd;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-
 import functions.Constant;
-import functions.Function;
 
 public class SmartMap {
 

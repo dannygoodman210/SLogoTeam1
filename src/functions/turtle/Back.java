@@ -1,8 +1,8 @@
 package functions.turtle;
 
+import backEnd.Instruction;
 import functions.Function;
 import backEnd.Model;
-import backEnd.Turtle;
 
 public class Back extends Function {
     
@@ -11,8 +11,8 @@ public class Back extends Function {
     }
     
     @Override
-    public double execute (String[] input) {
-    	double distance = getValue(input);
+    public double execute (Instruction toExecute) {
+    	double distance = getReturnValue(toExecute);
         getTurtle().move(-distance);
         return distance;
     }

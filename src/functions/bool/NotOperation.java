@@ -1,6 +1,7 @@
 package functions.bool;
 
 import functions.Function;
+import backEnd.Instruction;
 import backEnd.Model;
 
 public class NotOperation extends Function {
@@ -11,10 +12,8 @@ public class NotOperation extends Function {
 
     }
 
-    @Override
-    public double execute (String[] input) {
-        double value = getValue(input);
-        if(value == 0) {
+    public double execute (Instruction toExecute) {
+        if(getReturnValue(toExecute) == 0) {
             return 1;
         }
         return 0;

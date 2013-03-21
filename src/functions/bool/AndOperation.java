@@ -1,7 +1,8 @@
 package functions.bool;
 
-import functions.Function;
+import backEnd.Instruction;
 import backEnd.Model;
+import functions.Function;
 
 public class AndOperation extends Function {
 
@@ -11,9 +12,8 @@ public class AndOperation extends Function {
     }
 
     @Override
-    public double execute (String[] input) {
-        double[] values = getValue(input, 2);
-        if(values[0] != 0 && values[0] != 0) {
+    public double execute (Instruction toExecute) {
+        if(getReturnValue(toExecute) != 0 && getReturnValue(toExecute) != 0) {
             return 1;
         }
         return 0;

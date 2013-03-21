@@ -1,5 +1,6 @@
 package functions.bool;
 
+import backEnd.Instruction;
 import functions.Function;
 import backEnd.Model;
 
@@ -9,9 +10,8 @@ public class Equal extends Function {
         super(model);
     }
     @Override
-    public double execute(String[] input) {
-        double[] values = getValue(input, 2);
-        if(values[0] == values[1]) {
+    public double execute(Instruction toExecute) {
+        if(getReturnValue(toExecute) == getReturnValue(toExecute)) {
             return 1;
         }
         return 0;

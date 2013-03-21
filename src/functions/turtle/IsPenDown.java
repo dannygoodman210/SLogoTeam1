@@ -1,7 +1,7 @@
 package functions.turtle;
 
+import backEnd.Instruction;
 import backEnd.Model;
-import backEnd.Turtle;
 import functions.Function;
 
 public class IsPenDown extends Function {
@@ -11,7 +11,7 @@ public class IsPenDown extends Function {
     }
 
     @Override
-    public double execute(String[] input) {
+    public double execute(Instruction toExecute) {
         if(getTurtle().isPenDown()) {
             return 1;
         }

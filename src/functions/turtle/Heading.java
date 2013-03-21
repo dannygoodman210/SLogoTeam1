@@ -1,8 +1,8 @@
 package functions.turtle;
 
+import backEnd.Instruction;
 import functions.Function;
 import backEnd.Model;
-import backEnd.Turtle;
 
 public class Heading extends Function {
 
@@ -12,7 +12,7 @@ public class Heading extends Function {
 
 
     @Override
-    public double execute(Instruction instruction) {
+    public double execute(Instruction toExecute) {
         return getTurtle().getHeading();
     }
 

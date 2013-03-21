@@ -12,7 +12,6 @@ import functions.Function;
 
 public class Factory {
 
-    private static final  String TURTLE = "turtle";
     private static final String DEFAULTLANG = "resources.English";
 
     /**
