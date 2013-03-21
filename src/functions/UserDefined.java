@@ -3,8 +3,6 @@ package functions;
 import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
-import java.util.List;
-import java.util.ArrayList;
 
 public class UserDefined extends Function {
     
