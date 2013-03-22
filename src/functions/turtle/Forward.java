@@ -1,21 +1,18 @@
 package functions.turtle;
 
-import functions.Function;
-import backEnd.Instruction;
+import backEnd.Turtle;
 import backEnd.Model;
 
-
-public class Forward extends Function{
+public class Forward extends TurtleFunction{
+    
+    private static final int INPUT_VALUES = 1;
     
     public Forward (Model model) {
-        super(model);
+        super(model, INPUT_VALUES);
     }
     
     @Override
-    public double execute (Instruction toExecute) {
-    	double distance = getReturnValue(toExecute);
-        getTurtle().move(distance);
-        return distance;
+    public void process (Turtle turtle, double[] values) {
+        turtle.move(values[0]);
     }
-
 }

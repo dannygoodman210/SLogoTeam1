@@ -17,14 +17,14 @@ public class Model {
 
    
     private SmartMap myMap;
-    private List<Turtle> myTurtles;
+    private List<TurtleList> myTurtles;
     private Controller myController;
 
 
     public Model (Controller controller) {
         myController = controller;
         myMap = new SmartMap(this);
-        myTurtles = new ArrayList<Turtle>();
+        myTurtles = new ArrayList<TurtleList>();
     }
 
     /**
@@ -74,11 +74,17 @@ public class Model {
     	return myController; 
     }
     
-    public void addTurtle(){
-    	myTurtles.add(new Turtle(myController));
+    public void addTurtleList(){
+    	TurtleList list = new TurtleList();
+    	list.add(new Turtle(myController));
+    	myTurtles.add(list);
     }
     
-    public Turtle getTurtle(){
+    public TurtleList getTurtle(){
     	return myTurtles.get(myController.getWorkspaceIndex());
+    }
+    
+    public Turtle getLastTurtle() {
+        return getTurtle().get(getTurtle().size());
     }
 }

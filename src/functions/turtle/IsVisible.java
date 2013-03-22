@@ -12,7 +12,7 @@ public class IsVisible extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        if(getTurtle().isVisible()) {
+        if(getModel().getLastTurtle().isVisible()) {
             return 1;
         }
         return 0;

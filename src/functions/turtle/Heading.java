@@ -10,10 +10,9 @@ public class Heading extends Function {
         super(model);
     }
 
-
     @Override
     public double execute(Instruction toExecute) {
-        return getTurtle().getHeading();
+        return getTurtle().get(getTurtle().size() - 1).getHeading();
     }
 
 }
