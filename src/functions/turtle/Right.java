@@ -13,6 +13,6 @@ public class Right extends TurtleFunction {
     
     @Override
     public void process (Turtle turtle, double[] values) {
-        turtle.move(-values[0]);
+        turtle.rotate(-values[0]);
     }   
 }

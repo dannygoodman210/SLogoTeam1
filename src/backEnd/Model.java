@@ -1,9 +1,11 @@
 package backEnd;
 
+import backEnd.Turtle;
+import controller.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.Controller;
+
 
 
 
@@ -80,11 +82,16 @@ public class Model {
     	myTurtles.add(list);
     }
     
+    public double add (Turtle turtle) {
+        myTurtles.get(myController.getWorkspaceIndex()).add(turtle);
+        return 1;
+    }
+     
     public TurtleList getTurtle(){
     	return myTurtles.get(myController.getWorkspaceIndex());
     }
     
     public Turtle getLastTurtle() {
-        return getTurtle().get(getTurtle().size());
+        return getTurtle().getLastActive();
     }
 }

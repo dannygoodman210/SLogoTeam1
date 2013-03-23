@@ -5,15 +5,15 @@ import backEnd.Model;
 import functions.Function;
 
 public class Xcor extends Function {
-	
-	public Xcor(Model model) {
-		super(model);
-	}
 
-	
-	@Override
-	public double execute(Instruction toExecute) {
-		return getTurtle().getLocation().x;
-	}
+    public Xcor(Model model) {
+        super(model);
+    }
+
+
+    @Override
+    public double execute(Instruction toExecute) {
+        return getModel().getLastTurtle().getLocation().x;
+    }
 
 }
