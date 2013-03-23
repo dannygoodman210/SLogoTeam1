@@ -3,6 +3,7 @@ package functions;
 import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
+import functions.Constant;
 
 public class UserDefined extends Function {
     
@@ -17,16 +18,10 @@ public class UserDefined extends Function {
     
     @Override 
     public double execute (Instruction toExecute) {
-        String[] paramValues = new String[myParams.length()];
         for (int i = 0; i < myParams.length(); i++) {
-            paramValues[i] = toExecute.get(0);
-            toExecute.progress();
+            getModel().getMap().add(myParams.get(i), new Constant((int) getReturnValue(toExecute)));
         }
-        Instruction params = new Instruction(paramValues);
-        int returnValue = 0;
-        for (int j = 0; j < myCommands.length(); j++) {
-            returnValue += getModel().getMap().get(myCommands.get(j)).execute(params);
-        }
+        double returnValue = executeBlock(myCommands);
         return returnValue;
     }
 }
