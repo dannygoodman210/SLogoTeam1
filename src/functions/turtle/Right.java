@@ -1,19 +1,18 @@
 package functions.turtle;
 
-import functions.Function;
-import backEnd.Instruction;
 import backEnd.Model;
+import backEnd.Turtle;
 
-public class Right extends Function {
-
+public class Right extends TurtleFunction {
+    
+    private static final int INPUT_VALUES = 1;
+    
     public Right (Model model){
-        super(model);
+        super(model, INPUT_VALUES);
     }
-
+    
     @Override
-    public double execute(Instruction toExecute) {
-        double angle = getReturnValue(toExecute);
-        getTurtle().rotate(-angle);
-        return angle;
-    }
+    public void process (Turtle turtle, double[] values) {
+        turtle.rotate(-values[0]);
+    }   
 }

@@ -1,21 +1,24 @@
 package functions.turtle;
 
-import backEnd.Instruction;
 import backEnd.Model;
-import functions.Function;
+import backEnd.Turtle;
 
-public class SetXY extends Function {
+public class SetXY extends TurtleFunction {
+    
+    private static final int INPUT_VALUES = 2;
     
     public SetXY(Model model) {
-        super(model);
+        super(model, INPUT_VALUES);
     }
 
     @Override
-    public double execute(Instruction toExecute) {
-        double x = getReturnValue(toExecute);
-        double y = getReturnValue(toExecute);
-        getTurtle().setLocation(x, y);
-        return x+y;
+    public void process (Turtle turtle, double[] values) {
+        turtle.setLocation(values[1], values[0]);
+    }
+    
+    @Override
+    public double getReturn (double[] values) {
+        return values[0] + values[1];
     }
 
 }
