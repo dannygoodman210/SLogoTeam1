@@ -1,9 +1,11 @@
 package frontEnd;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -13,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
+
 import backEnd.Turtle;
 import controller.Controller;
 
@@ -210,6 +213,21 @@ public class Canvas extends JPanel {
             public void actionPerformed (ActionEvent arg0) {
                 getWorkspace().getTurtleView().toggleFill();
             } 
+        });
+        viewMenu.add(new AbstractAction(myResources.getString("SetBackground")) {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+            	String color = JOptionPane.showInputDialog(null, myResources.getString("ColorPrompt"));
+            	Color c;
+            	try {
+            	    Field field = Color.class.getField(color);
+            	    c = (Color)field.get(null);
+            	} catch (Exception e1) {
+            		showErrorMsg(myResources.getString("ColorError"));
+            	    c = null;
+            	}
+                if(c != null) getWorkspace().getTurtleView().setBackgroundColor(c);
+            }
         });
         return viewMenu;
     }
