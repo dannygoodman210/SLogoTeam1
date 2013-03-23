@@ -1,0 +1,296 @@
+<body>
+<div class="contentPane">
+  <div class="mainBody">
+
+<h3>SLogo Basic Commands</h3>
+<p>While the command names below are given in all capital letters, SLogo is not case sensitive and should accept any correct spelling of the command names.  Note that any values used as parameters to a command may be result of calling any of the  commands below or a value stored in a variable. Thus all commands return a value as described below. Also, commands can be formatted over any number of lines, including multiple commands on the same line, but they must be separated by one or more spaces.</p>
+
+
+<h4 align="left">Basic Syntax</h4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Token</TH>
+  <TH>Syntax</TH>
+  <TH>Semantics</TH>
+  <TH>Examples</TH>
+</TR>
+<TR>
+  <TD><B>Constant</B></TD>
+  <TD><DIV align="center"><code>[-]?[0-9]+</code></DIV></TD>
+  <TD>any whole valued number<br />
+      note, to avoid potential ambiguity in parsing there should not be a space between the negative sign and the value
+  </TD>
+  <TD><DIV align="right">
+        <code>50</code><BR />
+        <code>-13</code>
+      </DIV>
+  </TD>
+</TR>
+<TR>
+  <TD><B>Variable</B></TD>
+  <TD><DIV align="center"><code>:[a-zA-z]+</code></DIV></TD>
+  <TD>any word preceded by a colon, :<br />
+    note, if a variable name is used that has not previously been given a value, return a default value (i.e., 0)</TD>
+  <TD><DIV align=right>
+    <code>:distance</code><BR />
+    <code>:side</code></DIV>
+  </TD>
+</TR>
+<tr>
+  <td><b>Command</b></td>
+  <td><div align="center"><code>[a-zA-z_]+(\?)?</code></div></td>
+  <td>any word can be a command-name<br />
+    note, all commands return a numeric value<br />
+    note, built-in commands are given below and  user-defined commands cannot reuse those names</td>
+  <td><div align="right"> <code>forward</code><br />
+    <code>fd</code></div></td>
+</tr>
+<TR>
+  <TD><strong>List</strong></TD>
+  <TD><div align="center"><code>[ <br />
+    ]</code></div></TD>
+  <TD>these brackets enclose a list of zero or more commands or variables<br />
+    note, to make parsing easier, these will always be separated from other tokens by spaces</TD>
+  <TD><code>[ fd 50 rt 90 ]</code></TD>
+</TR>
+</TABLE>
+
+<H4>Turtle Commands</H4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Name(s)</TH>
+  <TH>Description</TH>
+</TR>
+<TR>
+  <TD>FORWARD <em>pixels</em><br>
+    FD <em>pixels</em></TD>
+  <TD>moves  turtle forward in its current heading by <em>pixels</em> distance<br />
+    returns the value of <em>pixels</em></TD>
+</TR>
+<TR>
+  <TD>BACK <em>pixels</em><br>
+    BK <em>pixels</em></TD>
+  <TD>moves  turtle backward in its current heading by <em>pixels</em> distance<br />
+    returns the value of <em>pixels</em></TD>
+</TR>
+<TR>
+  <TD>LEFT <em>degrees</em><br>
+    LT <em>degrees</em></TD>
+  <TD>turns  turtle counterclockwise by <em>degrees</em> angle<br />
+    returns the value of <em>degrees</em></TD>
+</TR>
+<TR>
+  <TD>RIGHT <em>degrees</em><br>
+    RT <em>degrees</em></TD>
+  <TD>turns  turtle clockwise by <em>degrees</em> angle<br />
+    returns the value of <em>degrees</em></TD>
+</TR>
+<tr>
+  <td>SETHEADING <em>degrees</em><br />
+    SETH <em>degrees</em></td>
+  <td>turns  turtle to an absolute heading<br />
+    returns number of degrees moved </td>
+</tr>
+<TR>
+  <TD>TOWARDS <em>x</em> <em>y </em></TD>
+  <TD>turns  turtle to face the point (<em>x</em>, <em>y</em>), where (0, 0) is the center of the screen<br />
+    returns the number of degrees  turtle turned</TD>
+</TR>
+<tr>
+  <td>SETXY <em>x</em> <em>y</em><br />
+    GOTO <em>x</em> <em>y</em></td>
+  <td>moves  turtle to an absolute screen position, where (0, 0) is the center of the screen<br />
+    returns number of pixels moved </td>
+</tr>
+<TR>
+  <TD>PENDOWN<br>PD</TD>
+  <TD>puts  pen down such that when the turtle moves, it leaves a trail<br />
+    returns 1</TD>
+</TR>
+<TR>
+  <TD>PENUP<br>PU</TD>
+  <TD>puts  pen up such that when the turtle moves, it does not leave a trail<br />
+    returns 0</TD>
+</TR>
+<TR>
+  <TD>SHOWTURTLE<br>ST</TD>
+  <TD>makes  turtle visible<br />
+    returns 1</TD>
+</TR>
+<TR>
+  <TD>HIDETURTLE<br>HT</TD>
+  <TD>makes  turtle invisible<br />
+    returns 0</TD>
+</TR>
+<TR>
+  <TD>HOME</TD>
+  <TD>moves  turtle to the center of the screen (0 0)<br />
+    returns the distance turtle moved</TD>
+</TR>
+<TR>
+  <TD>CLEARSCREEN<br>CS</TD>
+  <TD>erases  turtle's trails and sends it to the home position<br />
+    returns the distance turtle moved</TD>
+</TR>
+</TABLE>
+
+
+<H4>Turtle Queries</H4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Name</TH>
+  <TH>Description</TH>
+</TR>
+<TR>
+  <TD>XCOR</TD>
+  <TD>returns the turtle's X coordinate in pixels from the center of the screen</TD>
+</TR>
+<TR>
+  <TD>YCOR</TD>
+  <TD>returns the turtle's Y coordinate in pixels from the center of the screen</TD>
+</TR>
+<tr>
+  <td>HEADING</td>
+  <td>returns the turtle's heading in degrees</td>
+</tr>
+<tr>
+  <td>PENDOWN?<br />
+    PENDOWNP</td>
+  <td>returns 1 if turtle's pen is down, 0 if it is up</td>
+</tr>
+<tr>
+  <td>SHOWING?<br />
+    SHOWINGP</td>
+  <td>returns 1 if turtle is showing, 0 if it is hiding</td>
+</tr>
+</TABLE>
+
+
+<H4>Math Operations</H4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Name</TH>
+  <TH>Description</TH>
+</TR>
+<TR>
+  <TD>SUM <em>value1</em> <em>value2</em><br />
+    + <em>value1</em> <em>value2</em></TD>
+  <TD>returns sum of <i>value1</i> and <i>value2</i></TD>
+</TR>
+<TR>
+  <TD>DIFFERENCE <em>value1</em> <em>value2</em><br />
+    - <em>value1</em> <em>value2</em></TD>
+  <TD>returns difference of <i>value1</i> and <i>value2</i></TD>
+</TR>
+<TR>
+  <TD>PRODUCT <em>value1</em> <em>value2</em><br />
+    * <em>value1</em> <em>value2</em></TD>
+  <TD>returns product of <i>value1</i> and <i>value2</i></TD>
+</TR>
+<TR>
+  <TD>QUOTIENT <em>value1</em> <em>value2</em><br />
+    / <em>value1</em> <em>value2</em></TD>
+  <TD>returns integer quotient of <i>value1</i> and <i>value2</i></TD>
+</TR>
+<TR>
+  <TD>REMAINDER <em>value1</em> <em>value2</em><br />
+    % <em>value1</em> <em>value2</em></TD>
+  <TD>returns integer remainder on dividing <i> value1</i> by <i>value2</i></TD>
+</TR>
+<TR>
+  <TD>MINUS <em>value</em><br />
+    ~ <em>value</em></TD>
+  <TD>returns negative of <i>value</i></TD>
+</TR>
+<TR>
+  <TD>RANDOM <em>max</em></TD>
+  <TD>returns random non-negative integer strictly less than <em>max</em></TD>
+</TR>
+</TABLE>
+
+
+<H4>Boolean Operations</H4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Name</TH>
+  <TH>Description</TH>
+</TR>
+<TR>
+  <TD>LESS? <em>value1</em> <em>value2</em><br />
+    LESSP <em>value1</em> <em>value2</em></TD>
+  <TD>returns 1  if <em>value1</em> is strictly less than <em>value2</em>, otherwise 0</TD>
+</TR>
+<TR>
+  <TD>GREATER? <em>value1</em> <em>value2</em><br />
+    GREATERP <em>value1</em> <em>value2</em></TD>
+  <TD>returns 1 if  <em>value1</em> is strictly greater than <em>value2</em>,  otherwise 0</TD>
+</TR>
+<TR>
+  <TD>EQUAL? <em>value1</em> <em>value2</em><br />
+    EQUALP <em>value1</em> <em>value2</em></TD>
+  <TD>returns 1 if  <em>value1 </em>and <em>value2</em> are equal, otherwise 0</TD>
+</TR>
+<TR>
+  <TD>NOTEQUAL? <em>value1</em> <em>value2</em><br />
+    NOTEQUALP <em>value1</em> <em>value2</em> &nbsp;</TD>
+  <TD>returns 1 if  <em>value1</em> and  <em>value2</em> are not equal, otherwise 0</TD>
+</TR>
+<TR>
+  <TD>AND <em>test1</em> <em>test2</em></TD>
+  <TD>returns 1  if <i>test1</i> and <i>test2</i> are non-zero, otherwise 0</TD>
+</TR>
+<TR>
+  <TD>OR <em>test1</em> <em>test2</em></TD>
+  <TD>returns 1 if <i>test1</i> or <i>test2</i> are non-zero, otherwise 0</TD>
+</TR>
+<TR>
+  <TD>NOT <em>test</em></TD>
+  <TD>returns 1 if <i>test</i> is 0 and 0 if <i>test</i> is non-zero</TD>
+</TR>
+</TABLE>
+
+
+<H4>Variables, Control Structures, and User-Defined Commands</H4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Name</TH>
+  <TH>Description</TH>
+</TR>
+<TR>
+  <TD>MAKE <em>variable</em> <em>value</em><br />
+      SET <em>variable</em> <em>value</em></TD>
+  <TD>assigns <em>value</em> to <em>variable</em>, creating the variable if necessary<em><br />
+  </em>returns <em>value</em></TD>
+</TR>
+<TR>
+  <TD>REPEAT <em>value</em> [ <em>command(s)</em> ]</TD>
+  <TD>runs the <em>commands</em> given in the  list <em>value</em> number of times<br />
+    returns the value of the final command executed<br />    
+    note, the value of the current iteration, starting at 1, is automatically assigned to the variable <em>:repcount</em> so that it can be accessed by the <em>commands</em>  </TD>
+</TR>
+<TR>
+  <TD>IF <em>value</em> [ <em>command(s)</em> ]</TD>
+  <TD>if <em>value</em> is not 0, runs the <em>commands</em> given in the  list<br />
+    returns the value of the final command executed</TD>
+</TR>
+<TR>
+  <TD>IFELSE <em>value</em> <br />
+    [ <em>trueCommand(s)</em> ] <br />
+    [ <em>falseCommand(s)</em> ]</TD>
+  <TD>if <i> value</i> is not 0, runs the <em>trueCommands</em> given in the first  list, otherwise runs the <em>falseCommands</em> given in the second  list<br />
+    returns the value of the final command executed</TD>
+</TR>
+<TR>
+  <TD>TO <em>commandName<br />
+  </em> [ <em>parameter(s)</em> ]<br />
+[ <em>command(s)</em> ]</TD>
+  <TD>assigns  <em>commands</em> given in the second list to <em>commandName</em> using  <em>parameters</em> given in first list as variables<br />
+    when <em>commandName</em> is used later in a program,  any given values are assigned to variables that can be accessed when  the command list is run<br />
+    returns 1 if command is successfully defined, otherwise 0</TD>
+</TR>
+</TABLE>
+</div>
+
+</div>
+</body>
+</html>

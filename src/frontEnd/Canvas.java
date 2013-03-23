@@ -1,11 +1,15 @@
 package frontEnd;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -35,6 +39,7 @@ public class Canvas extends JPanel {
     // default serialization ID
     private static final long serialVersionUID = 1L;
     private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
+    private static final String HELP_PATH = "resources/help.html";
 
     private JFileChooser myChooser;
     private Controller myController;
@@ -122,6 +127,7 @@ public class Canvas extends JPanel {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(makeFileMenu());
         menuBar.add(makeViewMenu());
+        menuBar.add(makeHelpMenu());
         return menuBar;
     }
 
@@ -230,5 +236,32 @@ public class Canvas extends JPanel {
             }
         });
         return viewMenu;
+    }
+    
+    /**
+     * Makes the "Help" menu from which the user can access documentation
+     * if they need help with anything.
+     * 
+     * @return helpMenu
+     */
+    private JMenu makeHelpMenu () {
+        JMenu helpMenu = new JMenu(myResources.getString("HelpMenu"));
+        helpMenu.add(new AbstractAction(myResources.getString("CommandsInfo")) {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+            	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            	URL url = classLoader.getResource(HELP_PATH);
+              	File htmlFile;
+				try {
+					htmlFile = new File(url.toURI());
+					Desktop.getDesktop().open(htmlFile);
+				} catch (URISyntaxException e1) {
+					showErrorMsg("FileNotFound");
+				} catch (IOException e2) {
+					showErrorMsg("DesktopError");
+				}
+            }
+        });
+        return helpMenu;
     }
 }
