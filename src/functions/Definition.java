@@ -16,7 +16,7 @@ public class Definition extends Function {
         toExecute.progress();
         Instruction params = toExecute.block();
         Instruction commands = toExecute.block();
-        if (!getModel().getMap().isNumber(name)) {
+        if (getModel().getMap().contains(name)) {
             return 0;
             // Throw warning that function is already defined
         }

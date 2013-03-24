@@ -1,21 +1,24 @@
 package backEnd;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.Map;
 import functions.Constant;
 
 public class SmartMap {
 
-    private Map<String, Executable> myMap;
+    private Map<String, Executable> myFunctions;
+    private Map<String, Executable> myUserExecutables;
     private Model myModel;
 
     public SmartMap(Model model){
     	myModel = model;
+    	myUserExecutables = new HashMap<String, Executable>();
         Factory factory = new Factory();
 
         //TEMPORARY!!!!!!!!!!
         try {
-            myMap = factory.make(model);
+            myFunctions = factory.make(model);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -48,24 +51,24 @@ public class SmartMap {
      */
     public Executable get(String key){
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
-        if(myMap.containsKey(key)){
-            return myMap.get(key);
+        if(myFunctions.containsKey(key)){
+            return myFunctions.get(key);
         }
-        else if(myMap.containsKey(workSpaceIndex + key)){
-        	return myMap.get(workSpaceIndex + key);
+        else if(myUserExecutables.containsKey(workSpaceIndex + key)){
+        	return myUserExecutables.get(workSpaceIndex + key);
        	}
         else{
             int value = Integer.parseInt(key);
             return new Constant(value);
         }
     }
-
-    public boolean isNumber(String a){
-        return !myMap.containsKey(a);
+    
+    public boolean contains(String key){
+    	return myFunctions.containsKey(key) || myUserExecutables.containsKey(key);
     }
     
     public void add(String name, Executable function) {
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
-        myMap.put(workSpaceIndex+name, function);
+        myUserExecutables.put(workSpaceIndex+name, function);
     }
 }
