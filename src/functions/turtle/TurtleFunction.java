@@ -22,7 +22,7 @@ public abstract class TurtleFunction extends Function {
     @Override
     public double execute (Instruction toExecute) {
         double[] values = getValues(toExecute);
-        getTurtle().execute(this, values);
+        getTurtleList().execute(this, values);
         return getReturn(values);
     }
     

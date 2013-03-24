@@ -20,7 +20,7 @@ public abstract class Function implements Executable {
         return myModel;
     }
     
-    protected TurtleList getTurtle(){
+    protected TurtleList getTurtleList(){
     	return myModel.getTurtleList();
     }
 

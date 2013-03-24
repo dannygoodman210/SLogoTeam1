@@ -2,7 +2,6 @@ package controller;
 
 import backEnd.Instruction;
 import backEnd.Model;
-import backEnd.Turtle;
 import backEnd.Workspace;
 import frontEnd.Canvas;
 import java.util.Observable;
@@ -31,12 +30,7 @@ public class Controller implements Observer {
      */
     @Override
     public void update (Observable arg0, Object arg1) {
-        if(arg0.getClass().equals(Turtle.class)){
-            myView.updateTurtle((Turtle) arg0);
-        }
-        if(arg0.getClass().equals(Workspace.class)){
-            myView.updateWorkspace((Workspace) arg0);
-        }
+        myView.updateWorkspace((Workspace) arg0);
     }
 
     /**
@@ -61,7 +55,6 @@ public class Controller implements Observer {
 
     public void sendHistory (double value) {
         myView.writeHistory(Double.toString(value));
-
     }
 
     public void showErrorMsg (String text) {

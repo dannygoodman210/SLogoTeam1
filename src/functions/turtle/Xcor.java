@@ -13,7 +13,7 @@ public class Xcor extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        return getModel().getLastTurtle().getLocation().x;
+        return getModel().getActiveTurtles().getLocation().x;
     }
 
 }

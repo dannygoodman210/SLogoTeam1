@@ -12,7 +12,7 @@ public class IsPenDown extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        if(getModel().getLastTurtle().isPenDown()) {
+        if(getModel().getActiveTurtles().isPenDown()) {
             return 1;
         }
         return 0;

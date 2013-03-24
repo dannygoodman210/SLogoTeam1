@@ -1,6 +1,5 @@
 package backEnd;
 
-import backEnd.Turtle;
 import controller.Controller;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ public class Model {
      */
 
     private SmartMap myMap;
-    private List<TurtleList> myTurtles;
     private Controller myController;
     private List<Workspace> myWorkspaces;
 
@@ -23,7 +21,6 @@ public class Model {
         myController = controller;
         myMap = new SmartMap(this);
         myWorkspaces = new ArrayList<Workspace>();
-        myTurtles = new ArrayList<TurtleList>();
     }
 
     /**
@@ -72,12 +69,7 @@ public class Model {
     }
 
     public void addWorkspace () {
-        myWorkspaces.add(new Workspace(myController, this));
-    }
-
-    public double add (Turtle turtle) {
-        myWorkspaces.get(myController.getWorkspaceIndex()).addTurtle(turtle);
-        return 1;
+        myWorkspaces.add(new Workspace(myController, this, myWorkspaces.size()));
     }
 
     public TurtleList getTurtleList () {
@@ -88,7 +80,10 @@ public class Model {
         myController.showErrorMsg(text);
     }
 
-    public Turtle getLastTurtle () {
-        return getTurtleList().getLastActive();
+
+
+    public double addNewTurtle () {
+        myWorkspaces.get(myController.getWorkspaceIndex()).addNewTurtle();
+        return 1;
     }
 }

@@ -13,7 +13,7 @@ public class PenDown extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        getModel().getLastTurtle().setPenDown(true);
+        getModel().getActiveTurtles().setPenDown(true);
         return 1;
     }
 

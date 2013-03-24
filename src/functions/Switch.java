@@ -10,7 +10,7 @@ public class Switch extends Function {
     }
     @Override
     public double execute (Instruction toExecute) {
-       return getTurtle().switchTurtle((int) getReturnValue(toExecute));
+       return getTurtleList().switchTurtle((int) getReturnValue(toExecute));
        
     }
 

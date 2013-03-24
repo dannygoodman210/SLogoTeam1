@@ -12,7 +12,7 @@ public class Add extends Function {
     
     @Override
     public double execute (Instruction toExecute) {
-        getModel().add(new Turtle(getModel().getController()));
+        getModel().addNewTurtle();
         return 1;
     }
 

@@ -19,8 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
-
-import backEnd.Turtle;
 import backEnd.Workspace;
 import controller.Controller;
 
@@ -63,24 +61,28 @@ public class Canvas extends JPanel {
         myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
         myWorkspaces = new JTabbedPane();
         add(myWorkspaces);
-        myController = new Controller(this);
         int workspaceCount = myWorkspaces.getTabCount() + 1;
-        myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceCount, makeWorkspace());
+        WorkspaceView first = makeWorkspaceView();
+        myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceCount, first);
+        myController = new Controller(this);
+        first.addToModel();
         // make file chooser
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
         setVisible(true);
+        
     }
-    
+
     /**
      * Returns the workspace which the user is currently working in
+     * 
      * @return activeWorkspace
      */
-    public WorkspaceView getWorkspace () {
-    	WorkspaceView activeWorkspace = (WorkspaceView) myWorkspaces.getSelectedComponent();
-    	return activeWorkspace;
+    public WorkspaceView getWorkspaceView () {
+        WorkspaceView activeWorkspace = (WorkspaceView) myWorkspaces.getSelectedComponent();
+        return activeWorkspace;
     }
-    
+
     /**
      * Returns the index of the workspace which the user is currently working
      * in
@@ -88,7 +90,7 @@ public class Canvas extends JPanel {
      * @return index of active workspace
      */
     public int getWorkspaceIndex () {
-    	return myWorkspaces.getSelectedIndex();
+        return myWorkspaces.getSelectedIndex();
     }
 
     /**
@@ -96,22 +98,14 @@ public class Canvas extends JPanel {
      * 
      * @return controller
      */
-    public Controller getController() {
-    	return myController;
-    }
-    
-    /**
-     * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
-     * 
-     * @param changedTurtle
-     */
-    public void updateTurtle (Turtle changedTurtle) {
-    	getWorkspace().updateTurtle(changedTurtle);
+    public Controller getController () {
+        return myController;
     }
 
     public void updateWorkspace (Workspace changedWorkspace) {
-        getWorkspace().updateWorkspace(changedWorkspace);
-        
+        int index = changedWorkspace.getIndex();
+        WorkspaceView current = (WorkspaceView) myWorkspaces.getComponent(index);
+        current.updateWorkspace(changedWorkspace);
     }
 
     /**
@@ -121,7 +115,7 @@ public class Canvas extends JPanel {
      */
 
     public void writeHistory (String text) {
-        getWorkspace().writeHistory(text);
+        getWorkspaceView().writeHistory(text);
     }
 
     /**
@@ -143,7 +137,8 @@ public class Canvas extends JPanel {
      * @param text to be displayed
      */
     public void showErrorMsg (String text) {
-    	JOptionPane.showMessageDialog(this, text, myResources.getString("Error"), JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, text, myResources.getString("Error"),
+                                      JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -155,15 +150,9 @@ public class Canvas extends JPanel {
         return myResources;
     }
 
-    /**
-     * Creates workspace to be added into the myWorkspaces tab manager
-     * 
-     * @return workspace to be made
-     */
-    private WorkspaceView makeWorkspace () {
-        WorkspaceView workspace = new WorkspaceView(this);
-        workspace.addWorkspaceToModel();
-        return workspace;
+    private WorkspaceView makeWorkspaceView () {
+        WorkspaceView workspaceView = new WorkspaceView(this);
+        return workspaceView;
     }
 
     /**
@@ -177,8 +166,11 @@ public class Canvas extends JPanel {
         fileMenu.add(new AbstractAction(myResources.getString("NewCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-            	int workspaceNumber = myWorkspaces.getTabCount() + 1;
-            	myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceNumber, makeWorkspace());
+                int workspaceNumber = myWorkspaces.getTabCount() + 1;
+                WorkspaceView newWorkspace = makeWorkspaceView();
+                myWorkspaces.add(myResources.getString("WorkspaceTitle") + " " + workspaceNumber,
+                                 newWorkspace);
+                newWorkspace.addToModel();
             }
         });
         fileMenu.add(new AbstractAction(myResources.getString("OpenCommand")) {
@@ -217,33 +209,35 @@ public class Canvas extends JPanel {
         viewMenu.add(new AbstractAction(myResources.getString("WarpCommand")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-                getWorkspace().getTurtleView().toggleWarp();
+                getWorkspaceView().getTurtleView().toggleWarp();
             }
         });
-        viewMenu.add(new AbstractAction(myResources.getString("FillTurtle")){
+        viewMenu.add(new AbstractAction(myResources.getString("FillTurtle")) {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                getWorkspace().getTurtleView().toggleFill();
-            } 
+                getWorkspaceView().getTurtleView().toggleFill();
+            }
         });
         viewMenu.add(new AbstractAction(myResources.getString("SetBackground")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-            	String color = JOptionPane.showInputDialog(null, myResources.getString("ColorPrompt"));
-            	Color c;
-            	try {
-            	    Field field = Color.class.getField(color);
-            	    c = (Color)field.get(null);
-            	} catch (Exception e1) {
-            		showErrorMsg(myResources.getString("ColorError"));
-            	    c = null;
-            	}
-                if(c != null) getWorkspace().getTurtleView().setBackgroundColor(c);
+                String color =
+                        JOptionPane.showInputDialog(null, myResources.getString("ColorPrompt"));
+                Color c;
+                try {
+                    Field field = Color.class.getField(color);
+                    c = (Color) field.get(null);
+                }
+                catch (Exception e1) {
+                    showErrorMsg(myResources.getString("ColorError"));
+                    c = null;
+                }
+                if (c != null) getWorkspaceView().getTurtleView().setBackgroundColor(c);
             }
         });
         return viewMenu;
     }
-    
+
     /**
      * Makes the "Help" menu from which the user can access documentation
      * if they need help with anything.
@@ -255,17 +249,19 @@ public class Canvas extends JPanel {
         helpMenu.add(new AbstractAction(myResources.getString("CommandsInfo")) {
             @Override
             public void actionPerformed (ActionEvent e) {
-            	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            	URL url = classLoader.getResource(HELP_PATH);
-              	File htmlFile;
-				try {
-					htmlFile = new File(url.toURI());
-					Desktop.getDesktop().open(htmlFile);
-				} catch (URISyntaxException e1) {
-					showErrorMsg("FileNotFound");
-				} catch (IOException e2) {
-					showErrorMsg("DesktopError");
-				}
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                URL url = classLoader.getResource(HELP_PATH);
+                File htmlFile;
+                try {
+                    htmlFile = new File(url.toURI());
+                    Desktop.getDesktop().open(htmlFile);
+                }
+                catch (URISyntaxException e1) {
+                    showErrorMsg("FileNotFound");
+                }
+                catch (IOException e2) {
+                    showErrorMsg("DesktopError");
+                }
             }
         });
         return helpMenu;

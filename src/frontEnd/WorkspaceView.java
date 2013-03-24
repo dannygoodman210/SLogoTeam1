@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-import backEnd.Turtle;
 import backEnd.Workspace;
 import controller.Controller;
 
@@ -56,7 +55,7 @@ public class WorkspaceView extends JPanel {
     /**
      * Instantiates the turtle that will be displayed in this workspace
      */
-    public void addWorkspaceToModel () {
+    public void addToModel () {
         getController().addWorkspace();
     }
 
@@ -100,18 +99,8 @@ public class WorkspaceView extends JPanel {
         return myHistoryView;
     }
 
-    /**
-     * Passes a copy of the changedTurtle to the TurtleView. Called by Workspace's Observer method.
-     * 
-     * @param changedTurtle
-     */
-    public void updateTurtle (Turtle changedTurtle) {
-        myTurtleView.addToQueue(new Turtle(changedTurtle));
-    }
-
     public void updateWorkspace (Workspace changedWorkspace) {
-        // TODO Auto-generated method stub
-        
+        myTurtleView.addToQueue(new Workspace(changedWorkspace));
     }
 
     /**
@@ -169,7 +158,7 @@ public class WorkspaceView extends JPanel {
         result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                myTurtleView.clearTrails();
+                myTurtleView.clearAllTrails();
                 myHistoryView.setText(myResources.getString("Blank"));
             }
         });
