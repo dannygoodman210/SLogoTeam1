@@ -56,7 +56,6 @@ public class Controller implements Observer {
     }
 
     public void addDimension () {
-        myModel.addTurtle();
     	myModel.addTurtleList();
     }
 
