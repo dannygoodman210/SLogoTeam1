@@ -35,7 +35,7 @@ public class Controller implements Observer {
             myView.updateTurtle((Turtle) arg0);
         }
         if(arg0.getClass().equals(Workspace.class)){
-            // TODO
+            myView.updateWorkspace((Workspace) arg0);
         }
     }
 

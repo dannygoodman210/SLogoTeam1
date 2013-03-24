@@ -31,6 +31,7 @@ public class Workspace extends Observable {
     
     public void addTurtle(Turtle turtle){
         myTurtleList.add(turtle);
+        setChanged();
     }
     
     public TurtleList getTurtleList(){

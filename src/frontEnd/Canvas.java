@@ -21,6 +21,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
 
 import backEnd.Turtle;
+import backEnd.Workspace;
 import controller.Controller;
 
 
@@ -106,6 +107,11 @@ public class Canvas extends JPanel {
      */
     public void updateTurtle (Turtle changedTurtle) {
     	getWorkspace().updateTurtle(changedTurtle);
+    }
+
+    public void updateWorkspace (Workspace changedWorkspace) {
+        getWorkspace().updateWorkspace(changedWorkspace);
+        
     }
 
     /**

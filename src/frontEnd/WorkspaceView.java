@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import backEnd.Turtle;
+import backEnd.Workspace;
 import controller.Controller;
 
 
@@ -106,6 +107,11 @@ public class WorkspaceView extends JPanel {
      */
     public void updateTurtle (Turtle changedTurtle) {
         myTurtleView.addToQueue(new Turtle(changedTurtle));
+    }
+
+    public void updateWorkspace (Workspace changedWorkspace) {
+        // TODO Auto-generated method stub
+        
     }
 
     /**

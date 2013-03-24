@@ -59,6 +59,10 @@ public class Turtle extends Observable {
         myPenSize = pixels;
         setChanged();
     }
+    
+    public int getPenSize(){
+        return myPenSize;
+    }
 
     public int getPenColorIndex () {
         return myPenColorIndex;
