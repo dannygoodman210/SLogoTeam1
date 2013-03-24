@@ -38,7 +38,6 @@ public class TurtleList {
         for (Turtle t: myActiveTurtles) {
             function.process(t, values);
         }
-        
     }
     
     public int size () {

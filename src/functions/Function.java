@@ -21,7 +21,7 @@ public abstract class Function implements Executable {
     }
     
     protected TurtleList getTurtle(){
-    	return myModel.getTurtle();
+    	return myModel.getTurtleList();
     }
 
     public double getReturnValue(Instruction toExectue){

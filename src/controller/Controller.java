@@ -55,8 +55,8 @@ public class Controller implements Observer {
         return myView.getWorkspaceIndex();
     }
 
-    public void addDimension () {
-    	myModel.addTurtleList();
+    public void addWorkspace () {
+        myModel.addWorkspace();
     }
 
     public void sendHistory (double value) {

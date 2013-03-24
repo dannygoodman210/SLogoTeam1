@@ -1,7 +1,6 @@
 package backEnd;
 
 import java.awt.Color;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -16,6 +15,7 @@ public class Workspace extends Observable {
     private Color myBackgroundColor;
     private Palette myPalette;
     private ResourceBundle myResources;
+    private TurtleList myTurtleList;
     
 
     public Workspace(Observer observer, Model model){
@@ -25,6 +25,16 @@ public class Workspace extends Observable {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES);
         myBackgroundColor = DEFAULT_BACKGROUND_COLOR;
         myPalette = new Palette();
+        myTurtleList = new TurtleList();
+        myTurtleList.add(new Turtle(myObserver));
+    }
+    
+    public void addTurtle(Turtle turtle){
+        myTurtleList.add(turtle);
+    }
+    
+    public TurtleList getTurtleList(){
+        return myTurtleList;
     }
     
     public void setBackground(int colorIndex){

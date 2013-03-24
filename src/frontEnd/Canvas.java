@@ -156,7 +156,7 @@ public class Canvas extends JPanel {
      */
     private WorkspaceView makeWorkspace () {
         WorkspaceView workspace = new WorkspaceView(this);
-        workspace.addDimensionToModel();
+        workspace.addWorkspaceToModel();
         return workspace;
     }
 

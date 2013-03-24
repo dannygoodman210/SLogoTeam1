@@ -55,8 +55,8 @@ public class WorkspaceView extends JPanel {
     /**
      * Instantiates the turtle that will be displayed in this workspace
      */
-    public void addDimensionToModel () {
-        getController().addDimension();
+    public void addWorkspaceToModel () {
+        getController().addWorkspace();
     }
 
     /**
