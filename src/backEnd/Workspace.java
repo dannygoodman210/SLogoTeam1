@@ -26,7 +26,7 @@ public class Workspace extends Observable {
         myBackgroundColor = DEFAULT_BACKGROUND_COLOR;
         myPalette = new Palette();
         myTurtleList = new TurtleList();
-        myTurtleList.add(new Turtle(myObserver));
+        myTurtleList.add(new Turtle(myObserver, 0));
     }
     
     public void addTurtle(Turtle turtle){

@@ -12,7 +12,8 @@ public class Add extends Function {
     
     @Override
     public double execute (Instruction toExecute) {
-        getModel().add(new Turtle(getModel().getController()));
+    	int turtleID = getModel().getTurtleListLength();
+        getModel().add(new Turtle(getModel().getController(), turtleID));
         return 1;
     }
 

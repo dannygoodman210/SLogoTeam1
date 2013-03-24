@@ -92,8 +92,14 @@ public class Model {
     public void showErrorMsg (String text) {
         myController.showErrorMsg(text);
     }
-
+    
+    
     public Turtle getLastTurtle () {
         return getTurtleList().getLastActive();
+    }
+    
+    
+    public int getTurtleListLength(){
+    	return getTurtleList().size();
     }
 }
