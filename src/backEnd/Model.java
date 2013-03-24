@@ -41,7 +41,7 @@ public class Model {
 
     /**
      * The model handles execute, processString can be called recursively to
-     * deal with situations such as repeat
+     * deal with situations such as repeat. Executes all commands that you give it. 
      * 
      * @param s from workspace or recursive command
      * @return output that should be printed in the GUI
@@ -56,7 +56,12 @@ public class Model {
         }
         return output;
     }
-
+    /**
+     * Executes an instruction, but only up to one return (ie. only up to a constant).
+     * Ex: for  fd 50 left 50  it will only execute fd 50. 
+     * @param toExecute
+     * @return
+     */
     public double process (Instruction toExecute) {
         Executable function = myMap.get(toExecute.get(0));
         double value = function.execute(toExecute.progress());

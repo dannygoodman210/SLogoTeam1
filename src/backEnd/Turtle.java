@@ -26,6 +26,7 @@ public class Turtle extends Observable {
     private int myPenSize;
     private int myPenColorIndex;
     private int myShapeIndex;
+    private int myID;
 
     /**
      * Creates a Turtle object. Pass in its observer.
@@ -33,13 +34,14 @@ public class Turtle extends Observable {
      * @param observer
      */
 
-    public Turtle (Observer observer) {
+    public Turtle (Observer observer, int ID) {
         myObserver = observer;
         addObserver(myObserver);
         myLocation = (Location) INITIAL_LOCATION.clone();
         myHeading = NORTH_DIRECTION;
         myPenDown = true;
         myVisible = true;
+        myID = ID;
     }
 
     /**
@@ -53,6 +55,10 @@ public class Turtle extends Observable {
         myHeading = o.getHeading();
         myPenDown = o.isPenDown();
         myVisible = o.isVisible();
+    }
+    
+    public int getID(){
+    	return myID;
     }
     
     public void setPenSize(int pixels){

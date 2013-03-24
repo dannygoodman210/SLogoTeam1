@@ -40,6 +40,12 @@ public class SmartMap {
         }
     }
 
+    /**
+     * Returns the value corresponding to a key from our map. If our map does not contain
+     * the key, it assumes the value is a number and returns a constant. 
+     * @param key
+     * @return
+     */
     public Executable get(String key){
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
         if(myMap.containsKey(key)){
