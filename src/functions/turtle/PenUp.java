@@ -6,16 +6,16 @@ import backEnd.Model;
 
 
 public class PenUp extends Function{
-	
-	public PenUp(Model model){
-		super(model);
-	}
-	
-	@Override
-	public double execute(Instruction toExecute) {
-		getTurtle().setPenDown(false);
-		return 0;
-	}
+
+    public PenUp(Model model){
+        super(model);
+    }
+
+    @Override
+    public double execute(Instruction toExecute) {
+        getModel().getLastTurtle().setPenDown(false);
+        return 0;
+    }
 
 
 }

@@ -1,20 +1,18 @@
 package functions.turtle;
 
-import backEnd.Instruction;
-import functions.Function;
 import backEnd.Model;
+import backEnd.Turtle;
 
-public class SetHeading extends Function {
-
+public class SetHeading extends TurtleFunction {
+        
+    private static final int INPUT_VALUES = 1;
+    
     public SetHeading(Model model){
-        super(model);
+        super(model, INPUT_VALUES);
     }
-
+    
     @Override
-    public double execute(Instruction toExecute) {
-        double angle = getReturnValue(toExecute);
-        getTurtle().setHeading(angle);
-        return angle;
+    public void process (Turtle turtle, double[] values) {
+        turtle.setHeading(values[0]);
     }
-
 }

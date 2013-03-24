@@ -1,21 +1,25 @@
 package functions.turtle;
 
-import backEnd.Instruction;
 import backEnd.Model;
-import functions.Function;
+import backEnd.Turtle;
 
-public class Towards extends Function {
-       
+public class Towards extends TurtleFunction {
+    
+    private static final int INPUT_VALUES = 2;
+    private double returnValue;
+    
     public Towards(Model model){
-        super(model);
+        super(model, INPUT_VALUES);
     }
-
+    
     @Override
-    public double execute(Instruction toExecute) {
-    	double value1 = getReturnValue(toExecute);
-    	double value2 = getReturnValue(toExecute);
-        double turn = getTurtle().setTowards(value1, value2);
-        return Math.abs(turn);
+    public double getReturn (double[] values) {
+        return returnValue;
     }
-
+    
+    @Override
+    public void process (Turtle turtle, double[] values) {
+        returnValue = turtle.setTowards(values[0], values[1]);
+    }
+    // I'm not sure how this will interact when we stack multiple functions
 }
