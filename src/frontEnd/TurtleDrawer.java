@@ -95,7 +95,10 @@ public abstract class TurtleDrawer {
      */
     @Override
     public boolean equals (Object o) {
-        return (this.hashCode() == o.hashCode());
+        if(o.getClass().equals(this.getClass())){
+            return (this.hashCode() == o.hashCode());
+        }
+        return false;
     }
 
     /**

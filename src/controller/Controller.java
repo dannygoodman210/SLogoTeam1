@@ -3,17 +3,18 @@ package controller;
 import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Turtle;
+import backEnd.Workspace;
 import frontEnd.Canvas;
-
 import java.util.Observable;
 import java.util.Observer;
 
+
 /**
  * Workspace object serves as the controller between the model and the view.
- * Implements Observer interface. Observes Turtle object.
+ * Implements Observer interface. Observes Turtle object. Observes Workspace object.
  * 
  * @author Danny Goodman, Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
- *
+ * 
  */
 public class Controller implements Observer {
 
@@ -30,7 +31,12 @@ public class Controller implements Observer {
      */
     @Override
     public void update (Observable arg0, Object arg1) {
-        myView.updateTurtle((Turtle) arg0);
+        if(arg0.getClass().equals(Turtle.class)){
+            myView.updateTurtle((Turtle) arg0);
+        }
+        if(arg0.getClass().equals(Workspace.class)){
+            // TODO
+        }
     }
 
     /**
@@ -44,22 +50,22 @@ public class Controller implements Observer {
         Instruction commands = myModel.formatString(text);
         myModel.processInstruction(commands);
     }
-    
+
     public int getWorkspaceIndex () {
-    	return myView.getWorkspaceIndex();
+        return myView.getWorkspaceIndex();
     }
-    
+
     public void addDimension () {
-    	myModel.addTurtle();
+        myModel.addTurtle();
     }
 
     public void sendHistory (double value) {
         myView.writeHistory(Double.toString(value));
-        
+
     }
-    
+
     public void showErrorMsg (String text) {
-    	myView.showErrorMsg(text);
+        myView.showErrorMsg(text);
     }
 
 }

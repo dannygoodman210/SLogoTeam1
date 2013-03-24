@@ -81,4 +81,8 @@ public class Model {
     public Turtle getTurtle(){
     	return myTurtles.get(myController.getWorkspaceIndex());
     }
+
+    public void showErrorMsg (String text) {
+        myController.showErrorMsg(text);
+    }
 }
