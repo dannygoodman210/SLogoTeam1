@@ -253,7 +253,7 @@ public class TurtleView extends JComponent {
     // resets TurtleParameters.
     private void resetTurtleView () {
         myTurtleList = new TurtleList();
-        myTurtleList.addNewTurtle();
+        myTurtleList.addNewTurtle(0, 0);
         myNextTurtleList = new TurtleList(myTurtleList);
         myTurtleDrawers = new ArrayList<TurtleDrawer>();
         myTurtleDrawers.add(new DefaultTurtleDrawer(this, 0));
