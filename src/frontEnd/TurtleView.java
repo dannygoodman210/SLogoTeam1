@@ -50,6 +50,7 @@ public class TurtleView extends JComponent {
     private int[] myTurtleWarps;
     private WorkspaceView myView;
     private Color myBackgroundColor;
+    private boolean myGrid;
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
@@ -86,7 +87,7 @@ public class TurtleView extends JComponent {
         pen.setColor(myBackgroundColor);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         drawTurtle(pen);
-        drawGrid(pen);
+        if(myGrid) drawGrid(pen);
     }
 
     /**
@@ -298,21 +299,36 @@ public class TurtleView extends JComponent {
      * @param pen used to draw grid
      */
     public void drawGrid (Graphics pen) {
-        int xLength = (int) getBounds().getWidth();
-        int yLength = (int) getBounds().getHeight();
-        int centerX = xLength/2;
-        int centerY = yLength/2;
+    	pen.setColor(Color.black);
+        int centerX = (int) getBounds().getWidth()/2;
+        int centerY = (int) getBounds().getHeight()/2;
         int xLine = 0;
         int yLine = 0;
-        while (xLine < xLength) {
-        	pen.drawLine(centerX+xLine, 0, centerX+xLine, yLength);
-        	pen.drawLine(centerX-xLine, 0, centerX-xLine, yLength);
+        while (xLine < getBounds().getWidth()) {
+        	int penPoint = 0;
+        	while (penPoint < getBounds().getHeight()) {
+        		pen.drawLine(centerX+xLine, penPoint, centerX+xLine, penPoint + 5);
+        		pen.drawLine(centerX-xLine, penPoint, centerX-xLine, penPoint + 5);
+        		penPoint += 10;
+        	}
         	xLine += 100;
         }
-        while (yLine < yLength) {
-        	pen.drawLine(0, centerY+yLine, xLength, centerY+yLine);
-        	pen.drawLine(0, centerY-yLine, xLength, centerY-yLine);
+        while (yLine < getBounds().getHeight()) {
+        	int penPoint = 0;
+        	while (penPoint < getBounds().getWidth()) {
+            	pen.drawLine(penPoint, centerY+yLine, penPoint + 5, centerY+yLine);
+            	pen.drawLine(penPoint, centerY-yLine, penPoint + 5, centerY-yLine);
+            	penPoint += 10;
+        	}
         	yLine += 100;
         }
+    }
+    
+    /**
+     * Toggles grid on and off; triggered by button in "View" menu.
+     */
+    public void toggleGrid () {
+    	myGrid = !myGrid;
+    	repaint();
     }
 }

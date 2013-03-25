@@ -220,6 +220,12 @@ public class Canvas extends JPanel {
                 getWorkspace().getTurtleView().toggleFill();
             } 
         });
+        viewMenu.add(new AbstractAction(myResources.getString("ToggleGrid")){
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                getWorkspace().getTurtleView().toggleGrid();
+            } 
+        });
         viewMenu.add(new AbstractAction(myResources.getString("SetBackground")) {
             @Override
             public void actionPerformed (ActionEvent e) {
