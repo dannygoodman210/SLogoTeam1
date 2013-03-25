@@ -86,12 +86,12 @@ public class Model {
         myController.showErrorMsg(text);
     }
     
-    public Turtle getLastTurtle () {
+    public Turtle getLastTurtle() {
         return getTurtleList().getLastActive();
     }
 
-    public double addNewTurtle () {
-        myWorkspaces.get(myController.getWorkspaceIndex()).addNewTurtle();
+    public double addNewTurtle(int x, int y) {
+        myWorkspaces.get(myController.getWorkspaceIndex()).addNewTurtle(x, y);
         return 1;
 
     }
