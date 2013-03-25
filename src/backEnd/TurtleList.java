@@ -1,17 +1,15 @@
 package backEnd;
 
-import functions.turtle.TurtleFunction;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Observable;
 import java.util.Observer;
-
 import java.util.Set;
 
 
 public class TurtleList extends Observable implements Observer {
+   
     private List<Turtle> myTurtles;
     private Set<Integer> myActiveIDs;
 
@@ -44,46 +42,32 @@ public class TurtleList extends Observable implements Observer {
     public void addNewTurtle () {
         Turtle turtle = new Turtle(this, myTurtles.size());
         add(turtle);
-        
+
     }
 
     public Turtle get (int id) {
-    	for(Turtle t : myTurtles){
-    		if (t.getID() == id){
-    			return t; 
-    		}
-    	}
-    	return null;
+        for(Turtle t : myTurtles){
+            if (t.getID() == id){
+                return t; 
+            }
+        }
+        return null;
     }
-    
-    public Turtle getLastActive () {
-        return myTurtles.get((int)myActiveIDs.toArray()[0]);
-    }
-    
 
+    public Turtle getLastActive () {
+        return myTurtles.get((Integer)myActiveIDs.toArray()[0]);
+    }
 
     public Set<Integer> getActiveIDs () {
         return myActiveIDs;
     }
 
-
-
-    
     public void Activate(int ID){
-    	myActiveIDs.add(ID);
+        myActiveIDs.add(ID);
     }
     public void Disactivate(int ID){
-    	myActiveIDs.remove(ID);
+        myActiveIDs.remove(ID);
     }
-    
-    public void execute(TurtleFunction function, double[] values){
-        for (Turtle t: myTurtles) {
-        	if(myActiveIDs.contains(t.getID())){
-        		function.process(t, values);
-        	}
-        }
-    }
- 
 
     public int size () {
         return myTurtles.size();

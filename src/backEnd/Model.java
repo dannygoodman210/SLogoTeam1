@@ -53,6 +53,7 @@ public class Model {
         }
         return output;
     }
+    
     /**
      * Executes an instruction, but only up to one return (ie. only up to a constant).
      * Ex: for  fd 50 left 50  it will only execute fd 50. 
@@ -84,22 +85,17 @@ public class Model {
     public void showErrorMsg (String text) {
         myController.showErrorMsg(text);
     }
-
-    
     
     public Turtle getLastTurtle () {
         return getTurtleList().getLastActive();
     }
-
-
 
     public double addNewTurtle () {
         myWorkspaces.get(myController.getWorkspaceIndex()).addNewTurtle();
         return 1;
 
     }
-    
-    
+
     public int getTurtleListLength(){
     	return getTurtleList().size();
     }
