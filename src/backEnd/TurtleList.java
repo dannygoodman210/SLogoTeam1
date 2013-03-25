@@ -79,12 +79,28 @@ public class TurtleList extends Observable implements Observer {
         return myTurtles.size();
     }
 
-    public void activateEven(){
-    
+    public int activateEven(){
+    	disactivateAll();
+    	int ret = 0;
+    	for(Turtle t: myTurtles){
+    		if(t.getID()%2 == 0){
+    			ret = t.getID();
+    			activate(ret);
+    		}
+    	}
+    	return ret;
     }
     
-    public void activateOdd(){
-    	
+    public int activateOdd(){
+    	disactivateAll();
+    	int ret = 0;
+    	for(Turtle t: myTurtles){
+    		if(t.getID()%2 != 0){
+    			ret = t.getID();
+    			activate(ret);
+    		}
+    	}
+    	return ret;
     }
     
     @Override
