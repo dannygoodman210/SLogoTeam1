@@ -47,9 +47,13 @@ public class TurtleView extends JComponent {
     private List<int[]> myTurtleWarps;
     private WorkspaceView myView;
     private Color myBackgroundColor;
+
     private TurtleList myTurtleList;
     private TurtleList myNextTurtleList;
     private Palette myPalette;
+
+    private boolean myGrid;
+
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
@@ -86,7 +90,9 @@ public class TurtleView extends JComponent {
         for (int i = 0; i < myTurtleList.size(); i++) {
             drawTurtle((Graphics2D) pen, i);
         }
+        if (myGrid) drawGrid(pen);
         myTurtleList = myNextTurtleList;
+
     }
 
     public void addToQueue (Workspace changedWorkspace) {
@@ -312,4 +318,45 @@ public class TurtleView extends JComponent {
         repaint();
         myTimer.start();
     }
+
+    
+    /**
+     * Draws grid which can be toggled on and off.
+     * 
+     * @param pen used to draw grid
+     */
+    public void drawGrid (Graphics pen) {
+    	pen.setColor(Color.black);
+        int centerX = (int) getBounds().getWidth()/2;
+        int centerY = (int) getBounds().getHeight()/2;
+        int xLine = 0;
+        int yLine = 0;
+        while (xLine < getBounds().getWidth()) {
+        	int penPoint = 0;
+        	while (penPoint < getBounds().getHeight()) {
+        		pen.drawLine(centerX+xLine, penPoint, centerX+xLine, penPoint + 5);
+        		pen.drawLine(centerX-xLine, penPoint, centerX-xLine, penPoint + 5);
+        		penPoint += 10;
+        	}
+        	xLine += 100;
+        }
+        while (yLine < getBounds().getHeight()) {
+        	int penPoint = 0;
+        	while (penPoint < getBounds().getWidth()) {
+            	pen.drawLine(penPoint, centerY+yLine, penPoint + 5, centerY+yLine);
+            	pen.drawLine(penPoint, centerY-yLine, penPoint + 5, centerY-yLine);
+            	penPoint += 10;
+        	}
+        	yLine += 100;
+        }
+    }
+    
+    /**
+     * Toggles grid on and off; triggered by button in "View" menu.
+     */
+    public void toggleGrid () {
+    	myGrid = !myGrid;
+    	repaint();
+    }
+
 }
