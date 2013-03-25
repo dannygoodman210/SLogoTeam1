@@ -28,4 +28,7 @@ public class Ask extends Function {
         return toReturn;
     }
 
+
+
+
 }
