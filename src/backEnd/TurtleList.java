@@ -89,5 +89,6 @@ public class TurtleList extends Observable implements Observer {
     
     public void setActive (Set<Integer> ids) {
         myActiveIDs = ids;
+        // this could use some safeguards
     }
 }
