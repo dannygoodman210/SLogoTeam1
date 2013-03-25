@@ -3,6 +3,7 @@ package backEnd;
 import java.util.Observable;
 import java.util.Observer;
 import util.Location;
+import util.ShapePalette;
 import util.Vector;
 
 
@@ -66,23 +67,20 @@ public class Turtle extends Observable {
         myObserver = o.myObserver;
         addObserver(myObserver);
     }
-    
 
-    public int getID(){
-    	return myID;
+    public int getID () {
+        return myID;
     }
-    
 
-    public int getPenSize(){
+    public int getPenSize () {
         return myPenSize;
     }
 
-
-    public void setPenSize(int pixels){
+    public void setPenSize (int pixels) {
         myPenSize = pixels;
         setChanged();
     }
-    
+
     public int getPenColorIndex () {
         return myPenColorIndex;
     }
@@ -97,8 +95,10 @@ public class Turtle extends Observable {
     }
 
     public void setShapeIndex (int shapeIndex) {
-        myShapeIndex = shapeIndex;
-        setChanged();
+        if (shapeIndex <= ShapePalette.biggestIndex()) {
+            myShapeIndex = shapeIndex;
+            setChanged();
+        }
     }
 
     /**
@@ -129,7 +129,7 @@ public class Turtle extends Observable {
         setHeading(between.getDirection());
         double end = myHeading;
         setChanged();
-        return end-start;
+        return end - start;
     }
 
     /**
@@ -158,7 +158,7 @@ public class Turtle extends Observable {
      * @param location - Turtle's position.
      */
     public void setLocation (Location location) {
-    	Location nextLocation = (Location) location.clone();
+        Location nextLocation = (Location) location.clone();
         myLocation = nextLocation;
         setChanged();
     }

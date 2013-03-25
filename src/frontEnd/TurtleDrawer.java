@@ -1,6 +1,7 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +31,7 @@ public abstract class TurtleDrawer {
      * @param finish - next Location of Turtle
      * @param heading - current Turtle heading
      */
-    public abstract void drawBody (Graphics pen, double heading);
+    public abstract void drawBody (Graphics2D pen, double heading, int shapeIndex);
 
     /**
      * Adds a pair of trail points to the Trail List.

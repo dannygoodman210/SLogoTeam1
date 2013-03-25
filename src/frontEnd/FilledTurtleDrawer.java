@@ -1,6 +1,7 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import util.Location;
 import util.Vector;
 
@@ -31,7 +32,7 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
      * Implements a filled Triangle body
      */
     @Override
-    public void drawBody (Graphics pen, double heading) {
+    public void drawBody (Graphics2D pen, double heading, int shapeIndex) {
         Location center = getTrail().get(getTrail().size() - 1).getEnd();
         Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
         Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),

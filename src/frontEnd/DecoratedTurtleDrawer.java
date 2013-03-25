@@ -1,6 +1,7 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Set;
 import util.Location;
@@ -31,8 +32,8 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
-    public void drawBody (Graphics pen, double heading) {
-        myReferenceDrawer.drawBody(pen, heading);
+    public void drawBody (Graphics2D pen, double heading, int shapeIndex) {
+        myReferenceDrawer.drawBody(pen, heading, shapeIndex);
     }
 
     @Override
