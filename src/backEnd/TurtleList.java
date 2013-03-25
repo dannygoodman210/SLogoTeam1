@@ -12,35 +12,38 @@ public class TurtleList extends Observable implements Observer {
    
     private List<Turtle> myTurtles;
     private Set<Integer> myActiveIDs;
+    private Observer myObserver;
 
-    public TurtleList () {
+    public TurtleList() {
         myTurtles = new ArrayList<Turtle>();
         myActiveIDs = new HashSet<Integer>();
     }
 
-    public TurtleList (Observer observer) {
+    public TurtleList(Observer observer) {
         this();
-        addObserver(observer);
+        myObserver = observer;
+        addObserver(myObserver);
     }
 
-    public TurtleList (TurtleList other) {
+    public TurtleList(TurtleList other) {
         myTurtles = cloneTurtles(other.myTurtles);
         myActiveIDs = new HashSet<Integer>(other.myActiveIDs);
     }
 
     @Override
-    public void update (Observable arg0, Object arg1) {
+    public void update(Observable arg0, Object arg1) {
         setChanged();
     }
 
-    public void add (Turtle turtle) {
+    public void add(Turtle turtle) {
         myTurtles.add(turtle);
         myActiveIDs.add(turtle.getID());
         setChanged();
     }
 
-    public void addNewTurtle () {
+    public void addNewTurtle(int x, int y) {
         Turtle turtle = new Turtle(this, myTurtles.size());
+        turtle.setLocation(x, y);
         add(turtle);
 
     }
@@ -69,17 +72,17 @@ public class TurtleList extends Observable implements Observer {
         myActiveIDs.remove(ID);
     }
 
-    public int size () {
+    public int size() {
         return myTurtles.size();
     }
 
     @Override
-    protected void setChanged () {
+    protected void setChanged() {
         super.setChanged();
         notifyObservers();
     }
 
-    private List<Turtle> cloneTurtles (List<Turtle> cloneFrom) {
+    private List<Turtle> cloneTurtles(List<Turtle> cloneFrom) {
         List<Turtle> cloneTo = new ArrayList<Turtle>();
         for (Turtle t : cloneFrom) {
             cloneTo.add(new Turtle(t));
@@ -87,7 +90,7 @@ public class TurtleList extends Observable implements Observer {
         return cloneTo;
     }
     
-    public void setActive (Set<Integer> ids) {
+    public void setActive(Set<Integer> ids) {
         myActiveIDs = ids;
         // this could use some safeguards
     }
