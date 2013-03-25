@@ -86,6 +86,7 @@ public class TurtleView extends JComponent {
         pen.setColor(myBackgroundColor);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         drawTurtle(pen);
+        drawGrid(pen);
     }
 
     /**
@@ -289,5 +290,29 @@ public class TurtleView extends JComponent {
     public void setBackgroundColor (Color color) {
     	myBackgroundColor = color;
     	repaint();
+    }
+    
+    /**
+     * Draws grid which can be toggled on and off.
+     * 
+     * @param pen used to draw grid
+     */
+    public void drawGrid (Graphics pen) {
+        int xLength = (int) getBounds().getWidth();
+        int yLength = (int) getBounds().getHeight();
+        int centerX = xLength/2;
+        int centerY = yLength/2;
+        int xLine = 0;
+        int yLine = 0;
+        while (xLine < xLength) {
+        	pen.drawLine(centerX+xLine, 0, centerX+xLine, yLength);
+        	pen.drawLine(centerX-xLine, 0, centerX-xLine, yLength);
+        	xLine += 100;
+        }
+        while (yLine < yLength) {
+        	pen.drawLine(0, centerY+yLine, xLength, centerY+yLine);
+        	pen.drawLine(0, centerY-yLine, xLength, centerY-yLine);
+        	yLine += 100;
+        }
     }
 }
