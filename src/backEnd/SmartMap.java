@@ -78,7 +78,7 @@ public class SmartMap {
     	myResourceManager.saveToFile(myUserExecutables);
     }
     
-    public void load(){
-    	myResourceManager.loadFromFile();
+    public void load(String root){
+    	myResourceManager.loadFromFile(root);
     }
 }

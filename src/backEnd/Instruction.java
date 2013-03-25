@@ -21,6 +21,10 @@ public class Instruction {
         myInstruction = inst;
     }
 
+    /**
+     * loads an array into myInstruction. 
+     * @param arguments
+     */
     private void loadInstruction(String[] arguments){
         myInstruction = new ArrayList<String>();
         for(int i = 0 ; i < arguments.length ; i++){
