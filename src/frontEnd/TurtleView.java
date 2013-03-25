@@ -90,6 +90,7 @@ public class TurtleView extends JComponent {
         for (int i = 0; i < myTurtleList.size(); i++) {
             drawTurtle((Graphics2D) pen, i);
         }
+        if (myGrid) drawGrid(pen);
         myTurtleList = myNextTurtleList;
 
     }
