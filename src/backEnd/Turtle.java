@@ -55,6 +55,7 @@ public class Turtle extends Observable {
      */
 
     public Turtle (Turtle o) {
+        myID = o.getID();
         myLocation = new Location(o.getLocation());
         myHeading = o.getHeading();
         myPenDown = o.isPenDown();

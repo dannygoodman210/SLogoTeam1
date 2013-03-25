@@ -37,7 +37,6 @@ public class TurtleList extends Observable implements Observer {
 
     public void add (Turtle turtle) {
         myTurtles.add(turtle);
-
         myActiveIDs.add(turtle.getID());
         setChanged();
     }
@@ -82,7 +81,6 @@ public class TurtleList extends Observable implements Observer {
         	if(myActiveIDs.contains(t.getID())){
         		function.process(t, values);
         	}
-
         }
     }
  

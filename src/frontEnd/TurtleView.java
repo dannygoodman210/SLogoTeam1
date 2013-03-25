@@ -216,12 +216,10 @@ public class TurtleView extends JComponent {
 
     private void checkTurtleList () {
         if (myNextTurtleList.size() > myTurtleList.size()) {
-            for (int i = 1; i <= (myNextTurtleList.size() - myTurtleList.size()); i++) {
-                int current = myTurtleList.size() + i;
-                myTurtleList.add(myNextTurtleList.get(current));
-                myTurtleDrawers.add(new DefaultTurtleDrawer(this, current));
-                myTurtleWarps.add(new int[] { 0, 0, 0, 0 });
-            }
+            int current = myTurtleList.size();
+            myTurtleList.add(myNextTurtleList.get(current));
+            myTurtleDrawers.add(new DefaultTurtleDrawer(this, current));
+            myTurtleWarps.add(new int[] { 0, 0, 0, 0 });
         }
     }
 
