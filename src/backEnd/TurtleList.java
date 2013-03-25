@@ -14,6 +14,7 @@ import java.util.Set;
 public class TurtleList extends Observable implements Observer {
     private List<Turtle> myTurtles;
     private Set<Integer> myActiveIDs;
+    private Observer myObserver;
 
     public TurtleList () {
         myTurtles = new ArrayList<Turtle>();
@@ -22,7 +23,8 @@ public class TurtleList extends Observable implements Observer {
 
     public TurtleList (Observer observer) {
         this();
-        addObserver(observer);
+        myObserver = observer;
+        addObserver(myObserver);
     }
 
     public TurtleList (TurtleList other) {

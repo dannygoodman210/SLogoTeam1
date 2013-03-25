@@ -1,11 +1,14 @@
 package frontEnd;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import util.Location;
+import util.Shape;
+import util.ShapePalette;
 import util.Trail;
 import util.Vector;
 
@@ -25,6 +28,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     private static final double TRIANGLE_DEGREES = 180;
     private static final double RIGHT_ANGLE = 90;
     private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
+    private ShapePalette myShapePalette = new ShapePalette();
     protected List<Trail> myTrailList;
 
     /**
@@ -42,23 +46,11 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
      * Implements an unfilled Triangle body.
      */
     @Override
-    public void drawBody (Graphics pen, double heading) {
+    public void drawBody (Graphics2D pen, double heading, int shapeIndex) {
         Location center = getTrail().get(getTrail().size() - 1).getEnd();
-        Vector centerToHead = new Vector(heading, TURTLE_HEIGHT * 2 / 3);
-        Vector headToLeft = new Vector(heading - (TRIANGLE_DEGREES - (TURTLE_ANGLE_1 / 2)),
-                                       TURTLE_HEIGHT / Math.sin(Math.toRadians(TURTLE_ANGLE_2)));
-        Vector leftToRight =
-                new Vector(heading + RIGHT_ANGLE,
-                           2 * TURTLE_HEIGHT / Math.tan(Math.toRadians(TURTLE_ANGLE_2)));
-        Location vertex = new Location(center.getX() + centerToHead.getXChange(),
-                                       center.getY() + centerToHead.getYChange());
-        Location leftPoint = new Location(vertex.getX() + headToLeft.getXChange(),
-                                          vertex.getY() + headToLeft.getYChange());
-        Location rightPoint = new Location(leftPoint.getX() + leftToRight.getXChange(),
-                                           leftPoint.getY() + leftToRight.getYChange());
-        drawLine(pen, vertex, leftPoint);
-        drawLine(pen, leftPoint, rightPoint);
-        drawLine(pen, rightPoint, vertex);
+        center = translateCoordinates(center);
+        Shape body = myShapePalette.getShape(shapeIndex);
+        body.paint(pen, center, heading);
     }
 
     /**

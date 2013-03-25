@@ -3,6 +3,7 @@ package frontEnd;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,7 +84,7 @@ public class TurtleView extends JComponent {
         pen.setColor(myBackgroundColor);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         for (int i = 0; i < myTurtleList.size(); i++) {
-            drawTurtle(pen, i);
+            drawTurtle((Graphics2D) pen, i);
         }
         myTurtleList = myNextTurtleList;
     }
@@ -228,7 +229,7 @@ public class TurtleView extends JComponent {
      * 
      * @param pen
      */
-    private void drawTurtle (Graphics pen, int turtleIndex) {
+    private void drawTurtle (Graphics2D pen, int turtleIndex) {
         Turtle nextTurtle = myNextTurtleList.get(turtleIndex);
         Location nextLocation = nextTurtle.getLocation();
         Turtle currentTurtle = myTurtleList.get(turtleIndex);
@@ -245,12 +246,8 @@ public class TurtleView extends JComponent {
                         calculateWarps(new Location(nextLocation), currentWarps), pen);
         drawer.drawTrail(pen);
         if (nextTurtle.isVisible()) {
-            pen.setColor(PEN_COLOR);
+            drawer.drawBody(pen, nextTurtle.getHeading(), nextTurtle.getShapeIndex());
         }
-        else {
-            pen.setColor(TRANSPARENT_COLOR);
-        }
-        drawer.drawBody(pen, nextTurtle.getHeading());
     }
 
     // resets TurtleParameters.
