@@ -101,7 +101,7 @@ public class Instruction {
     public String toString(){
         String a = "";
         for(String b: myInstruction){
-            a+=b;
+            a+=b + " ";
         }
         return a;
     }

@@ -10,11 +10,13 @@ public class SmartMap {
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
     private Model myModel;
+    private MapResourceManager myResourceManager;
 
     public SmartMap(Model model){
     	myModel = model;
     	myUserExecutables = new HashMap<String, Executable>();
         Factory factory = new Factory();
+        myResourceManager = new MapResourceManager(model);
 
         //TEMPORARY!!!!!!!!!!
         try {
@@ -70,5 +72,13 @@ public class SmartMap {
     public void add(String name, Executable function) {
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
         myUserExecutables.put(workSpaceIndex+name, function);
+    }
+    
+    public void save(){
+    	myResourceManager.saveToFile(myUserExecutables);
+    }
+    
+    public void load(){
+    	myResourceManager.loadFromFile();
     }
 }

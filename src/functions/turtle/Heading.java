@@ -12,7 +12,7 @@ public class Heading extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        return getTurtle().get(getTurtle().size() - 1).getHeading();
+        return getTurtleList().get(getTurtleList().size() - 1).getHeading();
     }
 
 }

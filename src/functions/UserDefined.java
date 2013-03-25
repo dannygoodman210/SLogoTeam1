@@ -7,6 +7,9 @@ import functions.Constant;
 
 public class UserDefined extends Function {
     
+	private final String OPENBRACKET = "[";
+	private final String CLOSEBRACKET = "]";
+	
     private Instruction myParams;
     private Instruction myCommands;
     
@@ -23,5 +26,10 @@ public class UserDefined extends Function {
         }
         double returnValue = executeBlock(myCommands);
         return returnValue;
+    }
+    
+    public String toString(){
+    	return OPENBRACKET + " " + myParams.toString() + CLOSEBRACKET
+    	+ " " + OPENBRACKET + " " + myCommands.toString() + CLOSEBRACKET;
     }
 }

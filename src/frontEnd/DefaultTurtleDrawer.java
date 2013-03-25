@@ -32,9 +32,10 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
      * 
      * @param view - TurtleView
      */
-    public DefaultTurtleDrawer (TurtleView view) {
+    public DefaultTurtleDrawer (TurtleView view, int turtleIndex) {
         myTrailList = new ArrayList<Trail>();
         setView(view);
+        setTurtleIndex(turtleIndex);
     }
 
     /**

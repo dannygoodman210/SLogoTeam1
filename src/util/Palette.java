@@ -13,7 +13,14 @@ public class Palette {
         myColors = makeDefaultPalette();
     }
 
-    public Color getColor (int colorIndex) throws IndexOutOfBoundsException{
+    public Palette (Palette other) {
+        myColors = new ArrayList<Color>();
+        for (Color c : other.myColors) {
+            myColors.add(new Color(c.getRGB()));
+        }
+    }
+
+    public Color getColor (int colorIndex) throws IndexOutOfBoundsException {
         return myColors.get(colorIndex);
     }
 

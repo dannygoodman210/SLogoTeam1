@@ -19,6 +19,7 @@ import util.Trail;
 public abstract class TurtleDrawer {
 
     private TurtleView myView;
+    protected int myTurtleIndex;
 
     /**
      * Draws the Body of the turtle. Different implementations include a filled triangle,
@@ -95,9 +96,7 @@ public abstract class TurtleDrawer {
      */
     @Override
     public boolean equals (Object o) {
-        if(o.getClass().equals(this.getClass())){
-            return (this.hashCode() == o.hashCode());
-        }
+        if (o.getClass().equals(this.getClass())) { return (this.hashCode() == o.hashCode()); }
         return false;
     }
 
@@ -117,6 +116,14 @@ public abstract class TurtleDrawer {
      */
     protected void setView (TurtleView view) {
         myView = view;
+    }
+
+    protected int getTurtleIndex () {
+        return myTurtleIndex;
+    }
+
+    protected void setTurtleIndex (int turtleIndex) {
+        myTurtleIndex = turtleIndex;
     }
 
     /**

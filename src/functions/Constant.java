@@ -15,4 +15,8 @@ public class Constant implements Executable{
     public double execute(Instruction toExecute) {
         return myValue;
     }
+    
+    public String toString(){
+    	return myValue + "";
+    }
 }

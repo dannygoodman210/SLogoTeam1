@@ -27,6 +27,7 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     public DecoratedTurtleDrawer (TurtleDrawer referenceDrawer) {
         myReferenceDrawer = referenceDrawer;
         setView(referenceDrawer.getView());
+        setTurtleIndex(referenceDrawer.getTurtleIndex());
     }
 
     @Override

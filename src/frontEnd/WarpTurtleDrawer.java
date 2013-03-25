@@ -1,12 +1,9 @@
 package frontEnd;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 import util.Location;
 import util.Trail;
-import util.WarpWall;
 import util.WarpedTrail;
 
 
@@ -27,10 +24,11 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
      */
     public WarpTurtleDrawer (TurtleDrawer referenceDrawer) {
         super(referenceDrawer);
+        int id = getTurtleIndex();
         myWarpTotals = new int[] { 0, 0, 0, 0 };
         initTrailWarps();
-        getView().setTurtleWarps(sumWarps(myWarpTotals, getView().getTurtleWarps()));
-        myWarpTotals = getView().getTurtleWarps();
+        getView().setTurtleWarps(id, sumWarps(myWarpTotals, getView().getTurtleWarps(id)));
+        myWarpTotals = getView().getTurtleWarps(id);
     }
 
     /**

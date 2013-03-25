@@ -13,6 +13,6 @@ public class Ycor extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        return getModel().getLastTurtle().getLocation().y;
+        return getModel().getActiveTurtles().getLocation().y;
     }
 }

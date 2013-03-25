@@ -17,6 +17,7 @@ public class Turtle extends Observable {
     public static final int NORTH_DIRECTION = 90;
     public static final Location INITIAL_LOCATION = new Location(0, 0);
     public static final int FULL_TURN = 360;
+    private static final int DEFAULT_PEN_SIZE = 1;
 
     private Observer myObserver;
     private Location myLocation;
@@ -42,6 +43,9 @@ public class Turtle extends Observable {
         myPenDown = true;
         myVisible = true;
         myID = ID;
+        myPenSize = DEFAULT_PEN_SIZE;
+        myPenColorIndex = 0;
+        myShapeIndex = 0;
     }
 
     /**
@@ -55,21 +59,29 @@ public class Turtle extends Observable {
         myHeading = o.getHeading();
         myPenDown = o.isPenDown();
         myVisible = o.isVisible();
+        myPenSize = o.getPenSize();
+        myPenColorIndex = o.getPenColorIndex();
+        myShapeIndex = o.getShapeIndex();
+        myObserver = o.myObserver;
+        addObserver(myObserver);
     }
     
+
     public int getID(){
     	return myID;
     }
     
+
+    public int getPenSize(){
+        return myPenSize;
+    }
+
+
     public void setPenSize(int pixels){
         myPenSize = pixels;
         setChanged();
     }
     
-    public int getPenSize(){
-        return myPenSize;
-    }
-
     public int getPenColorIndex () {
         return myPenColorIndex;
     }

@@ -14,9 +14,12 @@ import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 import util.Location;
+import util.Palette;
 import util.Trail;
 import util.Vector;
 import backEnd.Turtle;
+import backEnd.TurtleList;
+import backEnd.Workspace;
 
 
 /**
@@ -29,8 +32,6 @@ public class TurtleView extends JComponent {
 
     private static final Color PEN_COLOR = Color.BLACK;
     private static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
-    private static final int DEFAULT_HEADING = 90;
-    private static final Location DEFAULT_LOCATION = new Location(0, 0);
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 495;
     private static final int VIEW_WIDTH = 620;
@@ -39,17 +40,15 @@ public class TurtleView extends JComponent {
     private static final int DEFAULT_DELAY = ONE_SECOND / FRAMES_PER_SECOND;
 
     private ResourceBundle myResources;
-    private Location myTurtleLocation;
-    private Location myTurtleNextLocation;
-    private double myTurtleHeading;
-    private boolean myTurtlePenDown;
-    private boolean myTurtleVisible;
-    private List<Turtle> myChangesQueue;
     private Timer myTimer;
-    private TurtleDrawer myTurtleDrawer;
-    private int[] myTurtleWarps;
+    private List<Workspace> myWorkspaceChanges;
+    private List<TurtleDrawer> myTurtleDrawers;
+    private List<int[]> myTurtleWarps;
     private WorkspaceView myView;
     private Color myBackgroundColor;
+    private TurtleList myTurtleList;
+    private TurtleList myNextTurtleList;
+    private Palette myPalette;
 
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
@@ -61,8 +60,6 @@ public class TurtleView extends JComponent {
         myView = view;
         myResources = myView.getView().getResources();
         getBounds().setBounds(0, 0, getBounds().width, getBounds().height);
-        myTurtleDrawer = new DefaultTurtleDrawer(this);
-        myBackgroundColor = Color.WHITE;
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 checkQueue();
@@ -85,36 +82,24 @@ public class TurtleView extends JComponent {
     public void paintComponent (Graphics pen) {
         pen.setColor(myBackgroundColor);
         pen.fillRect(0, 0, getSize().width, getSize().height);
-        drawTurtle(pen);
+        for (int i = 0; i < myTurtleList.size(); i++) {
+            drawTurtle(pen, i);
+        }
+        myTurtleList = myNextTurtleList;
     }
 
-    /**
-     * Adds a Turtle object to the queue to be updated from later.
-     * 
-     * @param changedTurtle - Turtle object containing changes in instance variables
-     */
-    public void addToQueue (Turtle changedTurtle) {
-        myChangesQueue.add(changedTurtle);
-    }
+    public void addToQueue (Workspace changedWorkspace) {
+        myWorkspaceChanges.add(changedWorkspace);
 
-    /**
-     * Updates the Turtle parameters based on the new Turtle information. Calls repaint().
-     * 
-     * @param changedTurtle - contains changes in instance variables
-     */
-    public void updateTurtle (Turtle changedTurtle) {
-        myTurtleNextLocation = changedTurtle.getLocation();
-        myTurtleHeading = changedTurtle.getHeading();
-        myTurtlePenDown = changedTurtle.isPenDown();
-        myTurtleVisible = changedTurtle.isVisible();
-        repaint();
     }
 
     /**
      * Clears the trails from the List so that they are no longer painted.
      */
-    public void clearTrails () {
-        myTurtleDrawer.clearTrail();
+    public void clearAllTrails () {
+        for (TurtleDrawer turtleDrawer : myTurtleDrawers) {
+            turtleDrawer.clearTrail();
+        }
         repaint();
     }
 
@@ -123,7 +108,9 @@ public class TurtleView extends JComponent {
      * decorator.
      */
     public void toggleWarp () {
-        toggleDecorator(new WarpTurtleDrawer(new DefaultTurtleDrawer(this)));
+        for (Integer i : myTurtleList.getActiveIDs()) {
+            toggleDecorator(new WarpTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
+        }
     }
 
     /**
@@ -131,7 +118,9 @@ public class TurtleView extends JComponent {
      * decorator. Draws the body of the turtle as a filled in triangle.
      */
     public void toggleFill () {
-        toggleDecorator(new FilledTurtleDrawer(new DefaultTurtleDrawer(this)));
+        for (Integer i : myTurtleList.getActiveIDs()) {
+            toggleDecorator(new FilledTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
+        }
     }
 
     /**
@@ -139,8 +128,8 @@ public class TurtleView extends JComponent {
      * 
      * @return myTurtleWarps
      */
-    public int[] getTurtleWarps () {
-        return myTurtleWarps;
+    public int[] getTurtleWarps (int turtleIndex) {
+        return myTurtleWarps.get(turtleIndex);
     }
 
     /**
@@ -148,8 +137,8 @@ public class TurtleView extends JComponent {
      * 
      * @param warps - int[] containing warpTotals.
      */
-    public void setTurtleWarps (int[] warps) {
-        this.myTurtleWarps = warps;
+    public void setTurtleWarps (int turtleIndex, int[] warps) {
+        myTurtleWarps.set(turtleIndex, warps);
     }
 
     /**
@@ -183,11 +172,56 @@ public class TurtleView extends JComponent {
     }
 
     /**
+     * Sets color of background in this workspace.
+     * 
+     * @param color to be set to
+     */
+    public void setBackgroundColor (Color color) {
+        myBackgroundColor = color;
+        repaint();
+    }
+
+    /**
      * Updates turtle based on next turtle in the queue. Called by the timer.
      */
     private void checkQueue () {
-        if (!myChangesQueue.isEmpty()) {
-            updateTurtle(myChangesQueue.remove(0));
+        // if (!myChangesQueue.isEmpty()) {
+        // updateTurtle(myChangesQueue.remove(0));
+        // }
+        if (!myWorkspaceChanges.isEmpty()) {
+            updateWorkspace(myWorkspaceChanges.remove(0));
+        }
+    }
+
+    // /**
+    // * Updates the Turtle parameters based on the new Turtle information. Calls repaint().
+    // *
+    // * @param changedTurtle - contains changes in instance variables
+    // */
+    // private void updateTurtle (Turtle changedTurtle) {
+    // myTurtleNextLocation = changedTurtle.getLocation();
+    // myTurtleHeading = changedTurtle.getHeading();
+    // myTurtlePenDown = changedTurtle.isPenDown();
+    // myTurtleVisible = changedTurtle.isVisible();
+    // repaint();
+    // }
+
+    private void updateWorkspace (Workspace changedWorkspace) {
+        myBackgroundColor = changedWorkspace.getBackgroundColor();
+        myPalette = changedWorkspace.getPalette();
+        myNextTurtleList = changedWorkspace.getTurtleList();
+        checkTurtleList();
+        repaint();
+    }
+
+    private void checkTurtleList () {
+        if (myNextTurtleList.size() > myTurtleList.size()) {
+            for (int i = 1; i <= (myNextTurtleList.size() - myTurtleList.size()); i++) {
+                int current = myTurtleList.size() + i;
+                myTurtleList.add(myNextTurtleList.get(current));
+                myTurtleDrawers.add(new DefaultTurtleDrawer(this, current));
+                myTurtleWarps.add(new int[] { 0, 0, 0, 0 });
+            }
         }
     }
 
@@ -196,42 +230,44 @@ public class TurtleView extends JComponent {
      * 
      * @param pen
      */
-    private void drawTurtle (Graphics pen) {
-        if (myTurtlePenDown) {
+    private void drawTurtle (Graphics pen, int turtleIndex) {
+        Turtle nextTurtle = myNextTurtleList.get(turtleIndex);
+        Location nextLocation = nextTurtle.getLocation();
+        Turtle currentTurtle = myTurtleList.get(turtleIndex);
+        Location currentLocation = currentTurtle.getLocation();
+        TurtleDrawer drawer = myTurtleDrawers.get(turtleIndex);
+        int[] currentWarps = myTurtleWarps.get(turtleIndex);
+        if (nextTurtle.isPenDown()) {
+            pen.setColor(myPalette.getColor(nextTurtle.getPenColorIndex()));
+        }
+        else {
+            pen.setColor(TRANSPARENT_COLOR);
+        }
+        drawer.addTrail(calculateWarps(new Location(currentLocation), currentWarps),
+                        calculateWarps(new Location(nextLocation), currentWarps), pen);
+        drawer.drawTrail(pen);
+        if (nextTurtle.isVisible()) {
             pen.setColor(PEN_COLOR);
         }
         else {
             pen.setColor(TRANSPARENT_COLOR);
         }
-        myTurtleDrawer.addTrail(calculateWarps(new Location(myTurtleLocation), myTurtleWarps),
-                                calculateWarps(new Location(myTurtleNextLocation),
-                                               myTurtleWarps), pen);
-        myTurtleDrawer.drawTrail(pen);
-        if (myTurtleVisible) {
-            pen.setColor(PEN_COLOR);
-        }
-        else {
-            pen.setColor(TRANSPARENT_COLOR);
-        }
-        myTurtleDrawer.drawBody(pen, myTurtleHeading);
-        myTurtleLocation = new Location(myTurtleNextLocation);
+        drawer.drawBody(pen, nextTurtle.getHeading());
     }
 
     // resets TurtleParameters.
     private void resetTurtleView () {
-        myTurtleLocation = DEFAULT_LOCATION;
-        myTurtleNextLocation = DEFAULT_LOCATION;
-        myTurtleHeading = DEFAULT_HEADING;
-        myTurtlePenDown = true;
-        myTurtleVisible = true;
-        resetWarps();
-        clearTrails();
-        myChangesQueue = new ArrayList<Turtle>();
-    }
-
-    // resets myTurtleWarps.
-    private void resetWarps () {
-        myTurtleWarps = new int[] { 0, 0, 0, 0 };
+        myTurtleList = new TurtleList();
+        myTurtleList.addNewTurtle();
+        myNextTurtleList = new TurtleList(myTurtleList);
+        myTurtleDrawers = new ArrayList<TurtleDrawer>();
+        myTurtleDrawers.add(new DefaultTurtleDrawer(this, 0));
+        myBackgroundColor = Color.WHITE;
+        myPalette = new Palette();
+        myWorkspaceChanges = new ArrayList<Workspace>();
+        myTurtleWarps = new ArrayList<int[]>();
+        myTurtleWarps.add(new int[] { 0, 0, 0, 0 });
+        clearAllTrails();
     }
 
     /**
@@ -261,16 +297,17 @@ public class TurtleView extends JComponent {
      * 
      * @param decorator
      */
-    private void toggleDecorator (DecoratedTurtleDrawer decorator) {
+    private void toggleDecorator (DecoratedTurtleDrawer decorator, int turtleIndex) {
         myTimer.stop();
-        Set<TurtleDrawer> referenceSet = myTurtleDrawer.getReferences();
+        TurtleDrawer drawer = myTurtleDrawers.get(turtleIndex);
+        Set<TurtleDrawer> referenceSet = drawer.getReferences();
         if (referenceSet.contains(decorator)) {
-            myTurtleDrawer = myTurtleDrawer.removeReference(decorator);
+            drawer = drawer.removeReference(decorator);
         }
         else {
             try {
-                myTurtleDrawer = decorator.getClass().
-                        getConstructor(TurtleDrawer.class).newInstance(myTurtleDrawer);
+                drawer = decorator.getClass().
+                        getConstructor(TurtleDrawer.class).newInstance(drawer);
             }
             catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -279,15 +316,5 @@ public class TurtleView extends JComponent {
         }
         repaint();
         myTimer.start();
-    }
-
-    /**
-     * Sets color of background in this workspace.
-     * 
-     * @param color to be set to
-     */
-    public void setBackgroundColor (Color color) {
-    	myBackgroundColor = color;
-    	repaint();
     }
 }
