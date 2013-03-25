@@ -86,4 +86,8 @@ public class TurtleList extends Observable implements Observer {
         }
         return cloneTo;
     }
+    
+    public void setActive (Set<Integer> ids) {
+        myActiveIDs = ids;
+    }
 }

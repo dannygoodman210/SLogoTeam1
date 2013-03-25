@@ -17,7 +17,11 @@ public class Ask extends Function {
     public double execute (Instruction toExecute) {
         Instruction ids = toExecute.block();
         Set<Integer> idset = getIDs(ids);
-        TurtleList turtle = getTurtleList();
+        TurtleList turtles = getTurtleList();
+        Set<Integer> clone = new HashSet<Integer>(turtles.getActiveIDs());
+        turtles.setActive(idset);
+        getModel().process(toExecute.block());
+        turtles.setActive(clone);
         return 0;
     }
 
