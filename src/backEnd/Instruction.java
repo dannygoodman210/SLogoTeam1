@@ -1,5 +1,6 @@
 package backEnd;
 
+import backEnd.Model;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -94,7 +95,7 @@ public class Instruction {
     public int length(){
         return myInstruction.size();
     }
-    
+
     /**
      * returns a String representation of this instruction.
      */

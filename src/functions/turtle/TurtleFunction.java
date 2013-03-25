@@ -38,4 +38,31 @@ public abstract class TurtleFunction extends Function {
         }
         return values;
     }
+    
+    public boolean checkInput(Instruction toCheck){
+        for (int i = 0; i < myInputs; i++) {
+            try {
+                Integer.parseInt(toCheck.get(0));
+                toCheck.progress();
+                continue;
+            } catch(NumberFormatException e) {   
+            }
+            TurtleFunction tf = null;
+//            try { 
+//                tf = (TurtleFunction) getModel().get(toCheck.get(0));
+//            } catch(NullPointerException e) {
+//                return false;
+//            }
+            if(getModel().getMap().contains(toCheck.get(0))){
+                tf = (TurtleFunction) getModel().get(toCheck.get(0));
+            }
+            else{
+                return false;
+            }
+            if(!tf.checkInput(toCheck.progress())){
+                return false;
+            }
+        }
+        return true;
+    }
 }
