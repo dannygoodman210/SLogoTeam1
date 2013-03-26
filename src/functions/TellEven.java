@@ -3,6 +3,11 @@ package functions;
 import backEnd.Instruction;
 import backEnd.Model;
 
+/**
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ */
 public class TellEven extends Function {
     
     /**

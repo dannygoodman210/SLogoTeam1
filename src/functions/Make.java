@@ -3,9 +3,18 @@ package functions;
 import backEnd.Instruction;
 import backEnd.Model;
 
-public class Make extends Function{
-
-    public Make(Model model){
+/**
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ */
+public class Make extends Function {
+    
+    /**
+     * 
+     * @param model 
+     */ 
+    public Make(Model model) {
         super(model);
     }
 

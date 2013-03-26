@@ -2,10 +2,20 @@ package functions;
 
 import backEnd.Instruction;
 import backEnd.Model;
-import functions.Function;
-
+    
+/**
+ * Defines user functions
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ *
+ */
 public class Definition extends Function {
     
+    /**
+     * 
+     * @param model 
+     */
     public Definition (Model model) {
         super(model);
     }
