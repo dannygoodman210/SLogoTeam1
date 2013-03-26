@@ -113,6 +113,10 @@ public class Model {
         return myMap.get(s);
     }
 
+	public Workspace getCurrentWorkspace() {
+		return myWorkspaces.get(myController.getWorkspaceIndex());
+	}
+
 
 }
 
