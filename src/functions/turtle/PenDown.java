@@ -1,20 +1,19 @@
 package functions.turtle;
 
-import backEnd.Instruction;
-import functions.Function;
+import backEnd.Turtle;
 import backEnd.Model;
 
-public class PenDown extends Function {
+public class PenDown extends TurtleFunction {
     
+    private static final int INPUT_VALUES = 0;
 
     public PenDown(Model model){
-        super(model);
+        super(model, INPUT_VALUES);
     }
 
     @Override
-    public double execute(Instruction toExecute) {
-        getModel().getActiveTurtles().setPenDown(true);
-        return 1;
+    public void process(Turtle turtle, double[] values){
+        turtle.setPenDown(true);
     }
 
 }
