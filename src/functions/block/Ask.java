@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 
+ * Tell turtles given in first list to run commands given in the second list
  * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
  *
  */

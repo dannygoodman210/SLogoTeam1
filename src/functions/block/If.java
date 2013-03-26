@@ -6,14 +6,14 @@ import backEnd.Model;
 import functions.Function;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * If statement
+ * @author Eunsu (Joe) Ryu, Francesco Agosti, Challen Herzberg-Brovold
  *
  */
 public class If extends Function {
     
     /**
-     * Simple if statement
+     * Simple if statement, without else part.
      * @param model  
      */
     public If(Model model) {

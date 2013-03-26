@@ -4,9 +4,8 @@ import backEnd.Instruction;
 import backEnd.Model;
     
 /**
- * Defines user functions
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * Function that defines user-generated functions
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  *
  */

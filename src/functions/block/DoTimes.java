@@ -5,6 +5,12 @@ import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
 
+
+/**
+ * Runs the commands for each value specified in the range, i.e., from 0 up to (limit - 1). 
+ * @author Eunsu (Joe) Ryu
+ *
+ */
 public class DoTimes extends Function {
 
     

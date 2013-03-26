@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The model keeps track of the state of the SLogo
  * 
- * @author challenherzberg-brovold
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  */
 public class Model {
@@ -19,17 +19,17 @@ public class Model {
      * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
      */
 
-    private SmartMap myMap;
+    private FunctionDictionary myMap;
     private Controller myController;
     private List<Workspace> myWorkspaces;
 
     /**
-     * 
+     * Constructor
      * @param controller Our workspace
      */
     public Model (Controller controller) {
         myController = controller;
-        myMap = new SmartMap(this);
+        myMap = new FunctionDictionary(this);
         myWorkspaces = new ArrayList<Workspace>();
     }
 
@@ -48,12 +48,11 @@ public class Model {
 
     /**
      * 
-     * 
+     * Processes instruction one. Details of execution are in the process() method
      * @param toExecute incoming Instruction to be processes
      * @return output that should be printed in the GUI
      * 
      */
-
     public double processInstruction (Instruction toExecute) {
         return toExecute.process(myMap);
     }
@@ -74,7 +73,7 @@ public class Model {
      * Gets the map of function
      * @return the map
      */
-    public SmartMap getMap () {
+    public FunctionDictionary getMap () {
         return myMap;
     }
 

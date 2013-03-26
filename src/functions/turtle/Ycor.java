@@ -5,6 +5,11 @@ import backEnd.Model;
 import functions.Function;
 
 
+/**
+ * Returns the Y coordinate of turtle
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class Ycor extends Function {
     
     public Ycor(Model model) {

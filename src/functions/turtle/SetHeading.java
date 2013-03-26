@@ -3,6 +3,12 @@ package functions.turtle;
 import backEnd.Model;
 import backEnd.Turtle;
 
+
+/**
+ * Sets the heading angle of the turtle
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class SetHeading extends TurtleFunction {
         
     private static final int INPUT_VALUES = 1;

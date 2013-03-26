@@ -5,8 +5,8 @@ import backEnd.Model;
 import functions.Function;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * Sets turtles that will follow commands hereafter
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  */
 public class Tell extends Function {

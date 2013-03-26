@@ -4,6 +4,11 @@ import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
 
+/**
+ * Performs AND test1 test2, and returns 1 if test1 and test2 are non-zero, otherwise 0
+ * @author Eunsu (Joe) Ryu
+ *
+ */
 public class AndOperation extends Function {
 
     public AndOperation(Model model) {

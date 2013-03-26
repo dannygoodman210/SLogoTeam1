@@ -3,6 +3,11 @@ package functions.turtle;
 import backEnd.Turtle;
 import backEnd.Model;
 
+/**
+ * Puts the pen down
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class PenDown extends TurtleFunction {
     
     private static final int INPUT_VALUES = 0;

@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 /**
  *  
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  */
 public class Factory {

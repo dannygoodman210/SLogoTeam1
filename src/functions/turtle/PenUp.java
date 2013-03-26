@@ -4,6 +4,12 @@ import backEnd.Turtle;
 import backEnd.Model;
 
 
+/**
+ * Toggles the pen off - takes pen up
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
+
 public class PenUp extends TurtleFunction{
 
     private static final int INPUT_VALUES = 0;

@@ -4,6 +4,12 @@ import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
 
+
+/**
+ * Return 1 if the pen is down
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class IsPenDown extends Function {
 
     public IsPenDown(Model model) {
@@ -12,9 +18,6 @@ public class IsPenDown extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        if(getModel().getLastTurtle().isPenDown()) {
-            return 1;
-        }
-        return 0;
+    	return getModel().getLastTurtle().isPenDown()? 1: 0;
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Francesco Agosti
  *
  */
-public class SmartMap {
+public class FunctionDictionary {
 
     private final String myMapLoadError = "There was an error when loading the functions!";
     private final String myMapGetError = "You attempted to access an undefined variable or function";
@@ -28,7 +28,7 @@ public class SmartMap {
      * Makes a map of functions from the resource bundle
      * @param model 
      */
-    public SmartMap(Model model) {
+    public FunctionDictionary(Model model) {
         myModel = model;
         myUserExecutables = new HashMap<String, Executable>();
         Factory factory = new Factory();

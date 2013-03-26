@@ -4,8 +4,8 @@ import backEnd.Executable;
 import backEnd.Instruction;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * This class represents a constant.
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  *
  */

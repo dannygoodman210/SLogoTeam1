@@ -4,6 +4,11 @@ import backEnd.Instruction;
 import functions.Function;
 import backEnd.Model;
 
+/**
+ * Returns the heading angle of the turtle
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class Heading extends Function {
 
     public Heading(Model model) {

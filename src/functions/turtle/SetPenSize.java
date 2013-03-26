@@ -3,6 +3,12 @@ package functions.turtle;
 import backEnd.Model;
 import backEnd.Turtle;
 
+
+/**
+ * Sets the pen size in pixels
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class SetPenSize extends TurtleFunction {
         
     private static final int INPUT_VALUES = 1;

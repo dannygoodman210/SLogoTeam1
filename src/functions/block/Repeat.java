@@ -6,8 +6,8 @@ import functions.Constant;
 import functions.Function;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * Repeat function: repeats a groupd of commands for a specified number of times
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  */
 public class Repeat extends Function {

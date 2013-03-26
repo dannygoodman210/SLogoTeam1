@@ -6,8 +6,8 @@ import backEnd.Model;
 import backEnd.TurtleList;
 
 /**
- * super class for all function
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * super class for all functions. Every function will extend this class
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  *
  */

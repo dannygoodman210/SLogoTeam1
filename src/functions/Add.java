@@ -4,8 +4,8 @@ import backEnd.Instruction;
 import backEnd.Model;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * Add new turtle at a specified position
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  *
  */

@@ -4,8 +4,8 @@ import backEnd.Instruction;
 import backEnd.Model;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * User defined function. This function runs the command associated with a specific user-defined function
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  */
 public class UserDefined extends Function {

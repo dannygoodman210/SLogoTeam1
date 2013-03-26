@@ -6,6 +6,12 @@ import backEnd.Turtle;
 import backEnd.TurtleList;
 import functions.Function;
 
+
+/**
+ * General class for turtle functions
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public abstract class TurtleFunction extends Function {
     
     private int myInputs;
@@ -16,6 +22,9 @@ public abstract class TurtleFunction extends Function {
     
     public abstract void process (Turtle turtle, double[] values);
     
+    /**
+     * execute() method runs over all turtles in the turtle list
+     */
     @Override
     public double execute (Instruction toExecute) {
         double[] values = getValues(toExecute);

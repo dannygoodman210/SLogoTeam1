@@ -3,6 +3,12 @@ package functions.turtle;
 import backEnd.Model;
 import backEnd.Turtle;
 
+
+/**
+ * Turns the turtle to the left by a specified angle
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class Left extends TurtleFunction {
     
     private static final int INPUT_VALUES = 1;
