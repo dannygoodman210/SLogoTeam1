@@ -51,7 +51,7 @@ public class TurtleView extends JComponent {
     private TurtleList myTurtleList;
     private TurtleList myNextTurtleList;
     private Palette myPalette;
-    private boolean isHiglighted;
+    private boolean isHighlighted;
 
     private boolean myGrid;
 
@@ -131,9 +131,10 @@ public class TurtleView extends JComponent {
     }
 
     public void toggleHighlight () {
-        isHiglighted = true;
+        toggleIsHighlighted();
         checkHighlight();
         repaint();
+
     }
 
     /**
@@ -195,6 +196,45 @@ public class TurtleView extends JComponent {
     }
 
     /**
+     * Draws grid which can be toggled on and off.
+     * 
+     * @param pen used to draw grid
+     */
+    public void drawGrid (Graphics pen) {
+        pen.setColor(Color.black);
+        int centerX = (int) getBounds().getWidth() / 2;
+        int centerY = (int) getBounds().getHeight() / 2;
+        int xLine = 0;
+        int yLine = 0;
+        while (xLine < getBounds().getWidth()) {
+            int penPoint = 0;
+            while (penPoint < getBounds().getHeight()) {
+                pen.drawLine(centerX + xLine, penPoint, centerX + xLine, penPoint + 5);
+                pen.drawLine(centerX - xLine, penPoint, centerX - xLine, penPoint + 5);
+                penPoint += 10;
+            }
+            xLine += 100;
+        }
+        while (yLine < getBounds().getHeight()) {
+            int penPoint = 0;
+            while (penPoint < getBounds().getWidth()) {
+                pen.drawLine(penPoint, centerY + yLine, penPoint + 5, centerY + yLine);
+                pen.drawLine(penPoint, centerY - yLine, penPoint + 5, centerY - yLine);
+                penPoint += 10;
+            }
+            yLine += 100;
+        }
+    }
+
+    /**
+     * Toggles grid on and off; triggered by button in "View" menu.
+     */
+    public void toggleGrid () {
+        myGrid = !myGrid;
+        repaint();
+    }
+
+    /**
      * Updates turtle based on next turtle in the queue. Called by the timer.
      */
     private void checkQueue () {
@@ -206,37 +246,21 @@ public class TurtleView extends JComponent {
         }
     }
 
-    // /**
-    // * Updates the Turtle parameters based on the new Turtle information. Calls repaint().
-    // *
-    // * @param changedTurtle - contains changes in instance variables
-    // */
-    // private void updateTurtle (Turtle changedTurtle) {
-    // myTurtleNextLocation = changedTurtle.getLocation();
-    // myTurtleHeading = changedTurtle.getHeading();
-    // myTurtlePenDown = changedTurtle.isPenDown();
-    // myTurtleVisible = changedTurtle.isVisible();
-    // repaint();
-    // }
-
     private void updateWorkspace (Workspace changedWorkspace) {
         myBackgroundColor = changedWorkspace.getBackgroundColor();
         myPalette = changedWorkspace.getPalette();
         myNextTurtleList = changedWorkspace.getTurtleList();
         checkTurtleList();
-        if (isHiglighted) {
             checkHighlight();
-        }
         repaint();
     }
 
     private void checkHighlight () {
         Set<Integer> activeSet = myNextTurtleList.getActiveIDs();
-        System.out.println(activeSet);
         DecoratedTurtleDrawer highlight = new HighlightActiveTurtleDrawer();
         for (int i = 0; i < myNextTurtleList.size(); i++) {
             myTurtleDrawers.set(i, myTurtleDrawers.get(i).removeReference(highlight));
-            if (activeSet.contains(i)) {
+            if (activeSet.contains(i) && isHighlighted) {
                 toggleDecorator(highlight, i);
             }
         }
@@ -326,13 +350,13 @@ public class TurtleView extends JComponent {
         Set<TurtleDrawer> referenceSet = drawer.getReferences();
         if (referenceSet.contains(decorator)) {
             myTurtleDrawers.set(turtleIndex, drawer.removeReference(decorator));
-            isHiglighted = false;
+            isHighlighted = false;
         }
         else {
             try {
                 myTurtleDrawers.set(turtleIndex, decorator.getClass().
                         getConstructor(TurtleDrawer.class).newInstance(drawer));
-                isHiglighted = true;
+                isHighlighted = true;
             }
             catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | NoSuchMethodException | SecurityException e) {
@@ -344,42 +368,15 @@ public class TurtleView extends JComponent {
     }
 
     /**
-     * Draws grid which can be toggled on and off.
      * 
-     * @param pen used to draw grid
      */
-    public void drawGrid (Graphics pen) {
-        pen.setColor(Color.black);
-        int centerX = (int) getBounds().getWidth() / 2;
-        int centerY = (int) getBounds().getHeight() / 2;
-        int xLine = 0;
-        int yLine = 0;
-        while (xLine < getBounds().getWidth()) {
-            int penPoint = 0;
-            while (penPoint < getBounds().getHeight()) {
-                pen.drawLine(centerX + xLine, penPoint, centerX + xLine, penPoint + 5);
-                pen.drawLine(centerX - xLine, penPoint, centerX - xLine, penPoint + 5);
-                penPoint += 10;
-            }
-            xLine += 100;
+    private void toggleIsHighlighted () {
+        if (isHighlighted) {
+            isHighlighted = false;
         }
-        while (yLine < getBounds().getHeight()) {
-            int penPoint = 0;
-            while (penPoint < getBounds().getWidth()) {
-                pen.drawLine(penPoint, centerY + yLine, penPoint + 5, centerY + yLine);
-                pen.drawLine(penPoint, centerY - yLine, penPoint + 5, centerY - yLine);
-                penPoint += 10;
-            }
-            yLine += 100;
+        else {
+            isHighlighted = true;
         }
-    }
-
-    /**
-     * Toggles grid on and off; triggered by button in "View" menu.
-     */
-    public void toggleGrid () {
-        myGrid = !myGrid;
-        repaint();
     }
 
 }
