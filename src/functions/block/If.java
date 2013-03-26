@@ -25,7 +25,7 @@ public class If extends Function {
         double value = getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
         if (value != 0) {
-            return getReturnValue(blockToExecute);
+            return executeBlock(blockToExecute);
         }
         else {
             return 0;

@@ -46,6 +46,11 @@ public abstract class Function implements Executable {
         return toExecute.execute(getModel().getMap());
     }
     
+    /**
+     * For blocks
+     * @param toExecute 
+     * @return
+     */
     public double executeBlock(Instruction toExecute) {
         return toExecute.process(getModel().getMap());
     }

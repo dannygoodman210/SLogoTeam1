@@ -30,7 +30,7 @@ public class Tell extends Function {
         getTurtleList().disactivateAll();
         double toReturn = 0;
         while (turtlesToTell.length() > 0) {
-            toReturn = getReturnValue(turtlesToTell);
+            toReturn = executeBlock(turtlesToTell);
             getTurtleList().activate((int)toReturn);
         }
         return toReturn;

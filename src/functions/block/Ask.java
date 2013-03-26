@@ -31,7 +31,7 @@ public class Ask extends Function {
         while (turtlesToAsk.clone().length() > 0) {
             getTurtleList().activate((int)getReturnValue(turtlesToAsk));
         }
-        double toReturn = getReturnValue(toExecute.block());
+        double toReturn = executeBlock(toExecute.block());
         turtles.setActive(oldIDSet);
         return toReturn;
     }

@@ -28,7 +28,7 @@ public class Repeat extends Function {
         Instruction blockToExecute = toExecute.block();
         for (int i = 0; i < reps; i++) {
             getModel().getMap().put(myRepCount, new Constant(i + 1));
-            getReturnValue(blockToExecute);
+            executeBlock(blockToExecute);
         }
         return reps;
     }

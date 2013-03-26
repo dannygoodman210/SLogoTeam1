@@ -29,10 +29,10 @@ public class IfElse extends Function {
         Instruction trueCommand = toExecute.block();
         Instruction falseCommand = toExecute.block();
         if (condition != 0) {
-            return getReturnValue(trueCommand);
+            return executeBlock(trueCommand);
         }
         else {
-            return getReturnValue(falseCommand);
+            return executeBlock(falseCommand);
         }
     }
 }
