@@ -154,6 +154,11 @@ public class Canvas extends JPanel {
         return myResources;
     }
 
+    /**
+     * Returns a new workspace view to be added into the canvas.
+     * 
+     * @return workspaceView - new workspace view
+     */
     private WorkspaceView makeWorkspaceView () {
         WorkspaceView workspaceView = new WorkspaceView(this);
         return workspaceView;
@@ -200,7 +205,7 @@ public class Canvas extends JPanel {
                 if (response == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = new File(myChooser.getSelectedFile()+
                                                myResources.getString("PropertiesFile"));
-                    myController.saveFile(fileToSave);
+                    myController.saveFile(fileToSave.getAbsolutePath());
                 }
             }
         });

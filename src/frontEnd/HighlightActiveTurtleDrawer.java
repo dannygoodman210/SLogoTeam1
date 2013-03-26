@@ -13,6 +13,10 @@ public class HighlightActiveTurtleDrawer extends DecoratedTurtleDrawer {
         super(referenceDrawer);
     }
     
+    public HighlightActiveTurtleDrawer (){
+        super();
+    }
+    
     @Override
     public void drawBody (Graphics2D pen, double heading, int shapeIndex) {
         Location center = getTrail().get(getTrail().size() - 1).getEnd();

@@ -17,7 +17,6 @@ public class MapResourceManager {
 
 	private final String LOADERROR = "There was an error loading you file. Try again.";
 	private final String SAVEERROR = "There was an error saving your information.";
-	private final String DEFAULTFILE = "resources.userDefined";
 	private final String OPENBRACKET = "[";
 	private final String MAKE = "make ";
 	private final String DEFINE = "to ";
@@ -38,7 +37,7 @@ public class MapResourceManager {
 	 * @param map
 	 *
 	 */
-	public void saveToFile(Map<String, ?> map) {
+	public void saveToFile(Map<String, ?> map, String filename) {
 		Properties prop = new Properties();
 		Set<String> keys = map.keySet();
 		
@@ -48,7 +47,7 @@ public class MapResourceManager {
 		}
 		
 		try {
-			prop.store(new FileOutputStream(DEFAULTFILE), null);
+			prop.store(new FileOutputStream(filename), null);
 		} catch (IOException e) {
 			myModel.showErrorMsg(SAVEERROR);
 		}

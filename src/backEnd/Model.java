@@ -46,12 +46,7 @@ public class Model {
      */
 
     public double processInstruction (Instruction toExecute) {
-        double output = 0;
-        while (toExecute.length() != 0) {
-            double value = process(toExecute);
-            output = value;
-        }
-        return output;
+        return toExecute.process(myMap);
     }
 
     /**
@@ -93,7 +88,6 @@ public class Model {
     public double addNewTurtle(int x, int y) {
         myWorkspaces.get(myController.getWorkspaceIndex()).addNewTurtle(x, y);
         return 1;
-
     }
 
     public int getTurtleListLength(){
@@ -105,8 +99,18 @@ public class Model {
     }
 
 
+	public void saveFile(String filePath) {
+		myMap.save(filePath);
+	}
+	
     public Executable get(String s) {
         return myMap.get(s);
     }
+
+	public Workspace getCurrentWorkspace() {
+		return myWorkspaces.get(myController.getWorkspaceIndex());
+	}
+
+
 }
 

@@ -30,6 +30,10 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
         getView().setTurtleWarps(id, sumWarps(myWarpTotals, getView().getTurtleWarps(id)));
         myWarpTotals = getView().getTurtleWarps(id);
     }
+    
+    public WarpTurtleDrawer (){
+        super();
+    }
 
     /**
      * Creates a new WarpedTrail object from the start and finish Locations and adds it to the

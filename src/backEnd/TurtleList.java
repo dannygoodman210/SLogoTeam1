@@ -49,7 +49,6 @@ public class TurtleList extends Observable implements Observer {
     }
 
     public Turtle get (int id) {
-
         for(Turtle t : myTurtles){
             if (t.getID() == id){
                 return t; 
@@ -68,13 +67,17 @@ public class TurtleList extends Observable implements Observer {
 
     public void activate(int ID){
         myActiveIDs.add(ID);
+        setChanged();
     }
+    
     public void disactivate(int ID){
         myActiveIDs.remove(ID);
+        setChanged();
     }
 
     public void disactivateAll(){
     	myActiveIDs.clear();
+    	setChanged();
     }
 
 
