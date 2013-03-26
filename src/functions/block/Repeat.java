@@ -19,7 +19,7 @@ public class Repeat extends Function {
         double reps = getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
         for(double i = 0 ; i < reps; i++){
-        	getModel().getMap().add(REPCOUNT, new Constant((int)i+1));
+        	getModel().getMap().put(REPCOUNT, new Constant((int)i+1));
             executeBlock(blockToExecute);
         }
         return reps;

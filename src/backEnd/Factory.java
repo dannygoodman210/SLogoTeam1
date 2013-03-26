@@ -18,6 +18,7 @@ public class Factory {
      * This function makes all the instances of classes. No need for modification. Just
      * add new class to ______.properties
      * 
+     * @author Francesco Agosti
      * @param turtle for the turtle commands
      * @return map of makers
      * @throws SecurityException 
@@ -26,6 +27,7 @@ public class Factory {
      * @throws IllegalArgumentException 
      * @throws IllegalAccessException 
      * @throws InstantiationException
+     * 
      * 
      */
     public Map<String, Executable> make (Model model) throws 
