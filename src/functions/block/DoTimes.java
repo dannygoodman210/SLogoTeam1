@@ -17,8 +17,7 @@ public class DoTimes extends Function {
     public double execute(Instruction toExecute){
     	String variable = toExecute.get(0);
         toExecute.progress();
-        int numReps = Integer.parseInt(toExecute.get(0));
-        toExecute.progress();
+        int numReps = (int) getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
         for (int i = 0; i < numReps; i++) {
         	getModel().getMap().put(variable, new Constant(i));
