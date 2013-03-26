@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import java.util.Set;
 import util.Location;
+import util.Shape;
 import util.Trail;
 
 
@@ -78,6 +79,8 @@ public abstract class TurtleDrawer {
      * @return TurtleDrawer that no longer contains the reference.
      */
     public abstract TurtleDrawer removeReference (TurtleDrawer turtleDrawer);
+    
+    public abstract Shape getShape(int shapeIndex);
 
     /**
      * Makes it so that all instantiations of a certain subclass of TurtleDrawer are equal.

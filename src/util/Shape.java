@@ -69,6 +69,14 @@ public class Shape {
     public void paint (Graphics2D pen, Point2D center) {
         paint(pen, center, 0);
     }
+    
+    public int getWidth(){
+        return DEFAULT_WIDTH;
+    }
+    
+    public int getHeight(){
+        return DEFAULT_HEIGHT;
+    }
 
     /**
      * Describes how to draw the image rotated on the screen.
