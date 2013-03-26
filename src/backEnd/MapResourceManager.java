@@ -15,11 +15,11 @@ import java.util.Set;
  */
 public class MapResourceManager {
 
-    private final String myLoadError = "There was an error loading you file. Try again.";
-    private final String mySaveError = "There was an error saving your information.";
-    private final String myOpenBracket = "[";
-    private final String myMake = "make ";
-    private final String myDefine = "to ";
+    private static final String LOADERROR = "There was an error loading you file. Try again.";
+    private static final String SAVEERROR = "There was an error saving your information.";
+    private static final String OPENBRACKET = "[";
+    private static final String MAKE = "make ";
+    private static final String DEFINE = "to ";
 
     private Model myModel;
 
@@ -55,7 +55,7 @@ public class MapResourceManager {
             prop.store(new FileOutputStream(filename), null);
         } 
         catch (IOException e) {
-            myModel.showErrorMsg(mySaveError);
+            myModel.showErrorMsg(SAVEERROR);
         }
 
     }
@@ -71,19 +71,19 @@ public class MapResourceManager {
             userExecutables.load(new FileInputStream(root));
         } 
         catch (IOException e) {
-            myModel.showErrorMsg(myLoadError);
+            myModel.showErrorMsg(LOADERROR);
         }
 
         Set<String> keys = userExecutables.stringPropertyNames();
         for (String key : keys) {
             Instruction toExecute;
-            if ((userExecutables.getProperty(key).charAt(0) + "").equals(myOpenBracket)) {
-                toExecute = myModel.formatString(myDefine + key + " " + 
+            if ((userExecutables.getProperty(key).charAt(0) + "").equals(OPENBRACKET)) {
+                toExecute = myModel.formatString(DEFINE + key + " " + 
                         userExecutables.getProperty(key));
                 myModel.process(toExecute);
             }
             else {
-                toExecute = myModel.formatString(myMake + key + 
+                toExecute = myModel.formatString(MAKE + key + 
                                                  " " + userExecutables.getProperty(key));
                 myModel.process(toExecute);
             }

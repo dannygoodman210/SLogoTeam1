@@ -13,7 +13,7 @@ public class SetPenSize extends TurtleFunction {
     
     @Override
     public void process (Turtle turtle, double[] values) {
-        int penSize = (int) values[0];
-        turtle.setPenSize(penSize);
+    	int pensize = (int) values[0];
+        turtle.setPenSize(pensize);
     }
 }

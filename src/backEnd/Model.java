@@ -47,8 +47,6 @@ public class Model {
     }
 
     /**
-     * 
-     * 
      * @param toExecute incoming Instruction to be processes
      * @return output that should be printed in the GUI
      * 

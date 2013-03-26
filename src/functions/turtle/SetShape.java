@@ -13,7 +13,7 @@ public class SetShape extends TurtleFunction {
     
     @Override
     public void process (Turtle turtle, double[] values) {
-        int shapeIndex = (int) values[0];
-        turtle.setShapeIndex(shapeIndex);
+    	int shape = (int) values[0];
+        turtle.setShapeIndex(shape);
     }
 }
