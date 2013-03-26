@@ -32,12 +32,13 @@ public abstract class TurtleFunction extends Function {
         for (Integer id: turtles.getActiveIDs()) {
             process(turtles.get(id), values);
         }
-        return getReturn(values);
+        if(values.length > 0){
+        	return values[0];
+        }
+        return 0;
     }
     
-    public double getReturn (double[] values) {
-        return values[0];
-    }
+ 
     
     private double[] getValues (Instruction toExecute) {
         double[] values = new double[myInputs];
