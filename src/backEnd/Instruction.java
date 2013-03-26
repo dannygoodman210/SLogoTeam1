@@ -12,7 +12,7 @@ import java.util.List;
 public class Instruction {
 
     private List<String> myInstruction;
-//    private String myLeftDelimeter = "[";
+    private String myLeftDelimeter = "[";
     private String myRightDelimeter = "]";
 
     /**
@@ -76,7 +76,7 @@ public class Instruction {
             if (bracket1Count == bracket2Count) {
                 break;
             }
-            if (ins.equals(myRightDelimeter)) {
+            if (ins.equals(myLeftDelimeter)) {
                 bracket1Count++;
             }
             block.add(ins);
