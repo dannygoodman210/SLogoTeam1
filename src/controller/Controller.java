@@ -56,6 +56,10 @@ public class Controller implements Observer {
     public void sendHistory (double value) {
         myView.writeHistory(Double.toString(value));
     }
+    
+    public void sendVariable (String variable, int toAdd) {
+    	myView.writeVariable (variable, toAdd);
+    }
 
     public void showErrorMsg (String text) {
         myView.showErrorMsg(text);
