@@ -4,20 +4,36 @@ import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
 
+/**
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ */
 public class Tell extends Function {
 
-    public Tell(Model model){
+
+
+    /**
+     * 
+     * @param model 
+     */
+    public Tell(Model model) {
         super(model);
     }
-
-    public double execute(Instruction toExecute){
+    
+    /**
+     * executes Tell
+     * @param toExecute 
+     * 
+     */
+    public double execute(Instruction toExecute) {
         Instruction turtlesToTell = toExecute.block();
         getTurtleList().disactivateAll();
         double toReturn = 0;
-        while(turtlesToTell.length() > 0){
-            toReturn = getReturnValue(turtlesToTell);
+        while (turtlesToTell.length() > 0) {
+            toReturn = executeBlock(turtlesToTell);
             getTurtleList().activate((int)toReturn);
         }
         return toReturn;
-    }	
+    }
 }

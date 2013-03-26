@@ -1,14 +1,23 @@
 package functions.block;
 
-import functions.Constant;
-import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
+import functions.Constant;
+import functions.Function;
 
+/**
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ */
 public class Repeat extends Function {
 
-    private final String REPCOUNT = ":repcount";
-
+    private final String myRepCount = ":repcount";
+    
+    /**
+     * 
+     * @param model 
+     */
     public Repeat (Model model) {
         super(model);
     }
@@ -18,8 +27,8 @@ public class Repeat extends Function {
         double reps = getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
         for (int i = 0; i < reps; i++) {
-            getModel().getMap().put(REPCOUNT, new Constant(i+1));
-            getReturnValue(blockToExecute);
+            getModel().getMap().put(myRepCount, new Constant(i + 1));
+            executeBlock(blockToExecute);
         }
         return reps;
     }
