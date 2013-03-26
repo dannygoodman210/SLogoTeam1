@@ -10,7 +10,6 @@ import util.Location;
 import util.Shape;
 import util.ShapePalette;
 import util.Trail;
-import util.Vector;
 
 
 /**
@@ -23,12 +22,7 @@ import util.Vector;
  */
 public class DefaultTurtleDrawer extends TurtleDrawer {
 
-    private static final int TURTLE_HEIGHT = 30;
-    private static final double TURTLE_ANGLE_1 = 40;
-    private static final double TRIANGLE_DEGREES = 180;
-    private static final double RIGHT_ANGLE = 90;
-    private static final double TURTLE_ANGLE_2 = (180 - TURTLE_ANGLE_1) / 2;
-    private ShapePalette myShapePalette = new ShapePalette();
+    private ShapePalette myShapePalette;
     protected List<Trail> myTrailList;
 
     /**
@@ -40,6 +34,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
         myTrailList = new ArrayList<Trail>();
         setView(view);
         setTurtleIndex(turtleIndex);
+        myShapePalette = new ShapePalette();
     }
 
     /**
@@ -49,7 +44,7 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     public void drawBody (Graphics2D pen, double heading, int shapeIndex) {
         Location center = getTrail().get(getTrail().size() - 1).getEnd();
         center = translateCoordinates(center);
-        Shape body = myShapePalette.getShape(shapeIndex);
+        Shape body = getShape(shapeIndex);
         body.paint(pen, center, heading);
     }
 
@@ -97,6 +92,11 @@ public class DefaultTurtleDrawer extends TurtleDrawer {
     @Override
     public TurtleDrawer removeReference (TurtleDrawer turtleDrawer) {
         return this;
+    }
+
+    @Override
+    public Shape getShape (int shapeIndex) {
+        return myShapePalette.getShape(shapeIndex);
     }
 
     /**

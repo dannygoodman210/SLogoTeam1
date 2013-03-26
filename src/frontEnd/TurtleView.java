@@ -51,6 +51,7 @@ public class TurtleView extends JComponent {
     private TurtleList myTurtleList;
     private TurtleList myNextTurtleList;
     private Palette myPalette;
+    private boolean isHiglighted;
 
     private boolean myGrid;
 
@@ -127,6 +128,12 @@ public class TurtleView extends JComponent {
     public void toggleFill () {
         for (Integer i : myTurtleList.getActiveIDs()) {
             toggleDecorator(new FilledTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
+        }
+    }
+    
+    public void toggleHighlight () {
+        for (Integer i : myTurtleList.getActiveIDs()) {
+            toggleDecorator(new HighlightActiveTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
         }
     }
 
@@ -225,7 +232,11 @@ public class TurtleView extends JComponent {
         if (myNextTurtleList.size() > myTurtleList.size()) {
             int current = myTurtleList.size();
             myTurtleList.add(myNextTurtleList.get(current));
-            myTurtleDrawers.add(new DefaultTurtleDrawer(this, current));
+            TurtleDrawer drawer = new DefaultTurtleDrawer(this,current);
+            if(isHiglighted){
+                drawer = new HighlightActiveTurtleDrawer(drawer);
+            }
+            myTurtleDrawers.add(drawer);
             myTurtleWarps.add(new int[] { 0, 0, 0, 0 });
         }
     }
@@ -303,12 +314,16 @@ public class TurtleView extends JComponent {
         TurtleDrawer drawer = myTurtleDrawers.get(turtleIndex);
         Set<TurtleDrawer> referenceSet = drawer.getReferences();
         if (referenceSet.contains(decorator)) {
-            drawer = drawer.removeReference(decorator);
+            myTurtleDrawers.set(turtleIndex,drawer.removeReference(decorator));
+            System.out.println("removed Decorator "+turtleIndex);
+            isHiglighted = false;
         }
         else {
             try {
-                drawer = decorator.getClass().
-                        getConstructor(TurtleDrawer.class).newInstance(drawer);
+                myTurtleDrawers.set(turtleIndex, decorator.getClass().
+                        getConstructor(TurtleDrawer.class).newInstance(drawer));
+
+                isHiglighted = true;
             }
             catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | NoSuchMethodException | SecurityException e) {
