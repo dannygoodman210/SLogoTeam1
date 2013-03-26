@@ -82,7 +82,7 @@ public class WorkspaceView extends JPanel {
      * @param toAdd is the value of the variable
      */
     public void writeVariable (String variable, int toAdd) {
-    	myVariableView.append(variable + "=" + toAdd);
+    	myVariableView.append(variable + "=" + toAdd + myResources.getString("NewLine"));
     }
 
     /**

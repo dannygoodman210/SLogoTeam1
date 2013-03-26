@@ -21,7 +21,5 @@ public class Tell extends Function {
 		}
 		return toReturn;
 	}
-	
-	
 }
 
