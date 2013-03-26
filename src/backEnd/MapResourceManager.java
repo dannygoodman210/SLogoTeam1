@@ -14,9 +14,7 @@ import java.util.Set;
  *
  */
 public class MapResourceManager {
-
-    private static final String LOADERROR = "There was an error loading you file. Try again.";
-    private static final String SAVEERROR = "There was an error saving your information.";
+	
     private static final String OPENBRACKET = "[";
     private static final String MAKE = "make ";
     private static final String DEFINE = "to ";
@@ -55,7 +53,7 @@ public class MapResourceManager {
             prop.store(new FileOutputStream(filename), null);
         } 
         catch (IOException e) {
-            myModel.showErrorMsg(SAVEERROR);
+            myModel.showErrorMsg("SaveError");
         }
 
     }
@@ -71,22 +69,27 @@ public class MapResourceManager {
             userExecutables.load(new FileInputStream(root));
         } 
         catch (IOException e) {
-            myModel.showErrorMsg(LOADERROR);
+            myModel.showErrorMsg("LoadError");
         }
 
         Set<String> keys = userExecutables.stringPropertyNames();
         for (String key : keys) {
             Instruction toExecute;
-            if ((userExecutables.getProperty(key).charAt(0) + "").equals(OPENBRACKET)) {
-                toExecute = myModel.formatString(DEFINE + key + " " + 
-                        userExecutables.getProperty(key));
-                myModel.processInstruction(toExecute);
+            try{
+            	if ((userExecutables.getProperty(key).charAt(0) + "").equals(OPENBRACKET)) {
+                    toExecute = myModel.formatString(DEFINE + key + " " + 
+                            userExecutables.getProperty(key));
+                    myModel.processInstruction(toExecute);
+                }
+                else {
+                    toExecute = myModel.formatString(MAKE + key + 
+                                                     " " + userExecutables.getProperty(key));
+                    myModel.processInstruction(toExecute);
+                }
+            }catch(StringIndexOutOfBoundsException e){
+            	myModel.showErrorMsg("LoadError");
             }
-            else {
-                toExecute = myModel.formatString(MAKE + key + 
-                                                 " " + userExecutables.getProperty(key));
-                myModel.processInstruction(toExecute);
-            }
+            
         }
     }
 }

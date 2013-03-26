@@ -6,7 +6,7 @@ import functions.Constant;
 import functions.Function;
 
 /**
- * Repeat function: repeats a groupd of commands for a specified number of times
+ * Repeat function: repeats a group of commands for a specified number of times
  * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  */
