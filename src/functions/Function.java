@@ -18,6 +18,7 @@ public abstract class Function implements Executable {
     }
     
     public Function(Model model, int values) {
+        myModel = model;
         myInputs = values;
     }
 

@@ -8,11 +8,8 @@ import functions.Function;
 
 public abstract class TurtleFunction extends Function {
     
-    private int myInputs;
-    
     public TurtleFunction (Model model, int values) {
-        super(model);
-        myInputs = values;
+        super(model, values);
     }
     
     public abstract void process (Turtle turtle, double[] values);
@@ -32,8 +29,8 @@ public abstract class TurtleFunction extends Function {
     }
     
     private double[] getValues (Instruction toExecute) {
-        double[] values = new double[myInputs];
-        for (int i = 0; i < myInputs; i++) {
+        double[] values = new double[getInputNum()];
+        for (int i = 0; i < getInputNum(); i++) {
             values[i] = getReturnValue(toExecute);
         }
         return values;
