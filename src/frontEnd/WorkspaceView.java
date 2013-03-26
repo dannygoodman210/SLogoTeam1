@@ -39,6 +39,7 @@ public class WorkspaceView extends JPanel {
     private JTabbedPane myInfoView;
     private JTextArea myHistoryView;
     private JTextArea myVariableView;
+    private JTextArea myUserDefView;
     private ResourceBundle myResources;
 
     /**
@@ -82,7 +83,7 @@ public class WorkspaceView extends JPanel {
      * @param toAdd is the value of the variable
      */
     public void writeVariable (String variable, int toAdd) {
-    	myVariableView.append(variable + "=" + toAdd);
+    	myVariableView.append(variable + myResources.getString("Equals") + toAdd + myResources.getString("NewLine"));
     }
 
     /**
@@ -136,7 +137,7 @@ public class WorkspaceView extends JPanel {
     }
 
     /**
-     * Instantiates the history view that will be displayed in this workspace
+     * Instantiates the info view that will be displayed in this workspace
      * 
      * @return history view to be instantiated
      */
@@ -144,8 +145,10 @@ public class WorkspaceView extends JPanel {
     	myInfoView = new JTabbedPane();
     	myHistoryView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
     	myVariableView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
+    	myUserDefView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
     	myInfoView.add(myResources.getString("HistoryTab"), myHistoryView);
     	myInfoView.add(myResources.getString("VariableTab"), myVariableView);
+    	myInfoView.add(myResources.getString("UserDefTab"), myUserDefView);
     	return new JScrollPane(myInfoView);
     }
 
