@@ -46,19 +46,19 @@ public class Model {
      */
 
     public double processInstruction (Instruction toExecute) {
-        Exception except = new Exception(this);
-        if(except.checkForException(toExecute.clone())){
+//        Exception except = new Exception(this);
+//        if(except.checkForException(toExecute.clone())){
             double output = 0;
             while (toExecute.length() != 0) {
                 double value = process(toExecute);
                 output = value;
             }
             return output;
-        }
-        else {
-            showErrorMsg("Incorrectly Formatted String");
-            return 0;
-        }
+//        }
+//        else {
+//            showErrorMsg("Incorrectly Formatted String");
+//            return 0;
+//        }
     }
     
     /**
