@@ -1,6 +1,5 @@
 package frontEnd;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import util.Location;
 import util.Vector;

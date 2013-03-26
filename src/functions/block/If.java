@@ -5,11 +5,9 @@ import backEnd.Instruction;
 import backEnd.Model;
 
 public class If extends Function {
-
-    private static final int DEFAULT_INPUTS = 2;
     
     public If(Model model){
-        super(model, DEFAULT_INPUTS);
+        super(model);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class If extends Function {
         double value = getReturnValue(toExecute);
         Instruction blockToExecute = toExecute.block();
         if(value != 0){
-            return executeBlock(blockToExecute);
+            return getReturnValue(blockToExecute);
         }
         else{
             return 0;

@@ -109,4 +109,19 @@ public class Instruction {
         }
         return a;
     }
+    
+    public double process(SmartMap map){
+        double output = 0;
+        while (length() != 0) {
+            double value = execute(map);
+            output = value;
+        }
+        return output;
+    }
+    
+    public double execute(SmartMap map){
+        Executable function = map.get(get(0));
+        double value = function.execute(this.progress());
+        return value;
+    }
 }

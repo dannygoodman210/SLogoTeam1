@@ -2,7 +2,6 @@ package functions;
 
 import backEnd.Instruction;
 import backEnd.Model;
-import backEnd.Turtle;
 
 public class Add extends Function {
 
@@ -13,10 +12,8 @@ public class Add extends Function {
     @Override
     public double execute (Instruction toExecute) {
     	int x = (int) getReturnValue(toExecute);
-    	int y = (int) getReturnValue(toExecute);
-    	
+    	int y = (int) getReturnValue(toExecute);	
         getModel().addNewTurtle(x, y);
-
         return 1;
     }
 

@@ -16,10 +16,10 @@ public class IfElse extends Function {
         Instruction trueCommand = toExecute.block();
         Instruction falseCommand = toExecute.block();
         if (condition != 0) {
-            return executeBlock(trueCommand);
+            return getReturnValue(trueCommand);
         }
         else {
-            return executeBlock(falseCommand);
+            return getReturnValue(falseCommand);
         }
     }
 }

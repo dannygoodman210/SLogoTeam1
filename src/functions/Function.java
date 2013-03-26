@@ -6,20 +6,11 @@ import backEnd.Model;
 import backEnd.TurtleList;
 
 public abstract class Function implements Executable {
-
-    private final static int DEFAULT_INPUTS = 1;
     
     private Model myModel;
-    private int myInputs;
     
     public Function(Model model){
         myModel = model;
-        myInputs = DEFAULT_INPUTS;
-    }
-    
-    public Function(Model model, int values) {
-        myModel = model;
-        myInputs = values;
     }
 
     public abstract double execute (Instruction toExecute);
@@ -32,19 +23,7 @@ public abstract class Function implements Executable {
     	return myModel.getTurtleList();
     }
     
-    public double getReturnValue(Instruction toExectue){
-        return myModel.process(toExectue);
+    public double getReturnValue(Instruction toExecute){
+        return toExecute.execute(getModel().getMap());
     }
-
-    public double executeBlock(Instruction blockToExecute){
-        return myModel.processInstruction(blockToExecute.clone());
-    }
-    
-    public int getInputNum(){
-        return myInputs;
-    }
-    
-//    public boolean checkInput(Instruction toCheck, Exception except) {
-//        
-//    }
 }

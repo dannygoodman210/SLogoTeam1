@@ -6,11 +6,9 @@ import functions.Function;
 
 
 public class Xcor extends Function {
-
-    private static final int INPUT_VALUES = 0;
     
     public Xcor(Model model) {
-        super(model, INPUT_VALUES);
+        super(model);
     }
 
     @Override
