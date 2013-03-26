@@ -1,5 +1,6 @@
 package functions.turtle;
 
+import util.ShapePalette;
 import backEnd.Model;
 import backEnd.Turtle;
 
@@ -20,6 +21,11 @@ public class SetShape extends TurtleFunction {
     @Override
     public void process (Turtle turtle, double[] values) {
     	int shape = (int) values[0];
+    	if(shape <= ShapePalette.biggestIndex() && shape >= 0){
         turtle.setShapeIndex(shape);
+    	}
+    	else{
+    	    getModel().showErrorMsg("ShapeIndex");
+    	}
     }
 }

@@ -96,7 +96,7 @@ public class Instruction {
      * @return string corresponding to element. 
      */
     public String get(int index) {
-        return myInstruction.get(index);
+            return myInstruction.get(index);
     }
 
     /**

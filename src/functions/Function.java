@@ -43,7 +43,13 @@ public abstract class Function implements Executable {
      * @return 
      */
     public double getReturnValue(Instruction toExecute) {
-        return toExecute.execute(getModel().getMap());
+        //try{
+            return toExecute.execute(getModel().getMap());
+        //}
+        //catch(IndexOutOfBoundsException e){
+        //    myModel.showErrorMsg("IncorrectFormat");
+        //    return 0;            
+        //}
     }
     
     /**
