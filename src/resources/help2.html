@@ -1,0 +1,209 @@
+<body>
+<div class="contentPane">
+  <div class="mainBody">
+
+<h3>SLogo Extended Commands</h3>
+
+<h4>Required Commands</h4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Command</TH>
+  <th>Description</th>
+  <TH>Example</TH>
+  </TR>
+<TR>
+  <TD><code>SETBACKGROUND</code> <em>color_index</em><br>
+      <code>SETBG</code> <em>color_index</em>
+  </TD>
+  <td>sets background color of screen to that represented by <em>color_index</em><br />
+    returns given <em>color_index</em></td>
+  <TD>&nbsp;</TD>
+  </TR>
+<TR>
+  <TD><code>SETPENCOLOR</code> <em>color_index</em><br />
+      <code>SETPC</code> <em>color_index</em>
+  </TD>
+  <td>sets color of the pen to that represented by <em>color_index</em><br />
+    returns given <em>color_index</em></td>
+  <TD>&nbsp;</TD>
+  </TR>
+<TR>
+  <TD><code>SETPENSIZE</code> <em>pixels</em><br />
+      <code>SETPS</code> <em>pixels</em>
+  </TD>
+  <td>sets size of the pen to be <em>pixels</em> thickness<br />
+    returns given <em>pixels</em></td>
+  <TD>&nbsp;</TD>
+  </TR>
+<TR>
+  <TD><code>SETSHAPE</code> <em>shape_index</em><br />
+      <code>SETSH</code> <em>shape_index</em>
+  </TD>
+  <td>sets shape of turtle to that represented by <em>shape_index</em><br />
+    returns given <em>shape_index</em></td>
+  <TD>&nbsp;</TD>
+  </TR>
+<tr>
+  <td><code>SETPALETTE</code> <em>color_index</em> <em>r</em> <em>g</em> <em>b</em></td>
+  <td>sets color corresponding at given <em>color_index</em> to given <em>r</em> <em>g</em> <em>b</em> color values<br />
+    returns given <em>color_index</em><br />
+    note, color component values are nonnegative integers less than 256 specifying an amount of red, green, and blue </td>
+  <td>&nbsp;</td>
+  </tr>
+<tr>
+  <td><code>PENCOLOR<br />
+  </code><code>PC</code></td>
+  <td>returns the turtle's current color index</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><code>SHAPE</code><br />
+    <code>SH</code><em></em></td>
+  <td>returns  the turtle's current shape index</td>
+  <td>&nbsp;</td>
+</tr>
+<TR>
+  <TD>STAMP</TD>
+  <td>&quot;stamp&quot; an image of the turtle in its current settings on the workspace display</td>
+  <TD>&nbsp;</TD>
+  </TR>
+<TR>
+  <TD>CLEARSTAMPS</TD>
+  <td>remove all stamps that have been made</td>
+  <TD>&nbsp;</TD>
+  </TR>
+<tr>
+  <td>DOTIMES [ <em>variable</em> <em>limit</em> ]<br />
+    [ <em>command(s)</em> ]</td>
+  <td>runs the <em>commands</em> for each value specified in the range, i.e., from 0 up to (<em>limit</em> - 1). <br />
+    note, <em>variable</em> is assigned to each succeeding value so that it can be accessed by the <em>commands</em></td>
+  <td><code>DOTIMES [ :i 1800 ] <br />
+    [ FD 10 RT :i + 1 ]</code></td>
+  </tr>
+<tr>
+  <td>FOR [ <em>variable</em> <em>start end increment</em> ]<br />
+    [ <em>command(s)</em> ]</td>
+  <td>runs the <em>commands</em> for each value specified in the range, i.e., from start up to <em>end</em>, going by <em>increment</em>.<br />
+    note, <em>variable</em> is assigned to each succeeding value so that it can be accessed by the <em>commands</em></td>
+  <td><code>FOR [ :n 4 16 2 ] <br />
+    [ FD 100 RT / 360 :n ]</code></td>
+  </tr>
+</TABLE>
+
+<p>You should also implement the variable <em>:repcount</em> for the command REPEAT. See the updated description on <a href="commands.php">the original commands page</a>.</p>
+<h4>Expected Commands</h4>
+<TABLE BORDER="1">
+<TR>
+  <TH>Command</TH>
+  <th>Description</th>
+  <TH>Example</TH>
+</TR>
+<TR>
+  <TD>ID</TD>
+  <td>returns the turtle's ID number</td>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TD><code>TELL</code> <code>[</code> <em>turtle(s)</em> <code>]</code></TD>
+  <td><p>sets <em>turtles</em> that will follow commands hereafter<br />
+    returns last value in <em>turtles</em> list<em><br />
+      </em>note, if turtle has not previously existed, it is created and placed at the home location<br />
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </p></td>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TD>TELLEVEN<br />    <br /></TD>
+  <td><p>sets <em>turtles</em> that will follow commands hereafter to the ones with even ID numbers<br />
+    returns last turtle's ID value<em><br />
+      </em>note, unlike the previous command, this one does not create any new turtles<br />
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </p></td>
+  <td>&nbsp;</td>
+  </TR>
+<TR>
+  <TD>TELLODD</TD>
+  <td>sets <em>turtles</em> that will follow commands hereafter to the ones with odd ID numbers<br />
+    returns last turtle's ID value<em><br />
+  </em>note, unlike the previous command, this one does not create any new turtles<br />
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  <TD>&nbsp;</TD>
+</TR>
+<tr>
+  <td><code>ASK</code> <code>[</code> <em>turtle(s)</em> <code>]</code> <br />    
+    <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></td>
+  <td>tell <i>turtles</i> given in first list to run <em>commands</em> given in the second list<em><br />
+    </em>returns result of last command run<br />
+    note, after commands are run,  currently active list of turtles returns to that set by the last TELL command<br />
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  <td>&nbsp;</td>
+</tr>
+<TR>
+  <TD><code>ASKWITH</code> <code>[</code> <em>condition</em> <code>]<br />
+  </code> <code>[</code><em>&nbsp;&nbsp;command(s)</em> <code>]</code></TD>
+  <td>tell <i>turtles</i> matching  given <em>condition</em> to run <em>commands</em> given in the second list<em><br />
+    </em>returns result of last command run<br />
+    note, does not change currently active list of turtles set by the last tell command<br />
+    note, if more than one turtle is active, commands run return value associated with the last active turtle </td>
+  <TD>ASKWITH <br />
+    [ EQUAL? SH 1 ] <br />
+    [ FD 100 ]</TD>
+</TR>
+<TR>
+  <TD>( <em>command</em> <em>expression(s)</em> )</TD>
+  <TD>allows <em>command</em> to take any number of <em>expressions</em> as parameter values<br />
+    note, this syntax is legal for any command, but only makes sense for a few commands</TD>
+  <TD>( SUM 1 2 3 4 5 )</TD>
+</TR>
+</TABLE>
+<h4>Challenging Commands</h4>
+<h5>Recursion</h5>
+<p>Recursion is tricky because it requires the parser to recognize the command being  defined (and its parameter count) as valid syntax before the command's own parsing is complete. If you can accommodate this, then you do not need the DEFINE command described below; however, it may be useful to use it to help get around that problem --- your choice.</p>
+<table border="1">
+  <tr>
+    <th>Command</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>DEFINE <em>commandName<br />
+    </em> [ <em>parameter(s)</em> ]</code><code></code></td>
+    <td>defines  <em>command</em><em>Name</em> as a command that WILL BE created in the future, but has not yet been<br />
+      returns 1 if command is successfully defined, otherwise 0</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<h5>Interaction</h5>
+<p>Allow users to interact with the workspace by implementing specific procedures that are called when the appropriate event occurs.</p>
+<table border="1">
+  <tr>
+    <td>ONCLICK <em>x</em> <em>y</em><br />
+      <br /></td>
+    <td><p>if the user defines this procedure, then it should be called when the mouse is clicked with the mouse's position as arguments</p></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>ONMOVE <em>x</em> <em>y</em></td>
+    <td>if the user defines this procedure, then it should be called when the mouse is moved with the mouse's position as arguments</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>ONKEY <em>keycode</em></td>
+    <td>if the user defines this procedure, then it should be called when a key is typed with the key's int code value as an argument</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div>
+
+<DIV class="footer">
+  <TABLE width="100%">
+    <TR>
+      <TD class="left">
+        <A href="help.html"> View Basic List </A>
+      </TD>
+    </TR>
+  </TABLE>
+</DIV>
+
+</div>
+</body>
+</html>

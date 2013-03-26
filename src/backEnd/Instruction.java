@@ -21,6 +21,10 @@ public class Instruction {
         myInstruction = inst;
     }
 
+    /**
+     * loads an array into myInstruction. 
+     * @param arguments
+     */
     private void loadInstruction(String[] arguments){
         myInstruction = new ArrayList<String>();
         for(int i = 0 ; i < arguments.length ; i++){
@@ -94,7 +98,7 @@ public class Instruction {
     public int length(){
         return myInstruction.size();
     }
-    
+
     /**
      * returns a String representation of this instruction.
      */

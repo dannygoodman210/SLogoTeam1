@@ -178,8 +178,10 @@ public class Canvas extends JPanel {
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = myChooser.showOpenDialog(null);
+                 
                     if (response == JFileChooser.APPROVE_OPTION) {
                         new FileReader(myChooser.getSelectedFile());
+                        myController.loadFile(myChooser.getSelectedFile().getAbsolutePath());
                     }
                 }
                 catch (IOException io) {
@@ -222,6 +224,12 @@ public class Canvas extends JPanel {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 getWorkspaceView().getTurtleView().toggleHighlight();
+            }
+        });
+        viewMenu.add(new AbstractAction(myResources.getString("ToggleGrid")){
+            @Override
+            public void actionPerformed (ActionEvent arg0) {
+                getWorkspaceView().getTurtleView().toggleGrid();
             }
         });
         viewMenu.add(new AbstractAction(myResources.getString("SetBackground")) {

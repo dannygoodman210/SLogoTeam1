@@ -6,6 +6,10 @@ import java.util.Map;
 import functions.Constant;
 
 public class SmartMap {
+	private final String MAPLOADERROR = "There was an error when loading the functions!";
+	private final String MAPGETERROR = "You attempted to access an undefined variable or function";
+			
+			
 
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
@@ -17,32 +21,16 @@ public class SmartMap {
     	myUserExecutables = new HashMap<String, Executable>();
         Factory factory = new Factory();
         myResourceManager = new MapResourceManager(model);
-
-        //TEMPORARY!!!!!!!!!!
+        
         try {
-            myFunctions = factory.make(model);
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+			myFunctions = factory.make(model);
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			myModel.showErrorMsg(MAPLOADERROR);
+		}
+        
     }
 
     /**
@@ -60,9 +48,14 @@ public class SmartMap {
         	return myUserExecutables.get(workSpaceIndex + key);
        	}
         else{
-            int value = Integer.parseInt(key);
-            return new Constant(value);
+        	try{
+        		int value = Integer.parseInt(key);
+        		return new Constant(value);
+        	}catch(NumberFormatException e){
+        		myModel.showErrorMsg(MAPGETERROR);
+        	}
         }
+        return new Constant(0);
     }
     
     public boolean contains(String key){
@@ -78,7 +71,7 @@ public class SmartMap {
     	myResourceManager.saveToFile(myUserExecutables);
     }
     
-    public void load(){
-    	myResourceManager.loadFromFile();
+    public void load(String root){
+    	myResourceManager.loadFromFile(root);
     }
 }

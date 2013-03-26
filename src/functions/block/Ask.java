@@ -14,22 +14,21 @@ public class Ask extends Function {
     }
     
     @Override
-    public double execute (Instruction toExecute) {
-        Instruction ids = toExecute.block();
-        Set<Integer> idset = getIDs(ids);
+    public double execute(Instruction toExecute) {
+        Instruction turtlesToAsk = toExecute.block();
         TurtleList turtles = getTurtleList();
-        Set<Integer> clone = new HashSet<Integer>(turtles.getActiveIDs());
-        turtles.setActive(idset);
-        getModel().process(toExecute.block());
-        turtles.setActive(clone);
-        return 0;
+        Set<Integer> oldIDSet = new HashSet<Integer>(turtles.getActiveIDs());
+        turtles.disactivateAll();
+		while(turtlesToAsk.clone().length() > 0){
+			getTurtleList().activate((int)getReturnValue(turtlesToAsk));
+		}
+        
+        double toReturn = executeBlock(toExecute.block());
+        turtles.setActive(oldIDSet);
+        return toReturn;
     }
 
-    private Set<Integer> getIDs (Instruction toExecute) {
-        Set<Integer> ids = new HashSet<Integer>();
-        while (toExecute.length() > 0) {
-            ids.add((int)getReturnValue(toExecute));
-        }
-        return ids;
-    }
+
+
+
 }

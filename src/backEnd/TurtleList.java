@@ -49,6 +49,7 @@ public class TurtleList extends Observable implements Observer {
     }
 
     public Turtle get (int id) {
+
         for(Turtle t : myTurtles){
             if (t.getID() == id){
                 return t; 
@@ -65,16 +66,47 @@ public class TurtleList extends Observable implements Observer {
         return myActiveIDs;
     }
 
-    public void Activate(int ID){
+    public void activate(int ID){
         myActiveIDs.add(ID);
     }
-    public void Disactivate(int ID){
+    public void disactivate(int ID){
         myActiveIDs.remove(ID);
     }
+
+    public void disactivateAll(){
+    	myActiveIDs.clear();
+    }
+
 
     public int size() {
         return myTurtles.size();
     }
+
+
+    public int activateEven(){
+    	disactivateAll();
+    	int ret = 0;
+    	for(Turtle t: myTurtles){
+    		if(t.getID()%2 == 0){
+    			ret = t.getID();
+    			activate(ret);
+    		}
+    	}
+    	return ret;
+    }
+    
+    public int activateOdd(){
+    	disactivateAll();
+    	int ret = 0;
+    	for(Turtle t: myTurtles){
+    		if(t.getID()%2 != 0){
+    			ret = t.getID();
+    			activate(ret);
+    		}
+    	}
+    	return ret;
+    }
+    
 
     @Override
     protected void setChanged() {
@@ -92,5 +124,7 @@ public class TurtleList extends Observable implements Observer {
     
     public void setActive(Set<Integer> ids) {
         myActiveIDs = ids;
+        // this could use some safeguards
     }
+
 }

@@ -46,12 +46,19 @@ public class Model {
      */
 
     public double processInstruction (Instruction toExecute) {
-        double output = 0;
-        while (toExecute.length() != 0) {
-            double value = process(toExecute);
-            output = value;
+        Exception except = new Exception(this);
+        if(except.checkForException(toExecute.clone())){
+            double output = 0;
+            while (toExecute.length() != 0) {
+                double value = process(toExecute);
+                output = value;
+            }
+            return output;
         }
-        return output;
+        else {
+            showErrorMsg("Incorrectly Formatted String");
+            return 0;
+        }
     }
     
     /**
@@ -99,4 +106,14 @@ public class Model {
     public int getTurtleListLength(){
     	return getTurtleList().size();
     }
+
+	public void loadFile(String name) {
+		myMap.load(name);
+	}
+
+    
+    public Executable get(String s) {
+        return myMap.get(s);
+    }
 }
+
