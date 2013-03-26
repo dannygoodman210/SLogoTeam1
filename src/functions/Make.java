@@ -16,6 +16,7 @@ public class Make extends Function{
         double value = getReturnValue(toExecute);
         Constant toAdd = new Constant((int)value);
         getModel().getMap().put(variable, toAdd);
+        getModel().getController().sendVariable(variable, (int)value);
         return value;
     }
 }
