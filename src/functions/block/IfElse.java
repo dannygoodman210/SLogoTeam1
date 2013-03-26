@@ -1,16 +1,29 @@
 package functions.block;
 
-import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
+import functions.Function;
 
-
+/**
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ */
 public class IfElse extends Function {
 
+    /**
+     * Ifelse statement
+     * @param model 
+     */
     public IfElse (Model model) {
         super(model);
     }
-
+    
+    /**
+     * executes the statement
+     * @param toExecute 
+     * @return 
+     */
     public double execute (Instruction toExecute) {
         double condition = getReturnValue(toExecute);
         Instruction trueCommand = toExecute.block();

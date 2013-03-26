@@ -45,4 +45,8 @@ public abstract class Function implements Executable {
     public double getReturnValue(Instruction toExecute) {
         return toExecute.execute(getModel().getMap());
     }
+    
+    public double executeBlock(Instruction toExecute) {
+        return toExecute.process(getModel().getMap());
+    }
 }

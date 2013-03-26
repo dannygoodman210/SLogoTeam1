@@ -2,8 +2,6 @@ package functions;
 
 import backEnd.Instruction;
 import backEnd.Model;
-import functions.Function;
-import functions.Constant;
 
 /**
  * 
@@ -22,7 +20,7 @@ public class UserDefined extends Function {
      * functions the user can define
      * @param model 
      * @param params the parameters
-     * @param commands commands to carray out
+     * @param commands commands to carry out
      */
     public UserDefined(Model model, Instruction params, Instruction commands) {
         super(model);
@@ -38,9 +36,12 @@ public class UserDefined extends Function {
         double returnValue = getReturnValue(myCommands);
         return returnValue;
     }
-
-    public String toString(){
-        return OPENBRACKET + " " + myParams.toString() + CLOSEBRACKET
-                + " " + OPENBRACKET + " " + myCommands.toString() + CLOSEBRACKET;
+    
+    /**
+     * toString
+     */
+    public String toString() {
+        return myOpenBracket + " " + myParams.toString() + myCloseBracket
+                + " " + myOpenBracket + " " + myCommands.toString() + myCloseBracket;
     }
 }
