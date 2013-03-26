@@ -154,6 +154,11 @@ public class Canvas extends JPanel {
         return myResources;
     }
 
+    /**
+     * Returns a new workspace view to be added into the canvas.
+     * 
+     * @return workspaceView - new workspace view
+     */
     private WorkspaceView makeWorkspaceView () {
         WorkspaceView workspaceView = new WorkspaceView(this);
         return workspaceView;
