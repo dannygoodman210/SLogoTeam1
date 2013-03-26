@@ -10,7 +10,7 @@ public class DoTimes extends Function {
     private static final int DEFAULT_INPUTS = 2;
     
     public DoTimes(Model model){
-        super(model, DEFAULT_INPUTS);
+        super(model);
     }
 
     @Override
