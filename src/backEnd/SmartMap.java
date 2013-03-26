@@ -13,17 +13,10 @@ import functions.Constant;
  */
 
 public class SmartMap {
-<<<<<<< HEAD
+
     private final String MAPLOADERROR = "There was an error when loading the functions!";
     private final String MAPGETERROR = "You attempted to access an undefined variable or function";
 
-
-
-=======
-	private final String MAPLOADERROR = "There was an error when loading the functions!";
-	private final String MAPGETERROR = "You attempted to access an undefined variable or function";
-						
->>>>>>> 063f26136368e296aaaa77ad4f7bcd3453f4755a
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
     private Model myModel;
@@ -83,15 +76,14 @@ public class SmartMap {
     public boolean contains(String key){
         return myFunctions.containsKey(key) || myUserExecutables.containsKey(key);
     }
-<<<<<<< HEAD
 
     public void add(String name, Executable function) {
         int workSpaceIndex = myModel.getController().getWorkspaceIndex();
-=======
+        myUserExecutables.put(workSpaceIndex+name, function);
+    }
     
     public void put(String name, Executable function) {
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
->>>>>>> 063f26136368e296aaaa77ad4f7bcd3453f4755a
         myUserExecutables.put(workSpaceIndex+name, function);
     }
 
