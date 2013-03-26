@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Model {
 
-
+	private static final String ARGERROR = "You have not used the correct amount of arguments";
 
     private FunctionDictionary myMap;
     private Controller myController;
@@ -49,7 +49,12 @@ public class Model {
      * 
      */
     public double processInstruction (Instruction toExecute) {
-        return toExecute.process(myMap);
+    	try{
+    		return toExecute.process(myMap);
+    	}catch(IndexOutOfBoundsException e){
+    		showErrorMsg(ARGERROR);
+    	}
+    	return 0;
     }
 
     
