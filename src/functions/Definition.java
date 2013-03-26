@@ -4,7 +4,8 @@ import backEnd.Instruction;
 import backEnd.Model;
     
 /**
- * Function that defines user-generated functions
+ * Function that defines user-generated function, creates one, and adds this
+ * function to our map. 
  * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  *
@@ -12,7 +13,7 @@ import backEnd.Model;
 public class Definition extends Function {
     
 	
-	private static final String DOUBLEFUNCTION = "Be careful, function already defined";
+	private static final String DOUBLEFUNCTION = "Be careful, you just overwrote an old function";
     /**
      * 
      * @param model 

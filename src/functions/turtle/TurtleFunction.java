@@ -24,6 +24,8 @@ public abstract class TurtleFunction extends Function {
     
     /**
      * execute() method runs over all turtles in the turtle list
+     * it puts arguments in a values array and passes this on to the
+     * subclass. 
      */
     @Override
     public double execute (Instruction toExecute) {
@@ -36,12 +38,24 @@ public abstract class TurtleFunction extends Function {
 
     }
     
+    /**
+     * Method that knows what to return for a given class. 
+     * Typically overritten for functions that have unique returns. 
+     * @param values
+     * @return
+     */
    public double getReturn(double[] values){
 	   return values[0];
 	   
    }
     
-    private double[] getValues (Instruction toExecute) {
+   /**
+    * Evaluates all parameters, even if these parameters are complex (ex: left 10),
+    * and puts the returned values in an array. 
+    * @param toExecute
+    * @return
+    */
+   private double[] getValues (Instruction toExecute) {
         double[] values = new double[myInputs];
         for (int i = 0; i < myInputs; i++) {
             values[i] = getReturnValue(toExecute);

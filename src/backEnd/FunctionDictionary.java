@@ -34,30 +34,18 @@ public class FunctionDictionary {
         Factory factory = new Factory();
         myResourceManager = new MapResourceManager(model);
 
+        
         try {
-            myFunctions = factory.make(model);
-        } 
-        catch (ClassNotFoundException e) {
-            myModel.showErrorMsg(LOADERROR);
-        } 
-        catch (NoSuchMethodException e) {
-            myModel.showErrorMsg(LOADERROR);
-        }
-        catch (SecurityException e) {
-            myModel.showErrorMsg(LOADERROR);
-        } 
-        catch (InstantiationException e) {
-            myModel.showErrorMsg(LOADERROR);
-        } 
-        catch (IllegalAccessException e) {
-            myModel.showErrorMsg(LOADERROR);
-        }
-        catch (IllegalArgumentException e) {
-            myModel.showErrorMsg(LOADERROR);
-        }
-        catch (InvocationTargetException e) {
-            myModel.showErrorMsg(LOADERROR);
-        }
+			myFunctions = factory.make(model);
+		} catch (ClassNotFoundException | NoSuchMethodException
+				| SecurityException | InstantiationException
+				| IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException e) {
+			
+			myModel.showErrorMsg(LOADERROR);
+		}
+        
+        
 
     }
 

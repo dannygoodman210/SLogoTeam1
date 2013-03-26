@@ -142,7 +142,7 @@ public class Model {
 
     /**
      * 
-     * @param s gets function from map
+     * @param s gets an executable from the map
      * @return function
      */
     public Executable get(String s) {
@@ -150,7 +150,7 @@ public class Model {
     }
 
     /**
-     * gets the active workspace
+     * gets the active workspace index
      * @return
      */
     public Workspace getCurrentWorkspace() {

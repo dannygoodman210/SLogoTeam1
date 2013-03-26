@@ -47,7 +47,9 @@ public abstract class Function implements Executable {
     }
     
     /**
-     * For blocks
+     * Executes an entire instruction, no matter the length
+     * and returns the value corresponding to the last
+     * returned value. 
      * @param toExecute 
      * @return
      */
