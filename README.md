@@ -30,8 +30,9 @@ The project requires:
 * a Shapes.properties file so that the user can toggle turtle images. 
 	* Program would also require corresponding images. 
 * a help.html page so that the user can have access to instructions. This is not required to run however. 
-All of these files are provided in the project folder under the resources and images packages.
-Files Used To Start
+All of these files are provided in the project folder under the resources and images packages.  
+
+Files Used To Start  
 -------------------
 Image files in images package. Language.properties file for loading functions.
 
@@ -51,6 +52,8 @@ As of right now the program cannot crash.
 small bug: shape index 3 and 4 have trouble displaying right away. I think it is
 a problem with the image file, not the design. all other images show up right away.
 The shapes appear the next time the screen is repainted ex) fd 0.
+
+*last minute change:* We had forgotten to use the resource bundle for an exception in MapResourceModel. We changed it, and to see what was changed you can see the last commit. 
 
 Extra Features
 --------------
