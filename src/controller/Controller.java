@@ -4,7 +4,6 @@ import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Workspace;
 import frontEnd.Canvas;
-import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +20,10 @@ public class Controller implements Observer {
     private Canvas myView;
     private Model myModel;
 
+    /**
+     * 
+     * @param view 
+     */
     public Controller (Canvas view) {
         myView = view;
         myModel = new Model(this);

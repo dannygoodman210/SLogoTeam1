@@ -1,7 +1,8 @@
+import frontEnd.Canvas;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JFrame;
-import frontEnd.Canvas;
+
 
 
 /**
@@ -10,20 +11,27 @@ import frontEnd.Canvas;
  * @author Robert C. Duvall
  */
 public class Main {
-    // constants
-    public static final Dimension SIZE = new Dimension(900, 630);
+    
+    /**
+     * title of window
+     */
     public static final String TITLE = "SLogo";
+    /**
+     * default size of window
+     */
+    public static final Dimension SIZE = new Dimension(900, 630);
+    
 
-
-    private Main () {
-        // does not make sense to construct this class
+    private Main() {
     }
+    
 
     /**
-     * main --- where the program starts
+     * 
+     * @param args 
      */
-    public static void main (String args[]) {
-    	
+    public static void main (String[] args) {
+    
         // view of user's content
         Canvas display = new Canvas(SIZE);
         // container that will work with user's OS
