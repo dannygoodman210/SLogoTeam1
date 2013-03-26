@@ -119,11 +119,19 @@ public class Turtle extends Observable {
         myPenColorIndex = penColorIndex;
         setChanged();
     }
-
+    
+    /**
+     * 
+     * @return shape
+     */
     public int getShapeIndex () {
         return myShapeIndex;
     }
-
+    
+    /**
+     * 
+     * @param shapeIndex shape to sets
+     */
     public void setShapeIndex (int shapeIndex) {
         if (shapeIndex <= ShapePalette.biggestIndex()) {
             myShapeIndex = shapeIndex;

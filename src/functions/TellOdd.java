@@ -10,7 +10,7 @@ public class TellOdd extends Function {
 	}
 	
 	public double execute(Instruction toExecute){
-		return getTurtleList().activateOdd();
+		return getTurtleList().activateEvenOdd(1);
 		
 	}
 

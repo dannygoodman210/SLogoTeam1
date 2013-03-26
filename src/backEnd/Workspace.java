@@ -7,10 +7,15 @@ import java.util.ResourceBundle;
 import util.Palette;
 
 
+/**
+ * 
+ * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ *
+ */
 public class Workspace extends Observable implements Observer {
 
     private static final String DEFAULT_RESOURCES = "resources.FrontEnd";
-    private Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
+    private static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
     private Observer myObserver;
     private Model myModel;
     private Color myBackgroundColor;
@@ -19,7 +24,13 @@ public class Workspace extends Observable implements Observer {
     private TurtleList myTurtleList;
     private int myIndex;
 
-    public Workspace (Observer observer, Model model, int index) {
+    /**
+     * 
+     * @param observer 
+     * @param model  
+     * @param index 
+     */
+    public Workspace(Observer observer, Model model, int index) {
         myObserver = observer;
         addObserver(myObserver);
         myModel = model;
@@ -30,8 +41,12 @@ public class Workspace extends Observable implements Observer {
         myTurtleList = new TurtleList(this);
         myTurtleList.addNewTurtle(0, 0);
     }
-
-    public Workspace (Workspace other) {
+    
+    /**
+     * 
+     * @param other 
+     */
+    public Workspace(Workspace other) {
         initializeResources();
         myBackgroundColor = new Color(other.getBackgroundColor().getRGB());
         myPalette = new Palette(other.getPalette());
@@ -42,19 +57,36 @@ public class Workspace extends Observable implements Observer {
     public void update (Observable o, Object arg) {
         setChanged();
     }
-
+    
+    /**
+     * Adds new turtle
+     * @param x 
+     * @param y 
+     */
     public void addNewTurtle (int x, int y) {
         myTurtleList.addNewTurtle(x, y);
     }
-
+    
+    /**
+     * 
+     * @return turtlelist
+     */
     public TurtleList getTurtleList () {
         return myTurtleList;
     }
-
+    
+    /**
+     * 
+     * @return gets background color
+     */
     public Color getBackgroundColor () {
         return myBackgroundColor;
     }
-
+    
+    /**
+     * 
+     * @param colorIndex color to set
+     */
     public void setBackground (int colorIndex) {
         try {
             myBackgroundColor = myPalette.getColor(colorIndex);
@@ -64,11 +96,22 @@ public class Workspace extends Observable implements Observer {
             myModel.showErrorMsg(myResources.getString("colorIndex"));
         }
     }
-
+    
+    /**
+     * 
+     * @return gets palette
+     */
     public Palette getPalette () {
         return myPalette;
     }
-
+    
+    /**
+     * 
+     * @param colorIndex colors to set
+     * @param r 
+     * @param g 
+     * @param b 
+     */
     public void setPalette (int colorIndex, int r, int g, int b) {
         myPalette.setColor(colorIndex, r, g, b);
         setChanged();
@@ -83,7 +126,11 @@ public class Workspace extends Observable implements Observer {
     private void initializeResources () {
         myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES);
     }
-
+    
+    /**
+     * 
+     * @return gets index of workspace
+     */
     public int getIndex () {
         return myIndex;
     }

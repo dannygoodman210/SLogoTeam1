@@ -8,23 +8,39 @@ import java.util.Observer;
 import java.util.Set;
 
 
+/**
+ * List of turtles
+ * @author challenherzberg-brovold
+ *
+ */
 public class TurtleList extends Observable implements Observer {
    
     private List<Turtle> myTurtles;
     private Set<Integer> myActiveIDs;
     private Observer myObserver;
-
+    
+    /**
+     * Constructor
+     */
     public TurtleList() {
         myTurtles = new ArrayList<Turtle>();
         myActiveIDs = new HashSet<Integer>();
     }
-
+    
+    /**
+     * Alternate constructor
+     * @param observer to notify of changes
+     */
     public TurtleList(Observer observer) {
         this();
         myObserver = observer;
         addObserver(myObserver);
     }
 
+    /**
+     * 
+     * @param other 
+     */
     public TurtleList(TurtleList other) {
         myTurtles = cloneTurtles(other.myTurtles);
         myActiveIDs = new HashSet<Integer>(other.myActiveIDs);
@@ -34,80 +50,108 @@ public class TurtleList extends Observable implements Observer {
     public void update(Observable arg0, Object arg1) {
         setChanged();
     }
-
+    
+    /**
+     * 
+     * @param turtle to be added to list
+     */
     public void add(Turtle turtle) {
         myTurtles.add(turtle);
         myActiveIDs.add(turtle.getID());
         setChanged();
     }
-
+    
+    /**
+     * adds new turtle at coordinates
+     * @param x coordinate
+     * @param y coordinate
+     */
     public void addNewTurtle(int x, int y) {
         Turtle turtle = new Turtle(this, myTurtles.size());
         turtle.setLocation(x, y);
         add(turtle);
 
     }
+    
+    /**
+     * 
+     * @param id 
+     * @return turtle to get
+     */
+    public Turtle get(int id) {
 
-    public Turtle get (int id) {
-
-        for(Turtle t : myTurtles){
-            if (t.getID() == id){
+        for (Turtle t : myTurtles) {
+            if (t.getID() == id) {
                 return t; 
             }
         }
         return null;
     }
-
-    public Turtle getLastActive () {
+    
+    /**
+     * 
+     * @return last active turtle
+     */
+    public Turtle getLastActive() {
         return myTurtles.get((Integer)myActiveIDs.toArray()[0]);
     }
-
+    
+    /**
+     * 
+     * @return active turtle ids
+     */
     public Set<Integer> getActiveIDs () {
         return myActiveIDs;
     }
-
-    public void activate(int ID){
-        myActiveIDs.add(ID);
+    
+    /**
+     * sets turtle to active
+     * @param id of turtle
+     */
+    public void activate(int id) {
+        myActiveIDs.add(id);
     }
-    public void disactivate(int ID){
-        myActiveIDs.remove(ID);
+    
+    /**
+     * deactivates turtle
+     * @param id of turtle
+     */
+    public void disactivate(int id) {
+        myActiveIDs.remove(id);
+    }
+    
+    /**
+     * deactivates all turtles
+     */
+    public void disactivateAll() {
+        myActiveIDs.clear();
     }
 
-    public void disactivateAll(){
-    	myActiveIDs.clear();
-    }
-
-
+    /**
+     * 
+     * @return gets size of list
+     */
     public int size() {
         return myTurtles.size();
     }
-
-
-    public int activateEven(){
-    	disactivateAll();
-    	int ret = 0;
-    	for(Turtle t: myTurtles){
-    		if(t.getID()%2 == 0){
-    			ret = t.getID();
-    			activate(ret);
-    		}
-    	}
-    	return ret;
-    }
     
-    public int activateOdd(){
-    	disactivateAll();
-    	int ret = 0;
-    	for(Turtle t: myTurtles){
-    		if(t.getID()%2 != 0){
-    			ret = t.getID();
-    			activate(ret);
-    		}
-    	}
-    	return ret;
+    /**
+     * Activates even or odd zeros depending on input
+     * @param oneOrZero one activates odds, odd activates evens
+     * @return 
+     */
+    public int activateEvenOdd(int oneOrZero) {
+        disactivateAll();
+        int ret = 0;
+        for (Turtle t: myTurtles) {
+            if (t.getID() % 2 == oneOrZero) {
+                ret = t.getID();
+                activate(ret);
+            }
+        }
+        return ret;
     }
-    
-
+   
     @Override
     protected void setChanged() {
         super.setChanged();
@@ -122,9 +166,12 @@ public class TurtleList extends Observable implements Observer {
         return cloneTo;
     }
     
+    /**
+     * sets the active ids to desired
+     * @param ids to be set
+     */
     public void setActive(Set<Integer> ids) {
         myActiveIDs = ids;
-        // this could use some safeguards
     }
 
 }
