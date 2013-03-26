@@ -90,12 +90,6 @@ public class Instruction {
      * (useful when you need to execute a block multiple times)
      */
     public Instruction clone() {
-        try {
-            super.clone();
-        }
-        catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
         return new Instruction(myInstruction);
     }
 
