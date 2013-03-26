@@ -6,12 +6,14 @@ import java.util.Map;
 import functions.Constant;
 
 /**
- * 
+ * A class that adds functionality to a map. It automatically loads the functions in the
+ * specified properties file. 
+ * It also handles user-defined things and knows what value to return given a certain key. 
+ * Also allows to load/save map information from/to a file using it's resource manager. 
  * 
  * @author Francesco Agosti
  *
  */
-
 public class SmartMap {
 	private final String MAPLOADERROR = "There was an error when loading the functions!";
 	private final String MAPGETERROR = "You attempted to access an undefined variable or function";
@@ -63,19 +65,36 @@ public class SmartMap {
         return new Constant(0);
     }
     
+    
+    /**
+     * Returns true if the smartMap contains the given key. 
+     * @param key
+     * @return boolean
+     */
     public boolean contains(String key){
     	return myFunctions.containsKey(key) || myUserExecutables.containsKey(key);
     }
     
+    /**
+     * Associates the given executable (a function or a constant) to the given key. 
+     * @param name
+     * @param executable
+     */
     public void put(String name, Executable function) {
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
         myUserExecutables.put(workSpaceIndex+name, function);
     }
     
+    /** 
+     * Saves the myUserExecutables map to a properties file that is specified in the view. 
+     */
     public void save(){
     	myResourceManager.saveToFile(myUserExecutables);
     }
     
+    /** 
+     * Loads a properties file chosen from the view into the myUserExecutables map.
+     */
     public void load(String root){
     	myResourceManager.loadFromFile(root);
     }
