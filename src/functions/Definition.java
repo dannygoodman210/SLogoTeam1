@@ -30,8 +30,7 @@ public class Definition extends Function {
         Instruction commands = toExecute.block();
         if (getModel().getMap().contains(name)) {
         	getModel().showErrorMsg(DOUBLEFUNCTION);
-            return 0;
-            
+            return 0;   
         }
         getModel().getMap().put(name, new UserDefined(getModel(), params, commands));
         return 1;       

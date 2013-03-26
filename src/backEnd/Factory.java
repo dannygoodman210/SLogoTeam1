@@ -19,7 +19,7 @@ public class Factory {
 
     /**
      * This function makes all the instances of classes. No need for modification. Just
-     * add new class to ______.properties
+     * add new class to DEFAULTLANG.properties
      * 
      * @author Francesco Agosti
      * @param model 
