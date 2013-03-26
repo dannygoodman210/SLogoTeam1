@@ -3,6 +3,11 @@ package functions.turtle;
 import backEnd.Model;
 import backEnd.Turtle;
 
+/**
+ * Roates the turtle toward the specified point on the screen
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class Towards extends TurtleFunction {
     
     private static final int INPUT_VALUES = 2;
@@ -21,5 +26,4 @@ public class Towards extends TurtleFunction {
     public void process (Turtle turtle, double[] values) {
         returnValue = turtle.setTowards(values[0], values[1]);
     }
-    // I'm not sure how this will interact when we stack multiple functions
 }

@@ -5,8 +5,8 @@ import backEnd.Model;
 import functions.Function;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * If statement with the else part
+ * @author Eunsu (Joe) Ryu, Francesco Agosti, Challen Herzberg-Brovold
  *
  */
 public class IfElse extends Function {

@@ -4,7 +4,7 @@ import backEnd.Instruction;
 import backEnd.Model;
 
 /**
- * 
+ * Activate even
  * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
  *
  */

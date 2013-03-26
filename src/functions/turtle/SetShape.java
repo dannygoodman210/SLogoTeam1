@@ -4,6 +4,12 @@ import util.ShapePalette;
 import backEnd.Model;
 import backEnd.Turtle;
 
+
+/**
+ * Sets the shape of the turtle
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class SetShape extends TurtleFunction {
         
     private static final int INPUT_VALUES = 1;

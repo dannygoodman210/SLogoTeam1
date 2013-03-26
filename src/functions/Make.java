@@ -4,8 +4,8 @@ import backEnd.Instruction;
 import backEnd.Model;
 
 /**
- * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * This function assigns numeric value to a variable
+ * @author Eunsu (Joe) Ryu, Francesco Agosti, Challen Herzberg-Brovold
  *
  */
 public class Make extends Function {

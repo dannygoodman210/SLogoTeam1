@@ -121,7 +121,7 @@ public class Instruction {
      * @param map to get functions from
      * @return overall return value
      */
-    public double process(SmartMap map) {
+    public double process(FunctionDictionary map) {
         double output = 0;
         while (length() != 0) {
             double value = execute(map);
@@ -135,7 +135,7 @@ public class Instruction {
      * @param map 
      * @return
      */
-    public double execute(SmartMap map) {
+    public double execute(FunctionDictionary map) {
         Executable function = map.get(get(0));
         double value = function.execute(this.progress());
         return value;

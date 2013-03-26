@@ -5,6 +5,11 @@ import functions.Function;
 import backEnd.Instruction;
 import backEnd.Model;
 
+/**
+ * Runs the commands for each value specified in the range, i.e., from start up to end, going by increment.
+ * @author Eunsu (Joe) Ryu
+ *
+ */
 public class For extends Function {
     
     public For(Model model){

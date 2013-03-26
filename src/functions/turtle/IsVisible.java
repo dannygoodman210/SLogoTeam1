@@ -4,6 +4,12 @@ import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
 
+
+/**
+ * Return 1 if the turtle is visible
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class IsVisible extends Function {
 
     public IsVisible(Model model) {
@@ -12,9 +18,7 @@ public class IsVisible extends Function {
 
     @Override
     public double execute(Instruction toExecute) {
-        if(getModel().getLastTurtle().isVisible()) {
-            return 1;
-        }
-        return 0;
+    	return getModel().getLastTurtle().isVisible()? 1: 0;
+
     }
 }

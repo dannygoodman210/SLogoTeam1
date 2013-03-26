@@ -6,8 +6,8 @@ import backEnd.Model;
 import backEnd.TurtleList;
 
 /**
- * super class for all function
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * super class for all functions. Every function will extend this class
+ * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
  *
  *
  */
@@ -53,7 +53,9 @@ public abstract class Function implements Executable {
     }
     
     /**
-     * For blocks
+     * Executes an entire instruction, no matter the length
+     * and returns the value corresponding to the last
+     * returned value. 
      * @param toExecute 
      * @return
      */

@@ -15,7 +15,8 @@ import java.util.Map;
  * @author Francesco Agosti
  * 
  */
-public class SmartMap {
+
+public class FunctionDictionary {
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
     private Model myModel;
@@ -26,7 +27,8 @@ public class SmartMap {
      * 
      * @param model
      */
-    public SmartMap (Model model) {
+
+    public FunctionDictionary(Model model) {
         myModel = model;
         myUserExecutables = new HashMap<String, Executable>();
         Factory factory = new Factory();
@@ -39,7 +41,7 @@ public class SmartMap {
                 | InvocationTargetException e) {
             myModel.showErrorMsg("LoadError");
         }
-    }
+}
 
     /**
      * Returns the value corresponding to a key from our map. If our map does not contain

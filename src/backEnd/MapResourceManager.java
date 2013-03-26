@@ -80,12 +80,12 @@ public class MapResourceManager {
             if ((userExecutables.getProperty(key).charAt(0) + "").equals(OPENBRACKET)) {
                 toExecute = myModel.formatString(DEFINE + key + " " + 
                         userExecutables.getProperty(key));
-                myModel.process(toExecute);
+                myModel.processInstruction(toExecute);
             }
             else {
                 toExecute = myModel.formatString(MAKE + key + 
                                                  " " + userExecutables.getProperty(key));
-                myModel.process(toExecute);
+                myModel.processInstruction(toExecute);
             }
         }
     }

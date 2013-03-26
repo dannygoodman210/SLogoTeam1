@@ -4,6 +4,12 @@ import backEnd.Instruction;
 import backEnd.Model;
 import functions.Function;
 
+
+/**
+ * Sets color corresponding at given color index to given RGB color values
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class SetPalette extends Function {
 
 	public SetPalette(Model model) {

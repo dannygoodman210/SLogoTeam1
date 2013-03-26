@@ -3,6 +3,12 @@ package functions.turtle;
 import backEnd.Turtle;
 import backEnd.Model;
 
+
+/**
+ * Moves the turtle backward by specified amount
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class Back extends TurtleFunction {
     
     private static final int INPUT_VALUES = 1;

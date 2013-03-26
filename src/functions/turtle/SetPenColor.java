@@ -3,6 +3,11 @@ package functions.turtle;
 import backEnd.Model;
 import backEnd.Turtle;
 
+/**
+ * Sets the pen color
+ * @author Eunsu (Joe) Ryu, Challen Herzberg-Brovold, Francesco Agosti
+ *
+ */
 public class SetPenColor extends TurtleFunction {
         
     private static final int INPUT_VALUES = 1;
