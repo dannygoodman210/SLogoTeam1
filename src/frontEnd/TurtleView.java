@@ -55,7 +55,6 @@ public class TurtleView extends JComponent {
 
     private boolean myGrid;
 
-
     /**
      * TurtleView Constructor. Sets size. Initializes turtle parameters.
      */
@@ -117,7 +116,7 @@ public class TurtleView extends JComponent {
      */
     public void toggleWarp () {
         for (Integer i : myTurtleList.getActiveIDs()) {
-            toggleDecorator(new WarpTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
+            toggleDecorator(new WarpTurtleDrawer(), i);
         }
     }
 
@@ -127,14 +126,14 @@ public class TurtleView extends JComponent {
      */
     public void toggleFill () {
         for (Integer i : myTurtleList.getActiveIDs()) {
-            toggleDecorator(new FilledTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
+            toggleDecorator(new FilledTurtleDrawer(), i);
         }
     }
-    
+
     public void toggleHighlight () {
-        for (Integer i : myTurtleList.getActiveIDs()) {
-            toggleDecorator(new HighlightActiveTurtleDrawer(new DefaultTurtleDrawer(this, i)), i);
-        }
+        isHiglighted = true;
+        checkHighlight();
+        repaint();
     }
 
     /**
@@ -225,17 +224,29 @@ public class TurtleView extends JComponent {
         myPalette = changedWorkspace.getPalette();
         myNextTurtleList = changedWorkspace.getTurtleList();
         checkTurtleList();
+        if (isHiglighted) {
+            checkHighlight();
+        }
         repaint();
+    }
+
+    private void checkHighlight () {
+        Set<Integer> activeSet = myNextTurtleList.getActiveIDs();
+        System.out.println(activeSet);
+        DecoratedTurtleDrawer highlight = new HighlightActiveTurtleDrawer();
+        for (int i = 0; i < myNextTurtleList.size(); i++) {
+            myTurtleDrawers.set(i, myTurtleDrawers.get(i).removeReference(highlight));
+            if (activeSet.contains(i)) {
+                toggleDecorator(highlight, i);
+            }
+        }
     }
 
     private void checkTurtleList () {
         if (myNextTurtleList.size() > myTurtleList.size()) {
             int current = myTurtleList.size();
             myTurtleList.add(myNextTurtleList.get(current));
-            TurtleDrawer drawer = new DefaultTurtleDrawer(this,current);
-            if(isHiglighted){
-                drawer = new HighlightActiveTurtleDrawer(drawer);
-            }
+            TurtleDrawer drawer = new DefaultTurtleDrawer(this, current);
             myTurtleDrawers.add(drawer);
             myTurtleWarps.add(new int[] { 0, 0, 0, 0 });
         }
@@ -314,15 +325,13 @@ public class TurtleView extends JComponent {
         TurtleDrawer drawer = myTurtleDrawers.get(turtleIndex);
         Set<TurtleDrawer> referenceSet = drawer.getReferences();
         if (referenceSet.contains(decorator)) {
-            myTurtleDrawers.set(turtleIndex,drawer.removeReference(decorator));
-            System.out.println("removed Decorator "+turtleIndex);
+            myTurtleDrawers.set(turtleIndex, drawer.removeReference(decorator));
             isHiglighted = false;
         }
         else {
             try {
                 myTurtleDrawers.set(turtleIndex, decorator.getClass().
                         getConstructor(TurtleDrawer.class).newInstance(drawer));
-
                 isHiglighted = true;
             }
             catch (InstantiationException | IllegalAccessException | IllegalArgumentException
@@ -334,44 +343,43 @@ public class TurtleView extends JComponent {
         myTimer.start();
     }
 
-    
     /**
      * Draws grid which can be toggled on and off.
      * 
      * @param pen used to draw grid
      */
     public void drawGrid (Graphics pen) {
-    	pen.setColor(Color.black);
-        int centerX = (int) getBounds().getWidth()/2;
-        int centerY = (int) getBounds().getHeight()/2;
+        pen.setColor(Color.black);
+        int centerX = (int) getBounds().getWidth() / 2;
+        int centerY = (int) getBounds().getHeight() / 2;
         int xLine = 0;
         int yLine = 0;
         while (xLine < getBounds().getWidth()) {
-        	int penPoint = 0;
-        	while (penPoint < getBounds().getHeight()) {
-        		pen.drawLine(centerX+xLine, penPoint, centerX+xLine, penPoint + 5);
-        		pen.drawLine(centerX-xLine, penPoint, centerX-xLine, penPoint + 5);
-        		penPoint += 10;
-        	}
-        	xLine += 100;
+            int penPoint = 0;
+            while (penPoint < getBounds().getHeight()) {
+                pen.drawLine(centerX + xLine, penPoint, centerX + xLine, penPoint + 5);
+                pen.drawLine(centerX - xLine, penPoint, centerX - xLine, penPoint + 5);
+                penPoint += 10;
+            }
+            xLine += 100;
         }
         while (yLine < getBounds().getHeight()) {
-        	int penPoint = 0;
-        	while (penPoint < getBounds().getWidth()) {
-            	pen.drawLine(penPoint, centerY+yLine, penPoint + 5, centerY+yLine);
-            	pen.drawLine(penPoint, centerY-yLine, penPoint + 5, centerY-yLine);
-            	penPoint += 10;
-        	}
-        	yLine += 100;
+            int penPoint = 0;
+            while (penPoint < getBounds().getWidth()) {
+                pen.drawLine(penPoint, centerY + yLine, penPoint + 5, centerY + yLine);
+                pen.drawLine(penPoint, centerY - yLine, penPoint + 5, centerY - yLine);
+                penPoint += 10;
+            }
+            yLine += 100;
         }
     }
-    
+
     /**
      * Toggles grid on and off; triggered by button in "View" menu.
      */
     public void toggleGrid () {
-    	myGrid = !myGrid;
-    	repaint();
+        myGrid = !myGrid;
+        repaint();
     }
 
 }

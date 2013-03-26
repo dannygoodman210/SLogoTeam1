@@ -31,6 +31,10 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
         setView(referenceDrawer.getView());
         setTurtleIndex(referenceDrawer.getTurtleIndex());
     }
+    
+    public DecoratedTurtleDrawer () {
+        
+    }
 
     @Override
     public void drawBody (Graphics2D pen, double heading, int shapeIndex) {

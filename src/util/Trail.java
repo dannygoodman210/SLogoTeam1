@@ -2,6 +2,7 @@ package util;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 
@@ -17,6 +18,7 @@ public class Trail {
     protected Location myEnd;
     protected Color myColor;
     protected Rectangle myBounds;
+    protected int myPixelWidth;
 
     /**
      * Constructor needs start, end locations create trail. penColor is used to differ between

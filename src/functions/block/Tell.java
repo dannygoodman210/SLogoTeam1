@@ -12,6 +12,7 @@ import functions.Function;
 public class Tell extends Function {
 
 
+
     /**
      * 
      * @param model 

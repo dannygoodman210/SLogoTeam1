@@ -26,6 +26,10 @@ public class FilledTurtleDrawer extends DecoratedTurtleDrawer {
     public FilledTurtleDrawer (TurtleDrawer referenceDrawer) {
         super(referenceDrawer);
     }
+    
+    public FilledTurtleDrawer (){
+        super();
+    }
 
     /**
      * Implements a filled Triangle body
