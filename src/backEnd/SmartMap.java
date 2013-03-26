@@ -19,10 +19,6 @@ public class SmartMap {
     private final String MAPLOADERROR = "There was an error when loading the functions!";
     private final String MAPGETERROR = "You attempted to access an undefined variable or function";
 
-<<<<<<< HEAD
-=======
-						
->>>>>>> 84d5833fcb2c244ba300fe8d8897e37d889b629f
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
     private Model myModel;
@@ -88,14 +84,11 @@ public class SmartMap {
         return myFunctions.containsKey(key) || myUserExecutables.containsKey(key);
     }
 
-<<<<<<< HEAD
     public void add(String name, Executable function) {
         int workSpaceIndex = myModel.getController().getWorkspaceIndex();
         myUserExecutables.put(workSpaceIndex+name, function);
     }
-=======
->>>>>>> 84d5833fcb2c244ba300fe8d8897e37d889b629f
-    
+
     /**
      * Associates the given executable (a function or a constant) to the given key. 
      * @param name
