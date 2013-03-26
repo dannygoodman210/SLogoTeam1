@@ -38,12 +38,14 @@ public class Canvas extends JPanel {
     // default serialization ID
     private static final long serialVersionUID = 1L;
     private static final String FRONTEND_RESOURCE = "resources.FrontEnd";
+    private static final String EXCEPTIONS_RESOURCE = "resources.Exceptions";
     private static final String HELP_PATH = "resources/help.html";
 
     private JFileChooser myChooser;
     private Controller myController;
     private JTabbedPane myWorkspaces;
     private ResourceBundle myResources;
+    private ResourceBundle myExceptions;
 
     /**
      * Canvas object created in Main class. Takes in size of JPanel.
@@ -59,6 +61,7 @@ public class Canvas extends JPanel {
         setFocusable(true);
         requestFocus();
         myResources = ResourceBundle.getBundle(FRONTEND_RESOURCE);
+        myExceptions = ResourceBundle.getBundle(EXCEPTIONS_RESOURCE);
         myWorkspaces = new JTabbedPane();
         add(myWorkspaces);
         int workspaceCount = myWorkspaces.getTabCount() + 1;
@@ -70,7 +73,7 @@ public class Canvas extends JPanel {
         myChooser = new JFileChooser(myResources.getString("UserDirectory"));
         // size and display the GUI
         setVisible(true);
-        
+
     }
 
     /**
@@ -114,7 +117,7 @@ public class Canvas extends JPanel {
     public void writeHistory (String text) {
         getWorkspaceView().writeHistory(text);
     }
-    
+
     /**
      * Writes history in the current workspace.
      */
@@ -141,7 +144,8 @@ public class Canvas extends JPanel {
      * @param text to be displayed
      */
     public void showErrorMsg (String text) {
-        JOptionPane.showMessageDialog(this, text, myResources.getString("Error"),
+        JOptionPane.showMessageDialog(this, myExceptions.getString(text),
+                                      myExceptions.getString("Error"),
                                       JOptionPane.ERROR_MESSAGE);
     }
 
@@ -187,7 +191,7 @@ public class Canvas extends JPanel {
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = myChooser.showOpenDialog(null);
-                 
+
                     if (response == JFileChooser.APPROVE_OPTION) {
                         new FileReader(myChooser.getSelectedFile());
                         myController.loadFile(myChooser.getSelectedFile().getAbsolutePath());
@@ -203,7 +207,7 @@ public class Canvas extends JPanel {
             public void actionPerformed (ActionEvent e) {
                 int response = myChooser.showSaveDialog(null);
                 if (response == JFileChooser.APPROVE_OPTION) {
-                    File fileToSave = new File(myChooser.getSelectedFile()+
+                    File fileToSave = new File(myChooser.getSelectedFile() +
                                                myResources.getString("PropertiesFile"));
                     myController.saveFile(fileToSave.getAbsolutePath());
                 }
@@ -240,7 +244,7 @@ public class Canvas extends JPanel {
                 getWorkspaceView().getTurtleView().toggleHighlight();
             }
         });
-        viewMenu.add(new AbstractAction(myResources.getString("ToggleGrid")){
+        viewMenu.add(new AbstractAction(myResources.getString("ToggleGrid")) {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 getWorkspaceView().getTurtleView().toggleGrid();

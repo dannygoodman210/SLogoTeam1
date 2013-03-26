@@ -3,22 +3,15 @@ package backEnd;
 import controller.Controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 /**
- * The model keeps track of the state of the SLogo
+ * Model object takes the user input and runs the associated command/function.
  * 
- * @author challenherzberg-brovold
- *
+ * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
  */
 public class Model {
-
-    /**
-     * Model object takes the user input and runs the associated command/function.
-     * 
-     * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
-     */
-
     private SmartMap myMap;
     private Controller myController;
     private List<Workspace> myWorkspaces;
@@ -53,7 +46,17 @@ public class Model {
      */
 
     public double processInstruction (Instruction toExecute) {
-        return toExecute.process(myMap);
+        try{
+            return toExecute.process(myMap);
+        }
+        catch(IndexOutOfBoundsException e){
+            showErrorMsg("IncorrectFormat");
+            return 0;
+        }
+        catch(IllegalArgumentException e){
+            showErrorMsg("BlockError");
+            return 0;
+        }
     }
 
     /**
@@ -166,7 +169,5 @@ public class Model {
     public Workspace getCurrentWorkspace() {
         return myWorkspaces.get(myController.getWorkspaceIndex());
     }
-
-
 }
 

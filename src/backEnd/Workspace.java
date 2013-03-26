@@ -14,13 +14,11 @@ import util.Palette;
  */
 public class Workspace extends Observable implements Observer {
 
-    private static final String DEFAULT_RESOURCES = "resources.FrontEnd";
     private static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
     private Observer myObserver;
     private Model myModel;
     private Color myBackgroundColor;
     private Palette myPalette;
-    private ResourceBundle myResources;
     private TurtleList myTurtleList;
     private int myIndex;
 
@@ -35,7 +33,6 @@ public class Workspace extends Observable implements Observer {
         addObserver(myObserver);
         myModel = model;
         myIndex = index;
-        initializeResources();
         myBackgroundColor = DEFAULT_BACKGROUND_COLOR;
         myPalette = new Palette();
         myTurtleList = new TurtleList(this);
@@ -47,7 +44,6 @@ public class Workspace extends Observable implements Observer {
      * @param other 
      */
     public Workspace(Workspace other) {
-        initializeResources();
         myBackgroundColor = new Color(other.getBackgroundColor().getRGB());
         myPalette = new Palette(other.getPalette());
         myTurtleList = new TurtleList(other.getTurtleList());
@@ -93,7 +89,7 @@ public class Workspace extends Observable implements Observer {
             setChanged();
         }
         catch (IndexOutOfBoundsException e) {
-            myModel.showErrorMsg(myResources.getString("colorIndex"));
+            myModel.showErrorMsg("ColorIndex");
         }
     }
     
@@ -123,9 +119,6 @@ public class Workspace extends Observable implements Observer {
         notifyObservers();
     }
 
-    private void initializeResources () {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCES);
-    }
     
     /**
      * 

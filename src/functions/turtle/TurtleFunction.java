@@ -27,6 +27,8 @@ public abstract class TurtleFunction extends Function {
     }
     
     public double getReturn (double[] values) {
+        if(values.length == 0)
+            return 0;
         return values[0];
     }
     
