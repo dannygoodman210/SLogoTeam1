@@ -198,6 +198,17 @@ public class Canvas extends JPanel {
                 }
             }
         });
+        fileMenu.add(new AbstractAction(myResources.getString("SaveCommand")) {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                int response = myChooser.showSaveDialog(null);
+                if (response == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = new File(myChooser.getSelectedFile()+
+                                               myResources.getString("PropertiesFile"));
+                    myController.saveFile(fileToSave.getAbsolutePath());
+                }
+            }
+        });
         fileMenu.add(new JSeparator());
         fileMenu.add(new AbstractAction(myResources.getString("ExitCommand")) {
             @Override
