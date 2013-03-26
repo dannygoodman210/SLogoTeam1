@@ -14,9 +14,18 @@ import util.Vector;
  * 
  */
 public class Turtle extends Observable {
-
+    
+    /**
+     * north direction
+     */
     public static final int NORTH_DIRECTION = 90;
+    /**
+     * default location
+     */
     public static final Location INITIAL_LOCATION = new Location(0, 0);
+    /**
+     * full turn in degrees
+     */
     public static final int FULL_TURN = 360;
     private static final int DEFAULT_PEN_SIZE = 1;
 
@@ -33,17 +42,18 @@ public class Turtle extends Observable {
     /**
      * Creates a Turtle object. Pass in its observer.
      * 
-     * @param observer
+     * @param observer 
+     * @param id  
      */
 
-    public Turtle (Observer observer, int ID) {
+    public Turtle (Observer observer, int id) {
         myObserver = observer;
         addObserver(myObserver);
         myLocation = (Location) INITIAL_LOCATION.clone();
         myHeading = NORTH_DIRECTION;
         myPenDown = true;
         myVisible = true;
-        myID = ID;
+        myID = id;
         myPenSize = DEFAULT_PEN_SIZE;
         myPenColorIndex = 0;
         myShapeIndex = 0;
@@ -67,24 +77,44 @@ public class Turtle extends Observable {
         myObserver = o.myObserver;
         addObserver(myObserver);
     }
-
-    public int getID () {
+    
+    /**
+     * 
+     * @return id of turtle
+     */
+    public int getID() {
         return myID;
     }
-
-    public int getPenSize () {
+    
+    /**
+     * 
+     * @return pen size
+     */
+    public int getPenSize() {
         return myPenSize;
     }
-
-    public void setPenSize (int pixels) {
+    
+    /**
+     * 
+     * @param pixels size of pen
+     */
+    public void setPenSize(int pixels) {
         myPenSize = pixels;
         setChanged();
     }
 
-    public int getPenColorIndex () {
+    /**
+     * 
+     * @return pen color
+     */
+    public int getPenColorIndex() {
         return myPenColorIndex;
     }
-
+    
+    /**
+     * 
+     * @param penColorIndex pen color to set
+     */
     public void setPenColorIndex (int penColorIndex) {
         myPenColorIndex = penColorIndex;
         setChanged();
