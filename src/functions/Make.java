@@ -15,7 +15,7 @@ public class Make extends Function{
         toExecute.progress();
         double value = getReturnValue(toExecute);
         Constant toAdd = new Constant((int)value);
-        getModel().getMap().add(variable, toAdd);
+        getModel().getMap().put(variable, toAdd);
         return value;
     }
 }

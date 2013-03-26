@@ -5,12 +5,17 @@ import java.util.HashMap;
 import java.util.Map;
 import functions.Constant;
 
+/**
+ * 
+ * 
+ * @author Francesco Agosti
+ *
+ */
+
 public class SmartMap {
 	private final String MAPLOADERROR = "There was an error when loading the functions!";
 	private final String MAPGETERROR = "You attempted to access an undefined variable or function";
-			
-			
-
+						
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
     private Model myModel;
@@ -62,7 +67,7 @@ public class SmartMap {
     	return myFunctions.containsKey(key) || myUserExecutables.containsKey(key);
     }
     
-    public void add(String name, Executable function) {
+    public void put(String name, Executable function) {
     	int workSpaceIndex = myModel.getController().getWorkspaceIndex();
         myUserExecutables.put(workSpaceIndex+name, function);
     }

@@ -20,7 +20,7 @@ public class Definition extends Function {
             return 0;
             // Throw warning that function is already defined
         }
-        getModel().getMap().add(name, new UserDefined(getModel(), params, commands));
+        getModel().getMap().put(name, new UserDefined(getModel(), params, commands));
         return 1;       
     }
 }

@@ -22,7 +22,7 @@ public class UserDefined extends Function {
     @Override 
     public double execute (Instruction toExecute) {
         for (int i = 0; i < myParams.length(); i++) {
-            getModel().getMap().add(myParams.get(i), new Constant((int) getReturnValue(toExecute)));
+            getModel().getMap().put(myParams.get(i), new Constant((int) getReturnValue(toExecute)));
         }
         double returnValue = executeBlock(myCommands);
         return returnValue;

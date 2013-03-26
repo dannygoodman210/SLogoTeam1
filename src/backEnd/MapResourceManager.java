@@ -1,25 +1,23 @@
 package backEnd;
 
-
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 
 /**
- * Allows you to write 
+ * Allows you to write and save your variables and user defined functions. 
  * @author Francesco Agosti
  *
  */
 public class MapResourceManager {
 
+	private final String LOADERROR = "There was an error loading you file. Try again.";
+	private final String SAVEERROR = "There was an error saving your information.";
 	private final String DEFAULTFILE = "resources.userDefined";
-	private final String DEFAULTPATH = "resources.";
 	private final String OPENBRACKET = "[";
 	private final String MAKE = "make ";
 	private final String DEFINE = "to ";
@@ -52,7 +50,7 @@ public class MapResourceManager {
 		try {
 			prop.store(new FileOutputStream(DEFAULTFILE), null);
 		} catch (IOException e) {
-			//generate error;
+			myModel.showErrorMsg(SAVEERROR);
 		}
 	
 	}
@@ -66,7 +64,7 @@ public class MapResourceManager {
 		try {
 			userExecutables.load(new FileInputStream(root));
 		} catch ( IOException e) {
-			
+			myModel.showErrorMsg(LOADERROR);
 		}
 
 		Set<String> keys = userExecutables.stringPropertyNames();
