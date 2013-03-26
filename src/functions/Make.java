@@ -16,7 +16,6 @@ public class Make extends Function{
         double value = getReturnValue(toExecute);
         Constant toAdd = new Constant((int)value);
         getModel().getMap().add(variable, toAdd);
-        getModel().getMap().load();
         return value;
     }
 }

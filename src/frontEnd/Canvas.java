@@ -178,8 +178,10 @@ public class Canvas extends JPanel {
             public void actionPerformed (ActionEvent e) {
                 try {
                     int response = myChooser.showOpenDialog(null);
+                 
                     if (response == JFileChooser.APPROVE_OPTION) {
                         new FileReader(myChooser.getSelectedFile());
+                        myController.loadFile(myChooser.getSelectedFile().getAbsolutePath());
                     }
                 }
                 catch (IOException io) {

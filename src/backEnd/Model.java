@@ -99,4 +99,8 @@ public class Model {
     public int getTurtleListLength(){
     	return getTurtleList().size();
     }
+
+	public void loadFile(String name) {
+		myMap.load(name);
+	}
 }

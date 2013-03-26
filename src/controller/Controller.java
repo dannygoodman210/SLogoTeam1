@@ -61,4 +61,9 @@ public class Controller implements Observer {
         myView.showErrorMsg(text);
     }
 
+	public void loadFile(String name) {
+		myModel.loadFile(name);
+		
+	}
+
 }

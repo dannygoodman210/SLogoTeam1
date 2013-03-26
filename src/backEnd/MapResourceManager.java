@@ -1,9 +1,10 @@
 package backEnd;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -18,7 +19,8 @@ import java.util.Set;
 public class MapResourceManager {
 
 	private final String DEFAULTFILE = "resources.userDefined";
-	private final String OPENBRACKET = "]";
+	private final String DEFAULTPATH = "resources.";
+	private final String OPENBRACKET = "[";
 	private final String MAKE = "make ";
 	private final String DEFINE = "to ";
 	
@@ -60,16 +62,22 @@ public class MapResourceManager {
 	 * 
 	 */
 	public void loadFromFile(String root){
-		ResourceBundle userExecutables = ResourceBundle.getBundle(root);
-		Set<String> keys = userExecutables.keySet();
+		Properties userExecutables = new Properties();
+		try {
+			userExecutables.load(new FileInputStream(root));
+		} catch ( IOException e) {
+			
+		}
+
+		Set<String> keys = userExecutables.stringPropertyNames();
 		for(String key : keys){
 			Instruction toExecute;
-			if((userExecutables.getString(key).charAt(0)+"").equals(OPENBRACKET)){
-				toExecute = myModel.formatString(DEFINE + key + " " + userExecutables.getString(key));
+			if((userExecutables.getProperty(key).charAt(0)+"").equals(OPENBRACKET)){
+				toExecute = myModel.formatString(DEFINE + key + " " + userExecutables.getProperty(key));
 				myModel.process(toExecute);	
 			}
 			else{
-				toExecute = myModel.formatString(MAKE + key + " " + userExecutables.getString(key));
+				toExecute = myModel.formatString(MAKE + key + " " + userExecutables.getProperty(key));
 				myModel.process(toExecute);
 			}
 		}
