@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class FunctionDictionary {
 
-    private final String myMapLoadError = "There was an error when loading the functions!";
-    private final String myMapGetError = "You attempted to access an undefined variable or function";
+    private static final String LOADERROR = "There was an error when loading the functions!";
+    private static final String MAPGETERROR = "You attempted to access an undefined variable or function";
 
     private Map<String, Executable> myFunctions;
     private Map<String, Executable> myUserExecutables;
@@ -38,25 +38,25 @@ public class FunctionDictionary {
             myFunctions = factory.make(model);
         } 
         catch (ClassNotFoundException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         } 
         catch (NoSuchMethodException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         }
         catch (SecurityException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         } 
         catch (InstantiationException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         } 
         catch (IllegalAccessException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         }
         catch (IllegalArgumentException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         }
         catch (InvocationTargetException e) {
-            myModel.showErrorMsg(myMapLoadError);
+            myModel.showErrorMsg(LOADERROR);
         }
 
     }
@@ -81,7 +81,7 @@ public class FunctionDictionary {
                 return new Constant(value);
             }
             catch (NumberFormatException e) {
-                myModel.showErrorMsg(myMapGetError);
+                myModel.showErrorMsg(MAPGETERROR);
             }
         }
         return new Constant(0);

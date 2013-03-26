@@ -47,8 +47,11 @@ public class Model {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * Processes instruction one. Details of execution are in the process() method
+=======
+>>>>>>> cd2a2ebc664c523fcd57501b7954329aaf4e6694
      * @param toExecute incoming Instruction to be processes
      * @return output that should be printed in the GUI
      * 

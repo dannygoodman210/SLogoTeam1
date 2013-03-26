@@ -234,12 +234,6 @@ public class Canvas extends JPanel {
                 getWorkspaceView().getTurtleView().toggleWarp();
             }
         });
-        viewMenu.add(new AbstractAction(myResources.getString("FillTurtle")) {
-            @Override
-            public void actionPerformed (ActionEvent arg0) {
-                getWorkspaceView().getTurtleView().toggleFill();
-            }
-        });
         viewMenu.add(new AbstractAction(myResources.getString("HighlightActive")) {
             @Override
             public void actionPerformed (ActionEvent arg0) {
@@ -250,23 +244,6 @@ public class Canvas extends JPanel {
             @Override
             public void actionPerformed (ActionEvent arg0) {
                 getWorkspaceView().getTurtleView().toggleGrid();
-            }
-        });
-        viewMenu.add(new AbstractAction(myResources.getString("SetBackground")) {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                String color =
-                        JOptionPane.showInputDialog(null, myResources.getString("ColorPrompt"));
-                Color c;
-                try {
-                    Field field = Color.class.getField(color);
-                    c = (Color) field.get(null);
-                }
-                catch (Exception e1) {
-                    showErrorMsg(myResources.getString("ColorError"));
-                    c = null;
-                }
-                if (c != null) getWorkspaceView().getTurtleView().setBackgroundColor(c);
             }
         });
         return viewMenu;
