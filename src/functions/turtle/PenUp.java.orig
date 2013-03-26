@@ -13,7 +13,13 @@ public class PenUp extends TurtleFunction{
     }
 
     @Override
+<<<<<<< HEAD
     public void process(Turtle turtle, double[] values){
         turtle.setPenDown(false);
+=======
+    public double execute(Instruction toExecute) {
+        getModel().getLastTurtle().setPenDown(false);
+        return 0;
+>>>>>>> 57aa4201a13f1f442cf9e21186b9bd5d9441bdde
     }
 }
