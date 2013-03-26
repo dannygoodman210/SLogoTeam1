@@ -1,13 +1,11 @@
 package frontEnd;
 
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
+import backEnd.Instruction;
 import backEnd.Workspace;
 import controller.Controller;
 
@@ -105,6 +104,11 @@ public class Canvas extends JPanel {
         return myController;
     }
 
+    /**
+     * Calls the WorkspaceView's update method which will update the state of the Workspace.
+     * 
+     * @param changedWorkspace
+     */
     public void updateWorkspace (Workspace changedWorkspace) {
         int index = changedWorkspace.getIndex();
         WorkspaceView current = (WorkspaceView) myWorkspaces.getComponent(index);
@@ -119,10 +123,17 @@ public class Canvas extends JPanel {
     }
 
     /**
-     * Writes history in the current workspace.
+     * Writes variable in the current workspace.
      */
     public void writeVariable (String variable, int toAdd) {
         getWorkspaceView().writeVariable(variable, toAdd);
+    }
+    
+    /**
+     * Writes user defined function in the current workspace.
+     */
+    public void writeUserDefined (String name, Instruction params) {
+        getWorkspaceView().writeUserDefined(name, params);
     }
 
     /**

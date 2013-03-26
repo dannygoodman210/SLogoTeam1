@@ -31,7 +31,6 @@ import backEnd.Workspace;
  */
 public class TurtleView extends JComponent {
 
-    private static final Color PEN_COLOR = Color.BLACK;
     private static final Color TRANSPARENT_COLOR = new Color(0, 0, 0, 0);
     private static final long serialVersionUID = 1L;
     private static final int VIEW_HEIGHT = 495;

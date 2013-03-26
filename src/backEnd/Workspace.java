@@ -3,7 +3,6 @@ package backEnd;
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
 import util.Palette;
 
 
@@ -111,8 +110,13 @@ public class Workspace extends Observable implements Observer {
      * @param b 
      */
     public void setPalette (int colorIndex, int r, int g, int b) {
-        myPalette.setColor(colorIndex, r, g, b);
-        setChanged();
+        try {
+            myPalette.setColor(colorIndex, r, g, b);
+            setChanged();
+        }
+        catch (IndexOutOfBoundsException e) {
+            myModel.showErrorMsg("ColorIndex");
+        }
     }
 
     /**

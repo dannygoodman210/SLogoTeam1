@@ -240,5 +240,4 @@ public enum WarpWall {
         sides[1] = sides[0];
         sides[0] = sideTwo;
     }
-
 }

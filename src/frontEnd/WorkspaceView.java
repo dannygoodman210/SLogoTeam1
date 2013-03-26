@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
+import backEnd.Instruction;
 import backEnd.Workspace;
 import controller.Controller;
 
@@ -57,7 +58,7 @@ public class WorkspaceView extends JPanel {
     }
 
     /**
-     * Instantiates the turtle that will be displayed in this workspace
+     * Instantiates the backend workspace that will be displayed in this workspaceview
      */
     public void addToModel () {
         getController().addWorkspace();
@@ -75,7 +76,7 @@ public class WorkspaceView extends JPanel {
                                  myResources.getString("NewLine"));
         }
     }
-    
+
     /**
      * Writes a variable and its value into the variable panel
      * 
@@ -83,7 +84,20 @@ public class WorkspaceView extends JPanel {
      * @param toAdd is the value of the variable
      */
     public void writeVariable (String variable, int toAdd) {
-    	myVariableView.append(variable + myResources.getString("Equals") + toAdd + myResources.getString("NewLine"));
+        myVariableView.append(variable + myResources.getString("Equals") + toAdd +
+                              myResources.getString("NewLine"));
+    }
+
+    /**
+     * Writes the user defined function represented by name and params.
+     * 
+     * @param name
+     * @param params
+     */
+    public void writeUserDefined (String name, Instruction params) {
+        myUserDefView.append(
+                name + myResources.getString("Equals") + params.toString() +
+                                             myResources.getString("NewLine"));
     }
 
     /**
@@ -113,6 +127,11 @@ public class WorkspaceView extends JPanel {
         return myHistoryView;
     }
 
+    /**
+     * Makes copy of changedWorkspace and adds it to the queue.
+     * 
+     * @param changedWorkspace
+     */
     public void updateWorkspace (Workspace changedWorkspace) {
         myTurtleView.addToQueue(new Workspace(changedWorkspace));
     }
@@ -142,14 +161,14 @@ public class WorkspaceView extends JPanel {
      * @return history view to be instantiated
      */
     private Component makeInfoPanel () {
-    	myInfoView = new JTabbedPane();
-    	myHistoryView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
-    	myVariableView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
-    	myUserDefView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
-    	myInfoView.add(myResources.getString("HistoryTab"), myHistoryView);
-    	myInfoView.add(myResources.getString("VariableTab"), myVariableView);
-    	myInfoView.add(myResources.getString("UserDefTab"), myUserDefView);
-    	return new JScrollPane(myInfoView);
+        myInfoView = new JTabbedPane();
+        myHistoryView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
+        myVariableView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
+        myUserDefView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
+        myInfoView.add(myResources.getString("HistoryTab"), myHistoryView);
+        myInfoView.add(myResources.getString("VariableTab"), myVariableView);
+        myInfoView.add(myResources.getString("UserDefTab"), myUserDefView);
+        return new JScrollPane(myInfoView);
     }
 
     /**

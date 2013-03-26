@@ -83,6 +83,17 @@ public class Controller implements Observer {
         myView.writeVariable(variable, toAdd);
     }
     
+    
+    /**
+     * Send UserDefined function to Canvas
+     * 
+     * @param name
+     * @param params
+     */
+    public void sendUserDefined (String name, Instruction params) {
+        myView.writeUserDefined(name,params);
+    }
+
     /**
      * 
      * @param text sends exception to user
