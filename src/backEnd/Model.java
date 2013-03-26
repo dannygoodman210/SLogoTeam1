@@ -99,8 +99,18 @@ public class Model {
     }
 
 
+	public void saveFile(String filePath) {
+		myMap.save(filePath);
+	}
+	
     public Executable get(String s) {
         return myMap.get(s);
     }
+
+	public Workspace getCurrentWorkspace() {
+		return myWorkspaces.get(myController.getWorkspaceIndex());
+	}
+
+
 }
 

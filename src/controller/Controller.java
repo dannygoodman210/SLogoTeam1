@@ -4,6 +4,7 @@ import backEnd.Instruction;
 import backEnd.Model;
 import backEnd.Workspace;
 import frontEnd.Canvas;
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -65,9 +66,12 @@ public class Controller implements Observer {
         myView.showErrorMsg(text);
     }
 
-	public void loadFile(String name) {
-		myModel.loadFile(name);
-		
-	}
-
+    public void loadFile (String name) {
+        myModel.loadFile(name);
+    }
+    
+    public void saveFile (String filePath) {
+        myModel.saveFile(filePath);
+        
+    }
 }
