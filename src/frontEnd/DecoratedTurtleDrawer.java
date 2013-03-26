@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Set;
 import util.Location;
+import util.Shape;
 import util.Trail;
 
 
@@ -77,6 +78,11 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
             myReferenceDrawer.removeReference(turtleDrawer);
             return this;
         }
+    }
+    
+    @Override
+    public Shape getShape(int shapeIndex){
+        return myReferenceDrawer.getShape(shapeIndex);
     }
 
     /**
