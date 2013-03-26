@@ -52,6 +52,6 @@ public abstract class Function implements Executable {
      * @return
      */
     public double executeBlock(Instruction toExecute) {
-        return toExecute.process(getModel().getMap());
+        return toExecute.clone().process(getModel().getMap());
     }
 }

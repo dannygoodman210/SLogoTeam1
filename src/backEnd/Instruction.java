@@ -12,8 +12,8 @@ import java.util.List;
 public class Instruction {
 
     private List<String> myInstruction;
-//    private String myLeftDelimeter = "[";
-    private String myRightDelimeter = "]";
+    private final String LEFTDELIMETER = "[";
+    private final String RIGHTDELIMETER = "]";
 
     /**
      * Creates an Instruction from an array of strings
@@ -62,21 +62,18 @@ public class Instruction {
      * @return block to be executed
      */
     public Instruction block() {
-//        if (!myInstruction.get(0).equals(myLeftDelimeter)) {
-//            //throw exception
-//        }
         progress();
         int bracket1Count = 1;
         int bracket2Count = 0;
         List<String> block = new ArrayList<String>();
         for (String ins: myInstruction) {
-            if (ins.equals(myRightDelimeter)) {
+            if (ins.equals(RIGHTDELIMETER)) {
                 bracket2Count++;
             }
             if (bracket1Count == bracket2Count) {
                 break;
             }
-            if (ins.equals(myRightDelimeter)) {
+            if (ins.equals(LEFTDELIMETER)) {
                 bracket1Count++;
             }
             block.add(ins);
@@ -90,12 +87,6 @@ public class Instruction {
      * (useful when you need to execute a block multiple times)
      */
     public Instruction clone() {
-        try {
-            super.clone();
-        }
-        catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
         return new Instruction(myInstruction);
     }
 
