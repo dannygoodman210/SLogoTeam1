@@ -22,4 +22,10 @@ public class PenUp extends TurtleFunction{
     public void process(Turtle turtle, double[] values){
         turtle.setPenDown(false);
     }
+    
+    @Override
+    public double getReturn(double[] values){
+    	return 1;
+    }
+
 }

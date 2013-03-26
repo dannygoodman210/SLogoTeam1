@@ -20,5 +20,10 @@ public class PenDown extends TurtleFunction {
     public void process(Turtle turtle, double[] values){
         turtle.setPenDown(true);
     }
+    
+    @Override
+    public double getReturn(double[] values){
+    	return 0;
+    }
 
 }
