@@ -98,7 +98,7 @@ public class Instruction {
     public int length(){
         return myInstruction.size();
     }
-    
+
     /**
      * returns a String representation of this instruction.
      */
