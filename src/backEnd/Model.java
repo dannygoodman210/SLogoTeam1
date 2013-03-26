@@ -46,21 +46,14 @@ public class Model {
      */
 
     public double processInstruction (Instruction toExecute) {
-        Exception except = new Exception(this);
-        if(except.checkForException(toExecute.clone())){
-            double output = 0;
-            while (toExecute.length() != 0) {
-                double value = process(toExecute);
-                output = value;
-            }
-            return output;
+        double output = 0;
+        while (toExecute.length() != 0) {
+            double value = process(toExecute);
+            output = value;
         }
-        else {
-            showErrorMsg("Incorrectly Formatted String");
-            return 0;
-        }
+        return output;
     }
-    
+
     /**
      * Executes an instruction, but only up to one return (ie. only up to a constant).
      * Ex: for  fd 50 left 50  it will only execute fd 50. 
@@ -92,7 +85,7 @@ public class Model {
     public void showErrorMsg (String text) {
         myController.showErrorMsg(text);
     }
-    
+
     public Turtle getLastTurtle() {
         return getTurtleList().getLastActive();
     }
@@ -104,14 +97,14 @@ public class Model {
     }
 
     public int getTurtleListLength(){
-    	return getTurtleList().size();
+        return getTurtleList().size();
     }
 
-	public void loadFile(String name) {
-		myMap.load(name);
-	}
+    public void loadFile(String name) {
+        myMap.load(name);
+    }
 
-    
+
     public Executable get(String s) {
         return myMap.get(s);
     }

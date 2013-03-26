@@ -109,13 +109,17 @@ public class Canvas extends JPanel {
     }
 
     /**
-     * Makes the JMenuBar for the user to interact with
-     * 
-     * @return menuBar
+     * Writes history in the current workspace.
      */
-
     public void writeHistory (String text) {
         getWorkspaceView().writeHistory(text);
+    }
+    
+    /**
+     * Writes history in the current workspace.
+     */
+    public void writeVariable (String variable, int toAdd) {
+        getWorkspaceView().writeVariable(variable, toAdd);
     }
 
     /**

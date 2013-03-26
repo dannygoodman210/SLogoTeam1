@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import backEnd.Workspace;
@@ -30,12 +31,14 @@ public class WorkspaceView extends JPanel {
 
     private static final int COMMAND_HEIGHT = 4;
     private static final int COMMAND_WIDTH = 65;
-    private static final int HISTORY_HEIGHT = 31;
-    private static final int HISTORY_WIDTH = 20;
+    private static final int INFO_HEIGHT = 31;
+    private static final int INFO_WIDTH = 20;
     private Canvas myView;
     private TurtleView myTurtleView;
     private JTextArea myCommandPrompt;
+    private JTabbedPane myInfoView;
     private JTextArea myHistoryView;
+    private JTextArea myVariableView;
     private ResourceBundle myResources;
 
     /**
@@ -48,7 +51,7 @@ public class WorkspaceView extends JPanel {
         myResources = myView.getResources();
         setLayout(new BorderLayout());
         add(makeTurtleView(), BorderLayout.CENTER);
-        add(makeHistoryPanel(), BorderLayout.EAST);
+        add(makeInfoPanel(), BorderLayout.EAST);
         add(makeCommandPanel(), BorderLayout.SOUTH);
     }
 
@@ -70,6 +73,16 @@ public class WorkspaceView extends JPanel {
             myHistoryView.append(myResources.getString("BeginLine") + command +
                                  myResources.getString("NewLine"));
         }
+    }
+    
+    /**
+     * Writes a variable and its value into the variable panel
+     * 
+     * @param variable to be added
+     * @param toAdd is the value of the variable
+     */
+    public void writeVariable (String variable, int toAdd) {
+    	myVariableView.append(variable + "=" + toAdd);
     }
 
     /**
@@ -127,9 +140,13 @@ public class WorkspaceView extends JPanel {
      * 
      * @return history view to be instantiated
      */
-    private Component makeHistoryPanel () {
-        myHistoryView = new JTextArea(HISTORY_HEIGHT, HISTORY_WIDTH);
-        return new JScrollPane(myHistoryView);
+    private Component makeInfoPanel () {
+    	myInfoView = new JTabbedPane();
+    	myHistoryView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
+    	myVariableView = new JTextArea(INFO_HEIGHT, INFO_WIDTH);
+    	myInfoView.add(myResources.getString("HistoryTab"), myHistoryView);
+    	myInfoView.add(myResources.getString("VariableTab"), myVariableView);
+    	return new JScrollPane(myInfoView);
     }
 
     /**
@@ -143,7 +160,6 @@ public class WorkspaceView extends JPanel {
         JPanel result = new JPanel();
         result.add(makeCommandPrompt());
         result.add(makeClearButton());
-
         return result;
     }
 

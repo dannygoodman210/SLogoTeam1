@@ -43,4 +43,8 @@ public abstract class Function implements Executable {
     public int getInputNum(){
         return myInputs;
     }
+    
+//    public boolean checkInput(Instruction toCheck, Exception except) {
+//        
+//    }
 }
