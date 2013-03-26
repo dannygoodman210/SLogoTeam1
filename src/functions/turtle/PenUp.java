@@ -13,7 +13,7 @@ public class PenUp extends Function{
 
     @Override
     public double execute(Instruction toExecute) {
-        getModel().getActiveTurtles().setPenDown(false);
+        getModel().getLastTurtle().setPenDown(false);
         return 0;
     }
 
