@@ -17,10 +17,8 @@ public class For extends Function {
     public double execute(Instruction toExecute){
     	String variable = toExecute.get(0);
         toExecute.progress();
-        int start = Integer.parseInt(toExecute.get(0));
-        toExecute.progress();
-        int end = Integer.parseInt(toExecute.get(0));
-        toExecute.progress();
+        int start = (int) getReturnValue(toExecute);
+        int end = (int) getReturnValue(toExecute);
         int increment = Integer.parseInt(toExecute.get(0));
         toExecute.progress();
         
