@@ -6,18 +6,13 @@ import java.util.List;
 
 
 /**
- * The model keeps track of the state of the SLogo
+ * Model object takes the user input and runs the associated command/function.
  * 
- * @author Francesco Agosti, Eunsu (Joe) Ryu, Challen Herzberg-Brovold
- *
+ * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
  */
 public class Model {
 
-    /**
-     * Model object takes the user input and runs the associated command/function.
-     * 
-     * @author Francesco Agosti, Challen Herzberg-Brovold, Eunsu (Joe) Ryu
-     */
+
 
     private FunctionDictionary myMap;
     private Controller myController;
@@ -47,11 +42,8 @@ public class Model {
     }
 
     /**
-<<<<<<< HEAD
      * 
      * Processes instruction one. Details of execution are in the process() method
-=======
->>>>>>> cd2a2ebc664c523fcd57501b7954329aaf4e6694
      * @param toExecute incoming Instruction to be processes
      * @return output that should be printed in the GUI
      * 
@@ -60,17 +52,6 @@ public class Model {
         return toExecute.process(myMap);
     }
 
-    /**
-     * Executes an instruction, but only up to one return (ie. only up to a constant).
-     * Ex: for  fd 50 left 50  it will only execute fd 50. 
-     * @param toExecute  
-     * @return
-     */
-    public double process (Instruction toExecute) {
-        Executable function = myMap.get(toExecute.get(0));
-        double value = function.execute(toExecute.progress());
-        return value;
-    }
     
     /**
      * Gets the map of function
