@@ -11,8 +11,6 @@ import functions.Function;
  */
 public class Tell extends Function {
 
-
-
     /**
      * 
      * @param model 
@@ -31,7 +29,7 @@ public class Tell extends Function {
         getTurtleList().disactivateAll();
         double toReturn = 0;
         while (turtlesToTell.length() > 0) {
-            toReturn = executeBlock(turtlesToTell);
+            toReturn = getReturnValue(turtlesToTell);
             getTurtleList().activate((int)toReturn);
         }
         return toReturn;

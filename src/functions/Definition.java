@@ -12,6 +12,8 @@ import backEnd.Model;
  */
 public class Definition extends Function {
     
+	
+	private static final String DOUBLEFUNCTION = "Be careful, function already defined";
     /**
      * 
      * @param model 
@@ -27,8 +29,9 @@ public class Definition extends Function {
         Instruction params = toExecute.block();
         Instruction commands = toExecute.block();
         if (getModel().getMap().contains(name)) {
+        	getModel().showErrorMsg(DOUBLEFUNCTION);
             return 0;
-            // Throw warning that function is already defined
+            
         }
         getModel().getMap().put(name, new UserDefined(getModel(), params, commands));
         return 1;       

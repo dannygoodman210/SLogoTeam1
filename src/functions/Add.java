@@ -7,7 +7,6 @@ import backEnd.Model;
  * 
  * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
  *
- *
  */
 public class Add extends Function {
     

@@ -5,7 +5,7 @@ import backEnd.Instruction;
 
 /**
  * 
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * @author Francesco Agosti
  *
  *
  */
@@ -14,7 +14,7 @@ public class Constant implements Executable {
     private int myValue;
     
     /**
-     * 
+     * simple constant initialization
      * @param constant 
      */
     public Constant(int constant) {
@@ -22,6 +22,7 @@ public class Constant implements Executable {
     }
     
     /**
+     * Returns the integer value myValue;
      * @param toExecute 
      */
     public double execute(Instruction toExecute) {
@@ -29,6 +30,7 @@ public class Constant implements Executable {
     }
     
     /**
+     * Converts myValue to a string and returns.
      * @return string
      */
     public String toString() {
