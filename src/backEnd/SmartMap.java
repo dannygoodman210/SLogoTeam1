@@ -102,8 +102,8 @@ public class SmartMap {
     /** 
      * Saves the myUserExecutables map to a properties file that is specified in the view. 
      */
-    public void save(){
-        myResourceManager.saveToFile(myUserExecutables);
+    public void save(String fileName){
+        myResourceManager.saveToFile(myUserExecutables, fileName);
     }
     
     /** 

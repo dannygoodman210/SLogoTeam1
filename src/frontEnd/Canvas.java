@@ -200,7 +200,7 @@ public class Canvas extends JPanel {
                 if (response == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = new File(myChooser.getSelectedFile()+
                                                myResources.getString("PropertiesFile"));
-                    myController.saveFile(fileToSave);
+                    myController.saveFile(fileToSave.getAbsolutePath());
                 }
             }
         });

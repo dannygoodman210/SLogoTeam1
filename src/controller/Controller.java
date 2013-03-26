@@ -70,8 +70,8 @@ public class Controller implements Observer {
         myModel.loadFile(name);
     }
     
-    public void saveFile (File file) {
-        //TODO
-        System.out.println(file.getAbsolutePath());
+    public void saveFile (String filePath) {
+        myModel.saveFile(filePath);
+        
     }
 }
