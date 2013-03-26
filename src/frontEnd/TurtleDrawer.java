@@ -79,8 +79,14 @@ public abstract class TurtleDrawer {
      * @return TurtleDrawer that no longer contains the reference.
      */
     public abstract TurtleDrawer removeReference (TurtleDrawer turtleDrawer);
-    
-    public abstract Shape getShape(int shapeIndex);
+
+    /**
+     * returns the shapeIndex of the turtle
+     * 
+     * @param shapeIndex
+     * @return
+     */
+    public abstract Shape getShape (int shapeIndex);
 
     /**
      * Makes it so that all instantiations of a certain subclass of TurtleDrawer are equal.
@@ -122,10 +128,20 @@ public abstract class TurtleDrawer {
         myView = view;
     }
 
+    /**
+     * returns the turtleIndex that this drawer is associated with.
+     * 
+     * @return
+     */
     protected int getTurtleIndex () {
         return myTurtleIndex;
     }
 
+    /**
+     * sets the turtleIndex that this drawer is associated with.
+     * 
+     * @param turtleIndex
+     */
     protected void setTurtleIndex (int turtleIndex) {
         myTurtleIndex = turtleIndex;
     }

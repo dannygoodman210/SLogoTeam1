@@ -10,7 +10,7 @@ import util.Palette;
  * A workspace object is associated with the actual workspace in the Logo screen and is the data-source
  * of the workspace view. It is an observable class used to communicate changes of settings 
  * to the view (e.g. background color)
- * @author Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
+ * @author Danny Goodman, Francesco Agosti, Eunsu Ryu, Challen Herzberg-Brovold
  *
  */
 public class Workspace extends Observable implements Observer {
@@ -24,6 +24,7 @@ public class Workspace extends Observable implements Observer {
     private int myIndex;
 
     /**
+     * Workspace Constructor. Initializes Observer and parameters.
      * 
      * @param observer 
      * @param model  
@@ -41,6 +42,7 @@ public class Workspace extends Observable implements Observer {
     }
     
     /**
+     * Creates copy of another Workspace
      * 
      * @param other 
      */
@@ -50,6 +52,10 @@ public class Workspace extends Observable implements Observer {
         myTurtleList = new TurtleList(other.getTurtleList());
     }
 
+    /**
+     * Notifies observer (Controller) that the observed object (TurtleList) 
+     * has changed.
+     */
     @Override
     public void update (Observable o, Object arg) {
         setChanged();

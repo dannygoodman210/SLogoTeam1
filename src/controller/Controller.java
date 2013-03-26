@@ -22,7 +22,7 @@ public class Controller implements Observer {
 
     /**
      * 
-     * @param view 
+     * @param view
      */
     public Controller (Canvas view) {
         myView = view;
@@ -31,8 +31,9 @@ public class Controller implements Observer {
 
     /**
      * Called by Observable's notifyObservers method
-     * @param arg0 
-     * @param arg1 
+     * 
+     * @param arg0
+     * @param arg1
      */
     @Override
     public void update (Observable arg0, Object arg1) {
@@ -43,14 +44,14 @@ public class Controller implements Observer {
      * Called by Canvas class when "Enter" button is pressed. Backend implements this to pass
      * the un-parsed text from the controller to the model.
      * 
-     * @param text 
+     * @param text
      */
 
     public void sendInput (String text) {
         Instruction commands = myModel.formatString(text);
         myModel.processInstruction(commands);
     }
-    
+
     /**
      * 
      * @return index of controller
@@ -58,32 +59,32 @@ public class Controller implements Observer {
     public int getWorkspaceIndex () {
         return myView.getWorkspaceIndex();
     }
-    
+
     /**
      * adds a workspace
      */
     public void addWorkspace () {
         myModel.addWorkspace();
     }
-    
+
     /**
      * sends history
-     * @param value 
+     * 
+     * @param value
      */
     public void sendHistory (double value) {
         myView.writeHistory(Double.toString(value));
     }
-       
+
     /**
      * 
-     * @param variable 
-     * @param toAdd 
+     * @param variable
+     * @param toAdd
      */
     public void sendVariable (String variable, int toAdd) {
         myView.writeVariable(variable, toAdd);
     }
-    
-    
+
     /**
      * Send UserDefined function to Canvas
      * 
@@ -91,7 +92,7 @@ public class Controller implements Observer {
      * @param params
      */
     public void sendUserDefined (String name, Instruction params) {
-        myView.writeUserDefined(name,params);
+        myView.writeUserDefined(name, params);
     }
 
     /**
@@ -101,20 +102,20 @@ public class Controller implements Observer {
     public void showErrorMsg (String text) {
         myView.showErrorMsg(text);
     }
-    
+
     /**
      * 
-     * @param name 
+     * @param name
      */
     public void loadFile (String name) {
         myModel.loadFile(name);
     }
-    
+
     /**
      * 
-     * @param filePath 
+     * @param filePath
      */
     public void saveFile (String filePath) {
-        myModel.saveFile(filePath);  
+        myModel.saveFile(filePath);
     }
 }

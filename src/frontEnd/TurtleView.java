@@ -94,6 +94,11 @@ public class TurtleView extends JComponent {
 
     }
 
+    /**
+     * adds the changed workspace to the queue to be checked and updated later.
+     * 
+     * @param changedWorkspace
+     */
     public void addToQueue (Workspace changedWorkspace) {
         myWorkspaceChanges.add(changedWorkspace);
 
@@ -119,6 +124,9 @@ public class TurtleView extends JComponent {
         }
     }
 
+    /**
+     * Toggle the Higlight active turtle feature.
+     */
     public void toggleHighlight () {
         toggleIsHighlighted();
         checkHighlight();
@@ -168,6 +176,14 @@ public class TurtleView extends JComponent {
         return !bounds.contains(translatedPoint);
     }
 
+    /**
+     * Calculates new positions for the start and end locations based on the 
+     * number of warps that have been completed.
+     * 
+     * @param trail
+     * @param warps
+     * @return
+     */
     public Trail calculateWarps (Trail trail, int[] warps) {
         trail.getStart().setLocation(calculateWarps(trail.getStart(), warps));
         trail.getEnd().setLocation(calculateWarps(trail.getEnd(), warps));
@@ -240,7 +256,7 @@ public class TurtleView extends JComponent {
         myPalette = changedWorkspace.getPalette();
         myNextTurtleList = changedWorkspace.getTurtleList();
         checkTurtleList();
-            checkHighlight();
+        checkHighlight();
         repaint();
     }
 
@@ -357,7 +373,7 @@ public class TurtleView extends JComponent {
     }
 
     /**
-     * 
+     * toggle isHighlighted parameter.
      */
     private void toggleIsHighlighted () {
         if (isHighlighted) {

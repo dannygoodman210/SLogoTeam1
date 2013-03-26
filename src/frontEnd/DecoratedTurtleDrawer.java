@@ -32,8 +32,12 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
         setTurtleIndex(referenceDrawer.getTurtleIndex());
     }
     
+    /**
+     * Creates an empty TurtleDrawer. Useful for toggling Decorators. Instantiate
+     * an object of a certain subclass that can be compared with equals and hashcode.
+     */
     public DecoratedTurtleDrawer () {
-        
+        //Do Nothing
     }
 
     @Override
@@ -62,6 +66,11 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
     }
 
     @Override
+    public Shape getShape(int shapeIndex){
+        return myReferenceDrawer.getShape(shapeIndex);
+    }
+
+    @Override
     public Set<TurtleDrawer> getReferences () {
         Set<TurtleDrawer> turtleDrawerSet = myReferenceDrawer.getReferences();
         turtleDrawerSet.add(this);
@@ -84,11 +93,6 @@ public abstract class DecoratedTurtleDrawer extends TurtleDrawer {
         }
     }
     
-    @Override
-    public Shape getShape(int shapeIndex){
-        return myReferenceDrawer.getShape(shapeIndex);
-    }
-
     /**
      * Returns the reference for this decorator.
      * 

@@ -30,8 +30,11 @@ public class WarpTurtleDrawer extends DecoratedTurtleDrawer {
         getView().setTurtleWarps(id, sumWarps(myWarpTotals, getView().getTurtleWarps(id)));
         myWarpTotals = getView().getTurtleWarps(id);
     }
-    
-    public WarpTurtleDrawer (){
+
+    /**
+     * Creates empty Decorated TurtleDrawer. (see superclass)
+     */
+    public WarpTurtleDrawer () {
         super();
     }
 

@@ -32,7 +32,6 @@ public class Definition extends Function {
         if (getModel().getMap().contains(name)) {
             getModel().showErrorMsg("DoubleFunction");
             return 0;
-
         }
         getModel().getMap().put(name, new UserDefined(getModel(), params, commands));
         return 1;
