@@ -120,16 +120,6 @@ public class TurtleView extends JComponent {
         }
     }
 
-    /**
-     * ToggleFill. Called by viewMenu item. Calls toggleDecorator with the FillTurtleDrawer
-     * decorator. Draws the body of the turtle as a filled in triangle.
-     */
-    public void toggleFill () {
-        for (Integer i : myTurtleList.getActiveIDs()) {
-            toggleDecorator(new FilledTurtleDrawer(), i);
-        }
-    }
-
     public void toggleHighlight () {
         toggleIsHighlighted();
         checkHighlight();
