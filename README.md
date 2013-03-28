@@ -53,7 +53,8 @@ small bug: shape index 3 and 4 have trouble displaying right away. I think it is
 a problem with the image file, not the design. all other images show up right away.
 The shapes appear the next time the screen is repainted ex) fd 0.
 
-*last minute change:* We had forgotten to use the resource bundle for an exception in MapResourceModel. We changed it, and to see what was changed you can see the last commit. 
+*post-deadline changes!:* We had forgotten to use the resource bundle for an exception in MapResourceModel. We changed it, and to see what was changed you can see the last commit. 
+update: I found commented out code in the Function class and deleted it. I also realized that we had two methods in FunctionDictionary that did the same exact thing: one was called add, one was called put. Add was not being used. Feel free to grade as if these changes had not been made, but I did not want these things in the repository. 
 
 Extra Features
 --------------

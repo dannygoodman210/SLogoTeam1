@@ -80,16 +80,6 @@ public class FunctionDictionary {
         return myFunctions.containsKey(key) || myUserExecutables.containsKey(key);
     }
 
-    /**
-     * Adds a function to the map
-     * 
-     * @param name of function
-     * @param function to be added
-     */
-    public void add (String name, Executable function) {
-        int workSpaceIndex = myModel.getController().getWorkspaceIndex();
-        myUserExecutables.put(workSpaceIndex + name, function);
-    }
 
     /**
      * Associates the given executable (a function or a constant) to the given key.
